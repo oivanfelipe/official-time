@@ -1,0 +1,1166 @@
+<title>Official Time</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
+
+<style>
+/* ── TOKENS ──────────────────────────────────────────────── */
+:root {
+  --bg: #0D0B0B;
+  --surface: #161212;
+  --surface-2: #1F1B1B;
+  --nav-bg: rgba(13,11,11,0.96);
+  --border: rgba(229,9,20,0.08);
+  --border-n: rgba(255,255,255,0.055);
+  --accent: #E50914;
+  --accent-dim: rgba(229,9,20,0.13);
+  --accent-dim-2: rgba(229,9,20,0.06);
+  --text-h: #F4EFEC;
+  --text-body: #9E9390;
+  --text-muted: #6A6260;
+  --s-done-bg: #0D2A1A; --s-done-fg: #52B788;
+  --s-dev-bg:  #1E1100; --s-dev-fg:  #F09430;
+  --s-exec-bg: #0F1F08; --s-exec-fg: #78C24A;
+  --s-lim-bg:  #1A1600; --s-lim-fg:  #CBA820;
+  --s-no-bg:   #2A1010; --s-no-fg:   #CC6666;
+  --s-pend-bg: #0F1826; --s-pend-fg: #5EA4D4;
+  --r: 3px;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #F5F2EF; --surface: #FFFFFF; --surface-2: #EDE9E5;
+    --nav-bg: rgba(245,242,239,0.97);
+    --border: rgba(178,7,16,0.1);
+    --border-n: rgba(0,0,0,0.08);
+    --accent: #B20710; --accent-dim: rgba(178,7,16,0.1); --accent-dim-2: rgba(178,7,16,0.05);
+    --text-h: #170F0E; --text-body: #5A5250; --text-muted: #9A9290;
+    --s-done-bg: #D4EFE2; --s-done-fg: #1A5E38;
+    --s-dev-bg:  #FFEDD5; --s-dev-fg:  #9A4E00;
+    --s-exec-bg: #DCFFCF; --s-exec-fg: #1A6010;
+    --s-lim-bg:  #FFF9C4; --s-lim-fg:  #8B6000;
+    --s-no-bg:   #FCDCDC; --s-no-fg:   #8B2B2B;
+    --s-pend-bg: #D0E4F8; --s-pend-fg: #1A4878;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D0B0B; --surface: #161212; --surface-2: #1F1B1B;
+  --nav-bg: rgba(13,11,11,0.96); --border: rgba(229,9,20,0.08); --border-n: rgba(255,255,255,0.055);
+  --accent: #E50914; --accent-dim: rgba(229,9,20,0.13); --accent-dim-2: rgba(229,9,20,0.06);
+  --text-h: #F4EFEC; --text-body: #9E9390; --text-muted: #6A6260;
+  --s-done-bg: #0D2A1A; --s-done-fg: #52B788; --s-dev-bg: #1E1100; --s-dev-fg: #F09430;
+  --s-exec-bg: #0F1F08; --s-exec-fg: #78C24A; --s-lim-bg: #1A1600; --s-lim-fg: #CBA820;
+  --s-no-bg: #2A1010; --s-no-fg: #CC6666; --s-pend-bg: #0F1826; --s-pend-fg: #5EA4D4;
+}
+:root[data-theme="light"] {
+  --bg: #F5F2EF; --surface: #FFFFFF; --surface-2: #EDE9E5;
+  --nav-bg: rgba(245,242,239,0.97); --border: rgba(178,7,16,0.1); --border-n: rgba(0,0,0,0.08);
+  --accent: #B20710; --accent-dim: rgba(178,7,16,0.1); --accent-dim-2: rgba(178,7,16,0.05);
+  --text-h: #170F0E; --text-body: #5A5250; --text-muted: #9A9290;
+  --s-done-bg: #D4EFE2; --s-done-fg: #1A5E38; --s-dev-bg: #FFEDD5; --s-dev-fg: #9A4E00;
+  --s-exec-bg: #DCFFCF; --s-exec-fg: #1A6010; --s-lim-bg: #FFF9C4; --s-lim-fg: #8B6000;
+  --s-no-bg: #FCDCDC; --s-no-fg: #8B2B2B; --s-pend-bg: #D0E4F8; --s-pend-fg: #1A4878;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text-body);font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:50px;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-n);}
+.nav-brand{font-family:'Oswald',sans-serif;font-size:.92rem;font-weight:400;letter-spacing:.2em;color:var(--text-h);text-transform:uppercase;}
+.nav-links{display:flex;gap:0;}
+.nav-link{background:none;border:none;border-bottom:2px solid transparent;padding:.2rem 1rem;cursor:pointer;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);transition:color .15s,border-color .15s;}
+.nav-link.active{color:var(--accent);border-bottom-color:var(--accent);}
+.nav-link:hover{color:var(--text-h);}
+.nav-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.nav-theme{background:none;border:1px solid var(--border-n);color:var(--text-muted);padding:3px 11px;border-radius:2px;cursor:pointer;font-size:.68rem;font-family:'Inter',sans-serif;letter-spacing:.04em;transition:color .15s,border-color .15s;}
+.nav-theme:hover{color:var(--accent);border-color:var(--accent);}
+@media(max-width:660px){.nav-links{display:none;}}
+
+/* ── LAYOUT ── */
+section{scroll-margin-top:50px;}
+.container{max-width:1080px;margin:0 auto;padding:0 2.25rem;}
+.section-pad{padding:5.5rem 0;}
+
+/* ── SEC HEADER (2-col editorial) ── */
+.sec-hd{display:grid;grid-template-columns:1fr 1fr;gap:3rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border-n);margin-bottom:3rem;}
+.sec-hd-right{display:flex;align-items:flex-end;}
+.sec-hd-desc{font-size:.88rem;color:var(--text-body);line-height:1.75;}
+@media(max-width:720px){.sec-hd{grid-template-columns:1fr;gap:1rem;}.sec-hd-right{align-items:flex-start;}}
+
+/* ── TYPOGRAPHY ── */
+.eyebrow{font-size:.67rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.6rem;}
+h2.display{font-family:'Oswald',sans-serif;font-weight:400;font-size:clamp(2.4rem,4.5vw,3.4rem);color:var(--text-h);line-height:1.05;text-wrap:balance;}
+h3.label{font-size:.67rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0;}
+
+/* ── CAPA ── */
+#capa{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;padding-top:50px;}
+.capa-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 2.5rem 4rem 2.25rem;max-width:580px;margin-left:auto;position:relative;z-index:2;}
+.capa-rule-v{position:absolute;left:2.25rem;top:50%;transform:translateY(-50%);width:2px;height:72px;background:var(--accent);}
+.capa-v4{font-size:.64rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;}
+h1.capa-title{font-family:'Oswald',sans-serif;font-size:clamp(4rem,9vw,7.5rem);font-weight:300;letter-spacing:.04em;color:var(--text-h);line-height:.95;margin-bottom:2.2rem;}
+.capa-meta{display:flex;flex-direction:column;gap:.4rem;}
+.capa-period{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:300;color:var(--accent);letter-spacing:.04em;}
+.capa-sub{font-size:.82rem;letter-spacing:.04em;color:var(--text-body);}
+.capa-pillars{margin-top:2.5rem;display:flex;gap:1.5rem;flex-wrap:wrap;}
+.capa-pillar{font-size:.62rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);}
+.capa-right{position:relative;overflow:hidden;}
+.capa-canvas{position:absolute;inset:0;width:100%;height:100%;}
+@media(max-width:760px){#capa{grid-template-columns:1fr;}.capa-right{height:45vw;}.capa-left{padding:3rem 2.25rem 2rem;max-width:none;}}
+
+/* ── ROAS HERO BAND ── */
+.roas-hero{border-top:3px solid var(--accent);background:var(--surface);display:flex;align-items:center;gap:2.5rem;padding:1.8rem 2rem;margin-bottom:2rem;flex-wrap:wrap;}
+.roas-hero-val{font-family:'Oswald',sans-serif;font-size:4.5rem;font-weight:500;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
+.roas-hero-divider{width:1px;height:52px;background:var(--border-n);flex-shrink:0;}
+.roas-hero-right{flex:1;min-width:180px;}
+.roas-hero-label{font-size:.67rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.35rem;}
+.roas-hero-detail{font-size:.84rem;color:var(--text-body);line-height:1.55;}
+.roas-hero-detail strong{color:var(--text-h);}
+
+/* ── KPI ROW ── */
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border-n);margin-bottom:2rem;}
+.kpi-item{padding:1.4rem 1.6rem;border-right:1px solid var(--border-n);}
+.kpi-item:last-child{border-right:none;}
+.kpi-eyebrow{font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:.5rem;}
+.kpi-val{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:500;color:var(--text-h);line-height:1;margin-bottom:.2rem;font-variant-numeric:tabular-nums;}
+.kpi-note{font-size:.75rem;color:var(--text-muted);}
+@media(max-width:600px){.kpi-row{grid-template-columns:1fr;}.kpi-item{border-right:none;border-bottom:1px solid var(--border-n);}.kpi-item:last-child{border-bottom:none;}}
+
+/* ── CHARTS ── */
+.chart-card{background:var(--surface);border:1px solid var(--border-n);padding:1.6rem 1.6rem 1.4rem;margin-bottom:1.25rem;}
+.chart-card-hd{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.4rem;flex-wrap:wrap;}
+.chart-note{font-size:.71rem;color:var(--text-muted);}
+canvas.chart{display:block;width:100%;}
+
+/* ── ROAS BENCHMARK ── */
+.roas-rows{display:flex;flex-direction:column;gap:1.5rem;}
+.roas-row{display:flex;align-items:center;gap:.9rem;}
+.roas-lbl{width:180px;flex-shrink:0;font-size:.81rem;color:var(--text-body);line-height:1.35;}
+.roas-lbl.hi{color:var(--accent);}
+.roas-sub{font-size:.71rem;color:var(--text-muted);font-weight:400;}
+.roas-track{flex:1;height:6px;background:var(--surface-2);position:relative;overflow:hidden;}
+.roas-fill{position:absolute;top:0;left:0;height:100%;background:var(--accent-dim);}
+.roas-fill.hi{height:10px;top:-2px;background:var(--accent);}
+.roas-val{width:52px;text-align:right;color:var(--text-muted);font-variant-numeric:tabular-nums;font-weight:500;font-size:.82rem;}
+.roas-val.hi{color:var(--accent);font-size:.95rem;}
+.roas-note{font-size:.73rem;color:var(--text-muted);margin-top:1.25rem;padding-top:.9rem;border-top:1px solid var(--border-n);line-height:1.7;}
+.roas-note strong{color:var(--text-body);}
+
+/* ── SEASONAL ── */
+.seasonal-insight{border-left:3px solid var(--accent);background:var(--surface);padding:1.6rem 1.8rem;margin-top:1.25rem;}
+.seas-title{font-family:'Oswald',sans-serif;font-size:1.15rem;font-weight:500;color:var(--text-h);margin-bottom:.4rem;line-height:1.2;}
+.seas-desc{font-size:.8rem;color:var(--text-body);line-height:1.65;margin-bottom:1rem;}
+.seas-cases{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:.9rem;}
+@media(max-width:600px){.seas-cases{grid-template-columns:1fr;}}
+.seas-date{font-size:.62rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.55rem;}
+.seas-bar-block{display:flex;align-items:center;gap:.75rem;margin-bottom:.38rem;}
+.seas-bar-wrap{flex:0 0 90px;height:7px;background:var(--surface-2);overflow:hidden;}
+.seas-bar{height:100%;background:var(--accent);}
+.seas-bar-block.after .seas-bar{background:var(--accent-dim);border:1px solid var(--accent);}
+.seas-bar-label{font-size:.71rem;color:var(--text-muted);line-height:1.3;}
+.seas-bar-label.bld{color:var(--text-body);font-weight:500;}
+.seas-rec{font-size:.73rem;color:var(--text-muted);border-top:1px solid var(--border-n);padding-top:.75rem;line-height:1.65;}
+.seas-rec strong{color:var(--text-body);}
+
+/* ── TABS ── */
+.tab-nav{display:flex;border-bottom:1px solid var(--border-n);margin-bottom:2rem;}
+.tab-btn{padding:.5rem 1.3rem;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);transition:color .15s,border-color .15s;}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ── ACTION TABLE ── */
+.tbl-wrap{overflow-x:auto;}
+.action-tbl{width:100%;border-collapse:collapse;min-width:560px;}
+.action-tbl th{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:.1rem .75rem .65rem;border-bottom:1px solid var(--border-n);}
+.action-tbl td{padding:.7rem .75rem;font-size:.86rem;color:var(--text-body);vertical-align:middle;border-bottom:1px solid var(--border-n);}
+.action-tbl tr:last-child td{border-bottom:none;}
+.act-name{display:block;font-weight:500;color:var(--text-h);margin-bottom:.1rem;}
+.act-obj{font-size:.77rem;color:var(--text-muted);}
+.act-period{font-size:.77rem;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.td-status{white-space:nowrap;}
+.det-btn{background:none;border:1px solid var(--border-n);color:var(--text-muted);padding:2px 8px;border-radius:2px;cursor:pointer;font-size:.62rem;font-family:'Inter',sans-serif;margin-left:.5rem;transition:color .15s,border-color .15s;vertical-align:middle;}
+.det-btn:hover{color:var(--accent);border-color:var(--accent);}
+.detail-row{display:none;}
+.detail-row.open{display:table-row;}
+.detail-cell{padding:.85rem .75rem 1.1rem 2rem;font-size:.8rem;color:var(--text-body);background:var(--surface-2);border-bottom:1px solid var(--border-n) !important;line-height:1.7;}
+.detail-cell ul{padding-left:1.2rem;margin-top:.4rem;}
+.detail-cell li{margin-bottom:.28rem;}
+.detail-cell strong{color:var(--text-h);font-weight:500;}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:.25rem;font-size:.7rem;font-weight:500;padding:2px 9px;border-radius:20px;white-space:nowrap;}
+.s-done{background:var(--s-done-bg);color:var(--s-done-fg);}
+.s-dev {background:var(--s-dev-bg); color:var(--s-dev-fg);}
+.s-exec{background:var(--s-exec-bg);color:var(--s-exec-fg);}
+.s-lim {background:var(--s-lim-bg); color:var(--s-lim-fg);}
+.s-no  {background:var(--s-no-bg);  color:var(--s-no-fg);}
+.s-pend{background:var(--s-pend-bg);color:var(--s-pend-fg);}
+
+/* ── CAMPAIGN CALENDAR ── */
+.cal-intro{margin-top:3rem;padding-top:2.5rem;border-top:1px solid var(--border-n);}
+.cal-timeline{display:grid;grid-template-columns:repeat(8,1fr);border:1px solid var(--border-n);margin-top:1.5rem;}
+.cal-month-card{border-right:1px solid var(--border-n);padding:1.1rem .9rem 1.1rem;position:relative;}
+.cal-month-card:last-child{border-right:none;}
+.cal-month-card.cal-peak{border-top:2px solid var(--accent);}
+.cal-month-card.cal-exec{border-top:2px solid var(--s-exec-fg);}
+.cal-mo{font-family:'Oswald',sans-serif;font-size:1.45rem;font-weight:400;color:var(--text-h);line-height:1;display:block;}
+.cal-yr{font-size:.58rem;color:var(--text-muted);display:block;margin-bottom:.6rem;letter-spacing:.04em;}
+.cal-camp{font-size:.72rem;font-weight:600;color:var(--text-body);margin-bottom:.3rem;line-height:1.3;}
+.cal-det{font-size:.67rem;color:var(--text-muted);line-height:1.55;margin-bottom:.5rem;}
+.cal-tag{display:inline-block;font-size:.57rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:2px 6px;border-radius:2px;}
+.cal-tag.tag-done{background:var(--s-done-bg);color:var(--s-done-fg);}
+.cal-tag.tag-exec{background:var(--s-exec-bg);color:var(--s-exec-fg);}
+.cal-tag.tag-key{background:var(--accent-dim);color:var(--accent);}
+@media(max-width:900px){.cal-timeline{grid-template-columns:repeat(4,1fr);}.cal-month-card:nth-child(4n){border-right:none;}.cal-month-card:nth-child(n+5){border-top:1px solid var(--border-n);}}
+@media(max-width:560px){.cal-timeline{grid-template-columns:repeat(2,1fr);}.cal-month-card:nth-child(even){border-right:none;}.cal-month-card:nth-child(n+3){border-top:1px solid var(--border-n);}}
+
+/* ── INTEL GRID ── */
+.intel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);margin-bottom:2.5rem;}
+.intel-card{background:var(--bg);padding:1.6rem 1.5rem;display:flex;flex-direction:column;}
+@media(max-width:800px){.intel-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:500px){.intel-grid{grid-template-columns:1fr;}}
+.intel-card-top{flex:1;}
+.intel-tag{display:inline-block;background:var(--accent-dim);color:var(--accent);font-size:.64rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:2px 9px;border-radius:20px;margin-bottom:.8rem;}
+.intel-title{font-family:'Oswald',sans-serif;font-weight:500;color:var(--text-h);margin-bottom:.5rem;font-size:1.07rem;line-height:1.25;}
+.intel-desc{font-size:.8rem;color:var(--text-body);line-height:1.7;}
+.intel-status{display:flex;align-items:center;gap:.4rem;font-size:.67rem;color:var(--text-muted);margin-top:1.1rem;padding-top:.8rem;border-top:1px solid var(--border-n);}
+.intel-status::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+
+/* ── MARKET ── */
+.mkt-block{background:var(--surface);border:1px solid var(--border-n);padding:1.8rem 2rem;margin-bottom:2.5rem;}
+.mkt-header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem;}
+.mkt-header h3{font-family:'Oswald',sans-serif;font-size:1.35rem;font-weight:400;color:var(--text-h);}
+.mkt-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);margin-bottom:1.5rem;}
+.mkt-kpi{background:var(--surface-2);padding:1rem 1.1rem;}
+.mkt-kpi-val{font-family:'Oswald',sans-serif;font-size:1.9rem;font-weight:500;color:var(--text-h);line-height:1;margin-bottom:.25rem;font-variant-numeric:tabular-nums;}
+.mkt-kpi-val.accent{color:var(--accent);}
+.mkt-kpi-label{font-size:.69rem;color:var(--text-muted);line-height:1.45;}
+@media(max-width:560px){.mkt-kpis{grid-template-columns:1fr;}}
+.mkt-gap-bar{margin:1.1rem 0 1.4rem;}
+.mkt-gap-label{font-size:.64rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.8rem;}
+.mkt-gap-track{height:14px;background:var(--surface-2);overflow:hidden;position:relative;}
+.mkt-gap-fill{height:100%;background:var(--accent);}
+.mkt-gap-markers{display:flex;justify-content:space-between;margin-top:.4rem;}
+.mkt-gap-mark{font-size:.65rem;color:var(--text-muted);font-variant-numeric:tabular-nums;}
+.mkt-gap-mark.hi{color:var(--accent);font-weight:600;}
+.mkt-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);margin-bottom:1.4rem;}
+.mkt-fact{background:var(--surface-2);padding:.95rem 1.1rem;}
+.mkt-fact-title{font-size:.77rem;font-weight:600;color:var(--text-h);margin-bottom:.3rem;line-height:1.3;}
+.mkt-fact-body{font-size:.71rem;color:var(--text-muted);line-height:1.65;}
+@media(max-width:640px){.mkt-facts{grid-template-columns:1fr;}}
+.mkt-note{font-size:.73rem;color:var(--text-muted);line-height:1.7;border-top:1px solid var(--border-n);padding-top:.9rem;}
+.mkt-note strong{color:var(--text-body);}
+
+/* ── SIMULATOR ── */
+.sim-box{background:var(--surface);border:1px solid var(--border-n);padding:1.8rem 2rem;}
+.sim-header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem;}
+.sim-header h3{font-family:'Oswald',sans-serif;font-size:1.35rem;font-weight:400;color:var(--text-h);}
+.sim-input-row{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;margin-bottom:1.6rem;background:var(--surface-2);padding:.85rem 1.1rem;}
+.sim-label{font-size:.76rem;color:var(--text-muted);white-space:nowrap;}
+.sim-val{font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:500;color:var(--accent);min-width:96px;font-variant-numeric:tabular-nums;}
+input[type=range].sim-slider{-webkit-appearance:none;appearance:none;flex:1;min-width:160px;height:3px;background:var(--border-n);outline:none;cursor:pointer;}
+input[type=range].sim-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 0 0 3px var(--accent-dim);}
+input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;border:none;box-shadow:0 0 0 3px var(--accent-dim);}
+.sim-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);margin-bottom:1.25rem;}
+.sim-card{background:var(--surface-2);padding:1.3rem 1.1rem;text-align:center;}
+.sim-card.otim{background:var(--accent-dim-2);}
+.sim-card-label{font-size:.64rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;margin-bottom:.4rem;color:var(--text-muted);}
+.sim-card.otim .sim-card-label{color:var(--accent);}
+.sim-roas{font-size:.72rem;color:var(--text-muted);margin-bottom:.55rem;font-variant-numeric:tabular-nums;}
+.sim-rev{font-family:'Oswald',sans-serif;font-size:1.85rem;font-weight:500;color:var(--text-h);font-variant-numeric:tabular-nums;line-height:1;}
+.sim-card.otim .sim-rev{color:var(--accent);}
+.sim-annual{font-size:.68rem;color:var(--text-muted);margin-top:.3rem;font-variant-numeric:tabular-nums;}
+.sim-note{font-size:.73rem;color:var(--text-muted);line-height:1.7;padding-top:.9rem;border-top:1px solid var(--border-n);}
+.sim-note strong{color:var(--text-body);}
+@media(max-width:560px){.sim-cards{grid-template-columns:1fr;}}
+
+/* ── COMPETITIVE ── */
+.comp-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);margin-bottom:2.5rem;}
+.comp-sum-item{background:var(--bg);padding:1.2rem 1.4rem;}
+.comp-sum-val{font-family:'Oswald',sans-serif;font-size:2.5rem;font-weight:500;line-height:1;margin-bottom:.3rem;font-variant-numeric:tabular-nums;color:var(--text-h);}
+.comp-sum-val.is-gap{color:var(--s-no-fg);}
+.comp-sum-val.is-win{color:var(--s-exec-fg);}
+.comp-sum-label{font-size:.76rem;font-weight:600;color:var(--text-h);margin-bottom:.15rem;}
+.comp-sum-note{font-size:.68rem;color:var(--text-muted);}
+@media(max-width:680px){.comp-summary{grid-template-columns:repeat(2,1fr);}}
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);margin-bottom:2.5rem;}
+.comp-card{background:var(--bg);padding:1.4rem;}
+.comp-card.card-official{border-top:2px solid var(--accent);}
+.comp-name{font-family:'Oswald',sans-serif;font-size:1.45rem;font-weight:500;color:var(--text-h);margin-bottom:.15rem;}
+.comp-type{font-size:.68rem;color:var(--text-muted);margin-bottom:1.1rem;}
+.comp-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-n);margin-bottom:1rem;}
+.comp-stat{background:var(--surface-2);padding:.6rem .8rem;}
+.comp-stat-label{font-size:.64rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem;}
+.comp-stat-val{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:500;color:var(--text-h);}
+.comp-tags{display:flex;flex-wrap:wrap;gap:.35rem;}
+.ctag{font-size:.65rem;font-weight:600;padding:2px 8px;border-radius:2px;}
+.ctag-win{background:var(--s-exec-bg);color:var(--s-exec-fg);}
+.ctag-gap{background:var(--s-no-bg);color:var(--s-no-fg);}
+.ctag-neu{background:var(--surface-2);color:var(--text-muted);}
+@media(max-width:720px){.comp-grid{grid-template-columns:1fr;}}
+
+/* ── GAPS & RECS ── */
+.comp-sub-hd{margin-bottom:1.25rem;}
+.gaps-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);margin-bottom:2.5rem;}
+.gap-card{background:var(--bg);border-left:3px solid var(--s-no-fg);padding:1.1rem 1.3rem;}
+.gap-card.is-win{border-left-color:var(--s-exec-fg);}
+.gap-badge{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-bottom:.5rem;background:var(--s-no-bg);color:var(--s-no-fg);}
+.gap-badge.win-badge{background:var(--s-exec-bg);color:var(--s-exec-fg);}
+.gap-title{font-size:.84rem;font-weight:600;color:var(--text-h);margin-bottom:.3rem;}
+.gap-desc{font-size:.74rem;color:var(--text-body);line-height:1.6;}
+@media(max-width:680px){.gaps-grid{grid-template-columns:1fr;}}
+.recs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);}
+.rec-card{background:var(--bg);padding:1.3rem 1.3rem;}
+.rec-priority{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-bottom:.65rem;}
+.pri-high{background:var(--s-no-bg);color:var(--s-no-fg);}
+.pri-mid{background:var(--s-lim-bg);color:var(--s-lim-fg);}
+.pri-grow{background:var(--accent-dim);color:var(--accent);}
+.rec-title{font-family:'Oswald',sans-serif;font-size:1.07rem;font-weight:500;color:var(--text-h);margin-bottom:.4rem;line-height:1.2;text-wrap:balance;}
+.rec-desc{font-size:.75rem;color:var(--text-body);line-height:1.7;}
+.rec-impact{margin-top:.9rem;padding-top:.7rem;border-top:1px solid var(--border-n);font-size:.66rem;color:var(--text-muted);display:flex;align-items:center;gap:.4rem;}
+.rec-impact::before{content:'→';color:var(--accent);font-weight:700;}
+@media(max-width:760px){.recs-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.recs-grid{grid-template-columns:1fr;}}
+
+/* ── SECTION DIVIDER ── */
+.sec-divider{height:1px;background:var(--border-n);}
+
+/* ── FADE IN ── */
+.fi{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease;}
+.fi.vis{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.fi{opacity:1;transform:none;transition:none;}}
+</style>
+
+<!-- NAV -->
+<nav class="nav">
+  <span class="nav-brand">Official Time</span>
+  <div class="nav-links" id="navLinks">
+    <button class="nav-link active" data-s="capa">Capa</button>
+    <button class="nav-link" data-s="resultado">Resultado</button>
+    <button class="nav-link" data-s="dossie">Dossiê</button>
+    <button class="nav-link" data-s="cenarios">Cenários</button>
+    <button class="nav-link" data-s="novas">Concorrência</button>
+  </div>
+  <button class="nav-theme" id="themeBtn">☀ Tema</button>
+</nav>
+
+<!-- ══ CAPA ══ -->
+<section id="capa">
+  <div class="capa-left fi">
+    <div class="capa-v4">V4 Company · Relatório Executivo</div>
+    <h1 class="capa-title">Official<br>Time</h1>
+    <div class="capa-meta">
+      <p class="capa-period">Janeiro — Agosto 2026</p>
+      <p class="capa-sub">Performance &amp; Plano de Ação</p>
+    </div>
+    <div class="capa-pillars">
+      <span class="capa-pillar">Estratégia</span>
+      <span class="capa-pillar">Media</span>
+      <span class="capa-pillar">CRM</span>
+      <span class="capa-pillar">PDV</span>
+      <span class="capa-pillar">B2B</span>
+    </div>
+  </div>
+  <div class="capa-right">
+    <canvas class="capa-canvas" id="watchCvs"></canvas>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- ══ RESULTADO ══ -->
+<section id="resultado" class="section-pad">
+  <div class="container">
+    <div class="sec-hd fi">
+      <div>
+        <span class="eyebrow">Performance consolidada</span>
+        <h2 class="display">Resultado do Ano</h2>
+      </div>
+      <div class="sec-hd-right">
+        <p class="sec-hd-desc">Pedidos finalizados no e-commerce entre janeiro e agosto de 2026. Agosto em andamento — número parcial. ROAS real coletado via Windsor AI.</p>
+      </div>
+    </div>
+
+    <!-- ROAS HERO BAND -->
+    <div class="roas-hero fi">
+      <div class="roas-hero-val">13.9×</div>
+      <div class="roas-hero-divider"></div>
+      <div class="roas-hero-right">
+        <div class="roas-hero-label">ROAS Real Combinado · Google + Meta</div>
+        <div class="roas-hero-detail"><strong>R$22.122</strong> investidos → <strong>R$307.127</strong> atribuídos · Jan–Ago 2026 · <strong>39% acima do teto do segmento</strong></div>
+      </div>
+    </div>
+
+    <!-- KPI ROW -->
+    <div class="kpi-row fi">
+      <div class="kpi-item">
+        <span class="kpi-eyebrow">Receita Total</span>
+        <div class="kpi-val">R$ 305k</div>
+        <div class="kpi-note">108 pedidos finalizados</div>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-eyebrow">Ticket Médio</span>
+        <div class="kpi-val">R$ 2,8k</div>
+        <div class="kpi-note">Por pedido concluído</div>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-eyebrow">Mês Pico</span>
+        <div class="kpi-val">Maio</div>
+        <div class="kpi-note">R$56,6k · 23 pedidos</div>
+      </div>
+    </div>
+
+    <!-- REVENUE CHART -->
+    <div class="chart-card fi">
+      <div class="chart-card-hd">
+        <h3 class="label">Receita mensal — pedidos finalizados (e-commerce)</h3>
+        <span class="chart-note">Jan–Ago 2026 · Ago parcial</span>
+      </div>
+      <canvas id="revCvs" class="chart" height="220"></canvas>
+    </div>
+
+    <!-- ROAS BENCHMARK -->
+    <div class="chart-card fi">
+      <div class="chart-card-hd">
+        <h3 class="label">ROAS — Official Time vs benchmark do nicho</h3>
+        <span class="chart-note">Dados reais Windsor AI · Jan–Ago 2026</span>
+      </div>
+      <div class="roas-rows" style="gap:1.5rem;">
+        <div class="roas-row">
+          <span class="roas-lbl">Benchmark nicho<br><span class="roas-sub">Joalheria / Relógios</span></span>
+          <div class="roas-track" style="height:8px;">
+            <div class="roas-fill" style="left:25%;width:25%;height:8px;"></div>
+          </div>
+          <span class="roas-val">5 – 10×</span>
+        </div>
+        <div class="roas-row">
+          <span class="roas-lbl hi">★ Official Time<br><span class="roas-sub">Real combinado</span></span>
+          <div class="roas-track" style="height:8px;">
+            <div class="roas-fill hi" style="left:0;width:69.5%;"></div>
+          </div>
+          <span class="roas-val hi">13.9×</span>
+        </div>
+      </div>
+      <p class="roas-note">Escala 0–20×. R$22.122 investidos → R$307.127 atribuídos. A Official Time opera <strong>39% acima do teto do segmento</strong>, já em cenário otimista — o que reforça a tese de aumentar o budget para crescer receita absoluta mantendo eficiência.</p>
+    </div>
+
+    <!-- DAILY ORDERS -->
+    <div class="chart-card fi" style="margin-top:1.25rem;">
+      <div class="chart-card-hd">
+        <h3 class="label">Compras diárias — pedidos finalizados</h3>
+        <span class="chart-note">5/jan – 9/ago 2026 · 217 dias · 64,5% sem nenhuma compra</span>
+      </div>
+      <canvas id="dailyCvs" class="chart" height="140"></canvas>
+      <p class="roas-note" style="margin-top:1rem;">Em apenas <strong>77 dos 217 dias</strong> houve ao menos uma compra — <strong>35,5% do tempo</strong>. O máximo foi 3 pedidos em um único dia. As vendas ocorrem em pulsos esparsos, não em fluxo contínuo — o que reforça a necessidade de campanhas sempre ativas.</p>
+    </div>
+
+    <!-- SEASONAL INSIGHT -->
+    <div class="seasonal-insight fi">
+      <div class="seas-title">Hipótese confirmada — hiato de compras pós-data sazonal</div>
+      <p class="seas-desc">Após datas comemorativas, os pedidos caem consistentemente nos 14 dias seguintes. O cliente que comprou não retorna imediatamente, e novos clientes levam semanas para reiniciar o ciclo de busca ativa.</p>
+      <div class="seas-cases">
+        <div>
+          <span class="seas-date">Dia das Mães · 11 de maio</span>
+          <div class="seas-bar-block">
+            <div class="seas-bar-wrap"><div class="seas-bar" style="width:100%"></div></div>
+            <span class="seas-bar-label bld">0,9 ped/dia <span style="font-weight:400;color:var(--text-muted)">(7 dias antes)</span></span>
+          </div>
+          <div class="seas-bar-block after">
+            <div class="seas-bar-wrap"><div class="seas-bar" style="width:56%"></div></div>
+            <span class="seas-bar-label">0,5 ped/dia · 9/14 dias sem compra</span>
+          </div>
+        </div>
+        <div>
+          <span class="seas-date">Dia dos Namorados · 12 de junho</span>
+          <div class="seas-bar-block">
+            <div class="seas-bar-wrap"><div class="seas-bar" style="width:67%"></div></div>
+            <span class="seas-bar-label bld">0,6 ped/dia <span style="font-weight:400;color:var(--text-muted)">(7 dias antes)</span></span>
+          </div>
+          <div class="seas-bar-block after">
+            <div class="seas-bar-wrap"><div class="seas-bar" style="width:40%"></div></div>
+            <span class="seas-bar-label">0,4 ped/dia · 10/14 dias sem compra</span>
+          </div>
+        </div>
+      </div>
+      <p class="seas-rec">→ <strong>Ação recomendada:</strong> campanhas de reativação 3–7 dias após cada data sazonal, quando há menor concorrência de leilão e o ROAS tende a subir.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- ══ DOSSIÊ ══ -->
+<section id="dossie" class="section-pad">
+  <div class="container">
+    <div class="sec-hd fi">
+      <div>
+        <span class="eyebrow">Histórico de iniciativas</span>
+        <h2 class="display">Dossiê de Ações</h2>
+      </div>
+      <div class="sec-hd-right">
+        <p class="sec-hd-desc">Todas as ações propostas, aprovadas e reprovadas desde o início do projeto — com detalhes expandíveis. Status atualizado em 21/08/2026.</p>
+      </div>
+    </div>
+
+    <div class="tab-nav fi">
+      <button class="tab-btn active" data-tab="tab-ecom">E-Commerce</button>
+      <button class="tab-btn" data-tab="tab-pdv">PDV</button>
+      <button class="tab-btn" data-tab="tab-b2b">B2B</button>
+    </div>
+
+    <!-- E-COMMERCE -->
+    <div id="tab-ecom" class="tab-panel active fi">
+      <div class="tbl-wrap">
+        <table class="action-tbl">
+          <thead><tr><th>Ação</th><th>Objetivo</th><th>Período</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><span class="act-name">Mídia Meta + Google</span><span class="act-obj">Escalar tráfego e vendas com mensuração contínua</span></td><td>Performance paga como motor principal</td><td class="act-period">Contínuo</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li><strong>Google Ads:</strong> campanhas de busca e shopping ativas desde o onboarding</li><li><strong>Meta Ads:</strong> criativos sazonais com segmentação por interesse e lookalike</li><li><strong>Resultado:</strong> Google é o principal canal atribuído (UTM) com ~R$119k em receita rastreada</li></ul></td></tr>
+            <tr><td><span class="act-name">Campanhas sazonais</span><span class="act-obj">Datas comemorativas com criativos integrados</span></td><td>Criar demanda e consistência comercial</td><td class="act-period">Mar – Ago 26</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Dia da Mulher, Dia dos Pais e Dia das Mães com criativos específicos</li><li>Integração com PDV via criativos de vitrine digitais</li><li><strong>Pico em Maio (R$56,6k):</strong> campanhas sazonais ativas com maior cobertura</li></ul></td></tr>
+            <tr><td><span class="act-name">Régua de CRM</span><span class="act-obj">Fluxos de boas-vindas, carrinho, base e aniversários</span></td><td>Nutrir e reativar base de clientes</td><td class="act-period">Jun – Ago 26</td><td class="td-status"><span class="badge s-lim">≈ Aprovada c/ limitação</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Aprovada com restrição de frequência — cliente limitou disparos</li><li>Fluxo de carrinho abandonado configurado mas com baixa cadência</li><li>Base ativa: ~R$5,5k em receita atribuída ao CRM no período</li></ul></td></tr>
+            <tr><td><span class="act-name">CRM + reativação da base</span><span class="act-obj">Disparo para base com oferta 5% + mote emocional</span></td><td>Recuperar vendas em período de queda</td><td class="act-period">Jul – Ago 26</td><td class="td-status"><span class="badge s-lim">≈ Aprovada c/ limitação</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Aprovada com cupom fixo de 5% — proposta de desconto maior reprovada</li><li>Disparos realizados para base segmentada por inatividade</li><li>Impacto direto limitado pela restrição do desconto máximo</li></ul></td></tr>
+            <tr><td><span class="act-name">Ajustes estruturais no site</span><span class="act-obj">Hierarquia, banners, links internos e mobile</span></td><td>Melhorar experiência e conversão</td><td class="act-period">—</td><td class="td-status"><span class="badge s-lim">≈ Aprovada c/ limitação</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Melhorias pontuais aprovadas — CRO completo não aprovado</li><li>Revisão de banners e navegação em mobile implementada parcialmente</li><li>Checkout e página de produto ainda com oportunidades de conversão</li></ul></td></tr>
+            <tr><td><span class="act-name">Planejamento Antecipado de Black Friday</span><span class="act-obj">Estrutura integrada PDV + e-com com antecedência</span></td><td>Evitar correria e garantir budget e oferta</td><td class="act-period">Set – Nov 26</td><td class="td-status"><span class="badge s-exec">▶ Em execução</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Prioridade definida em reunião de 21/08 — início imediato do planejamento</li><li>Requer aprovação de budget extra e desconto acima de 5%</li><li>Integrado com PDV: criativos físicos e digitais alinhados</li><li><strong>Próximo passo:</strong> definir oferta, KVs e cronograma de produção</li></ul></td></tr>
+            <tr><td><span class="act-name">CRO — otimização de conversão</span><span class="act-obj">Clareza da oferta, checkout e redução de fricções</span></td><td>Aumentar taxa de conversão do site</td><td class="act-period">Jan + Jun 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta apresentada em duas ocasiões — ambas reprovadas</li><li>Justificativa: custo de implementação e alinhamento com dev interno</li><li><strong>Oportunidade:</strong> retomar com dados concretos de abandono de carrinho</li></ul></td></tr>
+            <tr><td><span class="act-name">Expansão com influenciadores</span><span class="act-obj">UGC, microinfluenciadores e roteiros de performance</span></td><td>Ampliar alcance e prova social</td><td class="act-period">Mai – Jun 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Apresentada como alternativa de conteúdo de baixo custo</li><li>Reprovada por resistência à gestão de parceria externa</li><li>Proposta incluía microinfluenciadores locais de Jundiaí</li></ul></td></tr>
+            <tr><td><span class="act-name">Novas captações próprias</span><span class="act-obj">Rotina de vídeos e fotos para criativos de performance</span></td><td>Melhorar qualidade e volume de criativos</td><td class="act-period">—</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta de rotina mensal de produção de conteúdo</li><li>Reprovada por limitação de agenda e estrutura interna do cliente</li><li>Impacto: criativos dependem de biblioteca existente — risco de fadiga</li></ul></td></tr>
+            <tr><td><span class="act-name">Marketplace (Mercado Livre)</span><span class="act-obj">Canal adicional com demanda mapeada existente</span></td><td>Novo canal de vendas sem depender do site</td><td class="act-period">Jul 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Demanda mapeada no Mercado Livre para relógios de alto ticket em Jundiaí</li><li>Reprovada por resistência a gestão de novo canal e comissionamento</li><li>Canal pode ser retomado com operação simplificada em 2027</li></ul></td></tr>
+            <tr><td><span class="act-name">Troca do Ouro</span><span class="act-obj">Ouro antigo como crédito ou matéria-prima para nova joia</span></td><td>Mecânica diferenciada de geração de lead</td><td class="act-period">Jan 26</td><td class="td-status"><span class="badge s-pend">? Pendente aprovação</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta desde janeiro — sem retorno definitivo do cliente em 8 meses</li><li>Mecânica de alto potencial emocional: troca + joia nova personalizada</li><li><strong>Alto valor estratégico:</strong> diferencial competitivo único no segmento local</li></ul></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PDV -->
+    <div id="tab-pdv" class="tab-panel fi">
+      <div class="tbl-wrap">
+        <table class="action-tbl">
+          <thead><tr><th>Ação</th><th>Objetivo</th><th>Período</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><span class="act-name">Diagnóstico e planejamento</span><span class="act-obj">Posicionamento, canais e prioridades iniciais</span></td><td>Estruturar o projeto do zero</td><td class="act-period">Out – Nov 25</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Mapeamento completo do negócio: público, concorrência e canais ativos</li><li>Definição de identidade visual nas campanhas e tom de comunicação</li><li>Estruturação do funil digital integrado ao PDV</li></ul></td></tr>
+            <tr><td><span class="act-name">Black Friday + Natal integrados</span><span class="act-obj">Campanha cross-channel com criativos e ofertas</span></td><td>Gerar venda no e-com e apoiar PDV</td><td class="act-period">Nov – Dez 25</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Campanha integrada PDV + e-com com KVs aprovados e criativos produzidos</li><li>Cobertura de Black Friday com antecedência de 2 semanas</li><li>Natal com retargeting de quem visitou o site durante a BF</li></ul></td></tr>
+            <tr><td><span class="act-name">Campanhas para WhatsApp</span><span class="act-obj">Leads para atendimento e convite ao PDV</span></td><td>Ativar funil local via atendimento</td><td class="act-period">—</td><td class="td-status"><span class="badge s-done">✓ Executada (pausada)</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Campanhas geraram leads mas follow-up interno insuficiente — pausadas</li><li>Cliente oculto realizado para diagnóstico interno de atendimento</li><li><strong>Insight:</strong> problema de conversão está no processo de resposta, não na geração de leads</li></ul></td></tr>
+            <tr><td><span class="act-name">31 anos + Mês do Cliente</span><span class="act-obj">KV aprovado, criativos em desdobramento</span></td><td>Celebração + venda integrada</td><td class="act-period">Ago – Set 26</td><td class="td-status"><span class="badge s-dev">⟳ Em desenvolvimento</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>KV aprovado — desdobramentos em produção (PDV, e-com e social)</li><li>Criativos finais previstos para início de setembro</li><li>Ativação CRM planejada junto com lançamento da campanha</li></ul></td></tr>
+            <tr><td><span class="act-name">Evento na Geely</span><span class="act-obj">Mostruário e ativação com clientes da Geely</span></td><td>Ativar novo público no PDV de forma colaborativa</td><td class="act-period">Set 26</td><td class="td-status"><span class="badge s-exec">▶ Em execução</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Collab confirmada — mostruário Official Time dentro da Geely</li><li>Convidados da base da Geely + clientes passantes</li><li>Produção de vídeo comemorativo incluída — divisão de custo 50/50</li><li><strong>Próximo passo:</strong> fechar orçamento final e confirmar data em setembro</li></ul></td></tr>
+            <tr><td><span class="act-name">Planejamento Antecipado de Black Friday</span><span class="act-obj">Estrutura integrada de criativos físicos e ativação no PDV</span></td><td>Garantir exposição no ponto de venda com antecedência</td><td class="act-period">Set – Nov 26</td><td class="td-status"><span class="badge s-exec">▶ Em execução</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Alinhado com a frente e-com — campanha integrada PDV + digital</li><li>Vitrine temática + criativos físicos coordenados com campanha paga</li><li>Foco em tráfego físico no período de maior conversão do ano</li></ul></td></tr>
+            <tr><td><span class="act-name">Quadro Permanente de Vitrine</span><span class="act-obj">Painel físico substituível no lugar do adesivo</span></td><td>Solução de longo prazo para PDV</td><td class="act-period">Ago 26</td><td class="td-status"><span class="badge s-exec">▶ Em execução</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Fornecedor inativo retomou contato — cotação em andamento</li><li>Solução superior à adesivação temporária (mais durável, trocável)</li><li>Permitirá atualização sazonal sem custo de nova produção de adesivo</li></ul></td></tr>
+            <tr><td><span class="act-name">Adesivação de vitrines</span><span class="act-obj">Aplicação do KV de 31 anos no ponto de venda</span></td><td>Impacto visual e reconhecimento local</td><td class="act-period">Ago 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Reprovada por custo de aplicação e remoção temporária do adesivo</li><li>Substituída pela solução de quadro permanente (painel físico)</li></ul></td></tr>
+            <tr><td><span class="act-name">Brinde — Dia da Mulher</span><span class="act-obj">Ação promocional para gerar visita ao PDV</span></td><td>Tráfego físico + valor percebido</td><td class="act-period">Mar 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta de brinde com mecânica de visita ao PDV em data sazonal</li><li>Reprovada por custo de produção dos brindes</li></ul></td></tr>
+            <tr><td><span class="act-name">Brinde — Dia das Mães</span><span class="act-obj">Mecânica integrada à campanha sazonal</span></td><td>Incremento de tráfego em data de pico</td><td class="act-period">Mai 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Segunda tentativa com mecânica similar ao Dia da Mulher</li><li>Reprovada novamente — custo vs. retorno não aprovado pelo cliente</li></ul></td></tr>
+            <tr><td><span class="act-name">Mídia de Shopping</span><span class="act-obj">Display e ativações no shopping center</span></td><td>Novo canal de tráfego local</td><td class="act-period">—</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Exploração de mídia indoor no shopping onde a loja está localizada</li><li>Reprovada por custo e dificuldade de mensuração</li></ul></td></tr>
+            <tr><td><span class="act-name">Mídia off</span><span class="act-obj">Ativações de marca em canais offline</span></td><td>Reconhecimento de marca local</td><td class="act-period">—</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Rádio e OOH propostos para cobertura local</li><li>Reprovada por orçamento e preferência por canais mensuráveis</li></ul></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- B2B -->
+    <div id="tab-b2b" class="tab-panel fi">
+      <div class="tbl-wrap">
+        <table class="action-tbl">
+          <thead><tr><th>Ação</th><th>Objetivo</th><th>Período</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><span class="act-name">Abertura de frente B2B em Jundiaí</span><span class="act-obj">Estrutura de vendas corporativas local</span></td><td>Nova vertical de receita</td><td class="act-period">Jul 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta de estrutura de vendas corporativas para empresas de Jundiaí</li><li>Reprovada por resistência interna a gestão de novo processo comercial</li></ul></td></tr>
+            <tr><td><span class="act-name">Mala direta corporativa</span><span class="act-obj">Prospecção com material físico para empresas</span></td><td>Gerar leads B2B qualificados</td><td class="act-period">Jul 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta de envio físico para lista de empresas ICP</li><li>Reprovada — LGPD citada como obstáculo (aplicação incorreta ao contexto B2B)</li></ul></td></tr>
+            <tr><td><span class="act-name">Lista ICP + prospecção fria</span><span class="act-obj">Lista de empresas de Jundiaí no perfil ideal</span></td><td>Base para contatos comerciais sem mídia</td><td class="act-period">Jul 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Lista entregue ao cliente — sem retorno sobre contatos realizados</li><li>Proposta encerrada por falta de engajamento do time interno</li></ul></td></tr>
+            <tr><td><span class="act-name">Diagnóstico gratuito como porta de entrada</span><span class="act-obj">Oferta de análise de marketing para empresas ICP</span></td><td>Ativar B2B via valor percebido</td><td class="act-period">Jul 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Abordagem value-first para abrir relacionamento com empresas locais</li><li>Todas as iniciativas B2B foram propostas a custo zero após solicitação do cliente</li><li>Reprovadas por falta de alinhamento interno para ação comercial ativa</li></ul></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CAMPAIGN CALENDAR -->
+    <div class="cal-intro fi">
+      <span class="eyebrow">Conclusão mês a mês</span>
+      <h3 style="font-family:'Oswald',sans-serif;font-size:1.7rem;font-weight:400;color:var(--text-h);margin:.3rem 0 .75rem;line-height:1.1;">Calendário de Campanhas — 2026</h3>
+      <p style="font-size:.85rem;color:var(--text-body);max-width:500px;line-height:1.65;">Visão consolidada das ações de cada mês: campanha principal, destaque estratégico e status final de janeiro a agosto.</p>
+    </div>
+    <div class="cal-timeline fi">
+      <div class="cal-month-card">
+        <span class="cal-mo">Jan</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Onboarding &amp; Setup</div>
+        <div class="cal-det">Diagnóstico inicial, estruturação de mídia Google + Meta, integração de pixels e tracking. R$49k no primeiro mês.</div>
+        <span class="cal-tag tag-done">Concluído</span>
+      </div>
+      <div class="cal-month-card">
+        <span class="cal-mo">Fev</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Ativação de Canais</div>
+        <div class="cal-det">Google Ads e Meta Ads em plena operação. Estruturação inicial de CRM. R$37,9k em receita.</div>
+        <span class="cal-tag tag-done">Concluído</span>
+      </div>
+      <div class="cal-month-card">
+        <span class="cal-mo">Mar</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Dia da Mulher</div>
+        <div class="cal-det">Criativos sazonais para o Dia Internacional da Mulher (8/mar). Segmentação por interesse e lookalike.</div>
+        <span class="cal-tag tag-done">Concluído</span>
+      </div>
+      <div class="cal-month-card cal-peak">
+        <span class="cal-mo">Abr</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Pico de Receita</div>
+        <div class="cal-det">Venda pontual de R$22,8k em 17/abr. Total do mês: R$55,3k — evidencia potencial de ticket único alto.</div>
+        <span class="cal-tag tag-key">Pico do período</span>
+      </div>
+      <div class="cal-month-card cal-peak">
+        <span class="cal-mo">Mai</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Dia das Mães</div>
+        <div class="cal-det">Melhor mês do projeto: R$56,6k e 23 pedidos. Maior cobertura de campanhas. Dia das Mães (11/mai).</div>
+        <span class="cal-tag tag-key">Melhor mês</span>
+      </div>
+      <div class="cal-month-card">
+        <span class="cal-mo">Jun</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Namorados + CRM</div>
+        <div class="cal-det">Dia dos Namorados (12/jun). Início da régua de CRM — fluxo de boas-vindas e carrinho abandonado.</div>
+        <span class="cal-tag tag-done">Concluído</span>
+      </div>
+      <div class="cal-month-card">
+        <span class="cal-mo">Jul</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Reativação de Base</div>
+        <div class="cal-det">CRM com oferta de 5% para base inativa. Início da frente B2B — todas as propostas reprovadas.</div>
+        <span class="cal-tag tag-done">Concluído</span>
+      </div>
+      <div class="cal-month-card cal-exec">
+        <span class="cal-mo">Ago</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Dia dos Pais + Pré-BF</div>
+        <div class="cal-det">Quadro vitrine PDV. Planejamento antecipado de Black Friday iniciado. Reunião estratégica de 21/ago.</div>
+        <span class="cal-tag tag-exec">Em execução</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- ══ CENÁRIOS ══ -->
+<section id="cenarios" class="section-pad">
+  <div class="container">
+    <div class="sec-hd fi">
+      <div>
+        <span class="eyebrow">Inteligência &amp; Simulação</span>
+        <h2 class="display">Cenários de Crescimento</h2>
+      </div>
+      <div class="sec-hd-right">
+        <p class="sec-hd-desc">Diagnóstico sobre gargalos operacionais, contexto de budget e simulador de retorno calibrado com dados reais da Official Time.</p>
+      </div>
+    </div>
+
+    <div class="intel-grid fi">
+      <div class="intel-card">
+        <div class="intel-card-top">
+          <div class="intel-tag">PDV · Diagnóstico</div>
+          <p class="intel-title">Campanhas para WhatsApp — Gargalo Identificado</p>
+          <p class="intel-desc">Campanhas de WhatsApp geraram leads qualificados para o PDV, mas foram pausadas após diagnóstico: o problema estava no processo de resposta interno, não na geração de leads. Cliente oculto confirmou falhas no follow-up.</p>
+        </div>
+        <div class="intel-status">Pausado — aguarda estruturação interna</div>
+      </div>
+      <div class="intel-card">
+        <div class="intel-card-top">
+          <div class="intel-tag">Contexto · Budget</div>
+          <p class="intel-title">Dificuldade de Baixo Orçamento em Mídia</p>
+          <p class="intel-desc">Com R$2.765/mês de investimento médio, a capacidade de aprendizado algorítmico é limitada. O ROAS de 13.9× resulta de qualidade de audiência e ticket alto, não de volume. Mais budget = mais aprendizado = ROAS estável em escala.</p>
+        </div>
+        <div class="intel-status">Budget atual: R$2.765/mês · Recomendado: R$6–10k</div>
+      </div>
+      <div class="intel-card">
+        <div class="intel-card-top">
+          <div class="intel-tag">Forecast Estratégico</div>
+          <p class="intel-title">Simulação com Cenários de Investimento</p>
+          <p class="intel-desc">Projeção com cenário pessimista, conservador e otimista — calibrada com dados reais (Jan–Ago 2026, Windsor AI). Fundamenta pedido de aumento de budget com evidência histórica de ROAS 13.9×.</p>
+        </div>
+        <div class="intel-status">Simulador interativo abaixo</div>
+      </div>
+    </div>
+
+    <!-- MARKET SIZE -->
+    <div class="mkt-block fi">
+      <div class="mkt-header">
+        <h3>Mercado Brasileiro — Relógios &amp; Joalheria</h3>
+        <span style="font-size:.71rem;color:var(--text-muted);">Estimativas ABVD · ABComm 2024 · dados setoriais</span>
+      </div>
+      <div class="mkt-kpis">
+        <div class="mkt-kpi"><div class="mkt-kpi-val accent">R$ 2,2B</div><div class="mkt-kpi-label">Mercado de relógios no Brasil — varejo total estimado por ano</div></div>
+        <div class="mkt-kpi"><div class="mkt-kpi-val">+22%</div><div class="mkt-kpi-label">Crescimento anual do e-commerce de acessórios no Brasil (ABComm 2024)</div></div>
+        <div class="mkt-kpi"><div class="mkt-kpi-val">~85%</div><div class="mkt-kpi-label">Do mercado ainda compra offline — digitalização do segmento em curso</div></div>
+      </div>
+      <div class="mkt-gap-bar">
+        <div class="mkt-gap-label">Digitalização do mercado de relógios e joias no Brasil</div>
+        <div class="mkt-gap-track"><div class="mkt-gap-fill" style="width:15%;"></div></div>
+        <div class="mkt-gap-markers">
+          <span class="mkt-gap-mark hi">15% online (capturado)</span>
+          <span class="mkt-gap-mark" style="text-align:right;">85% ainda offline → janela de crescimento digital</span>
+        </div>
+      </div>
+      <div class="mkt-facts">
+        <div class="mkt-fact"><div class="mkt-fact-title">Brasil: maior produtor de gemas</div><div class="mkt-fact-body">2º maior produtor mundial de ouro e 1º em gemas coloridas — cultura de joalheria enraizada. Consumidor brasileiro valoriza e compra relógios e joias com frequência acima da média global.</div></div>
+        <div class="mkt-fact"><div class="mkt-fact-title">Jundiaí: mercado premium local</div><div class="mkt-fact-body">Um dos 10 maiores PIBs municipais do interior de SP, com renda per capita acima da média nacional. Público próximo, fiel e com disposição para produtos de valor — vantagem estrutural da Official Time.</div></div>
+        <div class="mkt-fact"><div class="mkt-fact-title">Fatia de maior margem</div><div class="mkt-fact-body">Ticket médio da Official Time: R$2.800 — 23× acima da média do e-commerce brasileiro (R$120). A loja já opera no segmento mais rentável; mais investimento amplia volume sem sacrificar margem.</div></div>
+      </div>
+      <p class="mkt-note">Com 85% das compras de relógios e joias ainda acontecendo no canal físico, o Brasil representa um dos maiores espaços de captura digital no varejo. Marcas que construírem presença online sólida agora sairão na frente na consolidação do canal — que já cresce +22% ao ano. <strong>O ROAS de 13,9× da Official Time, em orçamento de apenas R$2.765/mês, indica demanda latente não capturada</strong>: mais investimento significa alcançar mais compradores num mercado em expansão, não competir por audiência saturada.</p>
+    </div>
+
+    <!-- SIMULATOR -->
+    <div class="sim-box fi">
+      <div class="sim-header">
+        <h3>Simulador de Investimento em Mídia</h3>
+        <span style="font-size:.71rem;color:var(--text-muted);">Calibrado com dados reais Windsor AI · Jan–Ago 2026</span>
+      </div>
+      <div class="sim-input-row">
+        <span class="sim-label">Investimento mensal em mídia:</span>
+        <span class="sim-val" id="simValLabel">R$ 2.765</span>
+        <input type="range" class="sim-slider" id="simSlider" min="2000" max="20000" step="250" value="2765">
+      </div>
+      <div class="sim-cards">
+        <div class="sim-card pess">
+          <div class="sim-card-label">Pessimista</div>
+          <div class="sim-roas">ROAS 8×</div>
+          <div class="sim-rev" id="pess-rev">R$ 22.120</div>
+          <div class="sim-annual" id="pess-annual">≈ R$ 265k / ano</div>
+        </div>
+        <div class="sim-card cons">
+          <div class="sim-card-label">Conservador</div>
+          <div class="sim-roas">ROAS 12×</div>
+          <div class="sim-rev" id="cons-rev">R$ 33.180</div>
+          <div class="sim-annual" id="cons-annual">≈ R$ 398k / ano</div>
+        </div>
+        <div class="sim-card otim">
+          <div class="sim-card-label">Otimista</div>
+          <div class="sim-roas">ROAS 14×</div>
+          <div class="sim-rev" id="otim-rev">R$ 38.710</div>
+          <div class="sim-annual" id="otim-annual">≈ R$ 465k / ano</div>
+        </div>
+      </div>
+      <p class="sim-note"><strong>Referência atual:</strong> R$2.765/mês · ROAS 13.9× — já em cenário otimista. Com aumento de budget, o ROAS tende a se estabilizar enquanto a <strong>receita absoluta cresce</strong>. Pessimista = 8× (queda inicial de ROAS ao escalar — normal). Conservador = 12× (leve estabilização). Otimista = 14× (manutenção da eficiência histórica). Dados via Windsor AI.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- ══ CONCORRÊNCIA ══ -->
+<section id="novas" class="section-pad">
+  <div class="container">
+    <div class="sec-hd fi">
+      <div>
+        <span class="eyebrow">Dossiê de mercado</span>
+        <h2 class="display">O que a concorrência tem</h2>
+      </div>
+      <div class="sec-hd-right">
+        <p class="sec-hd-desc">Comparativo de features, portfólio e estratégia de preço — Official Time vs. Monte Carlo vs. Vivara. 11 lacunas identificadas, 3 diferenciais exclusivos. Agosto 2026.</p>
+      </div>
+    </div>
+
+    <div class="comp-summary fi">
+      <div class="comp-sum-item"><div class="comp-sum-val is-gap">11</div><div class="comp-sum-label">Lacunas identificadas</div><div class="comp-sum-note">features ausentes no site e operação</div></div>
+      <div class="comp-sum-item"><div class="comp-sum-val is-gap">5%</div><div class="comp-sum-label">Desconto 1ª compra</div><div class="comp-sum-note">vs. 10% dos concorrentes</div></div>
+      <div class="comp-sum-item"><div class="comp-sum-val">575</div><div class="comp-sum-label">Catálogo online</div><div class="comp-sum-note">vs. 1.574 da Monte Carlo</div></div>
+      <div class="comp-sum-item"><div class="comp-sum-val is-win">3</div><div class="comp-sum-label">Diferenciais únicos</div><div class="comp-sum-note">laboratório, foco local, 31 anos</div></div>
+    </div>
+
+    <div class="comp-grid fi">
+      <div class="comp-card card-official">
+        <div class="comp-name">Official Time</div>
+        <div class="comp-type">Relojoaria regional · Jundiaí, SP · 2 lojas físicas</div>
+        <div class="comp-stats">
+          <div class="comp-stat"><div class="comp-stat-label">Produtos online</div><div class="comp-stat-val">575</div></div>
+          <div class="comp-stat"><div class="comp-stat-label">Marcas</div><div class="comp-stat-val">15</div></div>
+          <div class="comp-stat"><div class="comp-stat-label">Parcelamento</div><div class="comp-stat-val">10×</div></div>
+          <div class="comp-stat"><div class="comp-stat-label">Boas-vindas</div><div class="comp-stat-val">5%</div></div>
+        </div>
+        <div class="comp-tags">
+          <span class="ctag ctag-win">✓ Laboratório técnico</span>
+          <span class="ctag ctag-win">✓ Atend. especializado</span>
+          <span class="ctag ctag-gap">✗ Sem fidelidade</span>
+          <span class="ctag ctag-gap">✗ Sem marketplace</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Monte Carlo</div>
+        <div class="comp-type">Rede nacional · 50+ lojas · 40+ anos de mercado</div>
+        <div class="comp-stats">
+          <div class="comp-stat"><div class="comp-stat-label">Produtos online</div><div class="comp-stat-val">1.574</div></div>
+          <div class="comp-stat"><div class="comp-stat-label">Marcas</div><div class="comp-stat-val">17+</div></div>
+          <div class="comp-stat"><div class="comp-stat-label">Parcelamento</div><div class="comp-stat-val">10×</div></div>
+          <div class="comp-stat"><div class="comp-stat-label">Boas-vindas</div><div class="comp-stat-val">10%</div></div>
+        </div>
+        <div class="comp-tags">
+          <span class="ctag ctag-win">✓ Bônus MC (fidelidade)</span>
+          <span class="ctag ctag-win">✓ Frete grátis nacional</span>
+          <span class="ctag ctag-win">✓ Linha própria</span>
+          <span class="ctag ctag-neu">BEMVINDO10</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Vivara</div>
+        <div class="comp-type">Rede premium nacional · 300+ lojas · marcas de luxo</div>
+        <div class="comp-stats">
+          <div class="comp-stat"><div class="comp-stat-label">Produtos online</div><div class="comp-stat-val">Grande</div></div>
+          <div class="comp-stat"><div class="comp-stat-label">Ticket médio</div><div class="comp-stat-val">Alto</div></div>
+          <div class="comp-stat"><div class="comp-stat-label">Parcelamento</div><div class="comp-stat-val">10×</div></div>
+          <div class="comp-stat"><div class="comp-stat-label">Frete grátis</div><div class="comp-stat-val">&gt;R$699</div></div>
+        </div>
+        <div class="comp-tags">
+          <span class="ctag ctag-win">✓ Giftback 10%</span>
+          <span class="ctag ctag-win">✓ TAG Heuer / Montblanc</span>
+          <span class="ctag ctag-win">✓ Cupons até 50% OFF</span>
+          <span class="ctag ctag-neu">Life by Vivara</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp-sub-hd fi"><span class="eyebrow">Lacunas &amp; vantagens</span></div>
+    <div class="gaps-grid fi">
+      <div class="gap-card"><div class="gap-badge">Alta prioridade</div><div class="gap-title">Programa de fidelidade inexistente</div><div class="gap-desc">Concorrentes retêm e reativam clientes automaticamente. A Official Time depende de campanhas CRM avulsas, aprovadas caso a caso, para gerar recompra.</div></div>
+      <div class="gap-card"><div class="gap-badge">Alta prioridade</div><div class="gap-title">Desconto de boas-vindas pouco competitivo</div><div class="gap-desc">5% (até R$300) vs. 10% da Monte Carlo e até 50% da Vivara. O cliente tende a preferir onde a oferta inicial é mais vantajosa.</div></div>
+      <div class="gap-card"><div class="gap-badge">Alta prioridade</div><div class="gap-title">Ausência em marketplace</div><div class="gap-desc">Monte Carlo e Vivara vendem no Mercado Livre, captando demanda ativa de usuários que já buscam as marcas que a Official Time também carrega.</div></div>
+      <div class="gap-card"><div class="gap-badge">Média prioridade</div><div class="gap-title">Frete grátis não comunicado</div><div class="gap-desc">Ambos concorrentes usam frete grátis como âncora de conversão. A Official Time não posiciona isso claramente, mesmo praticando em algumas condições.</div></div>
+      <div class="gap-card"><div class="gap-badge">Média prioridade</div><div class="gap-title">Filtros de produto muito básicos</div><div class="gap-desc">Monte Carlo filtra por mecanismo, tamanho de caixa, cor do mostrador e material da pulseira — critérios decisivos para o comprador de relógio.</div></div>
+      <div class="gap-card"><div class="gap-badge">Média prioridade</div><div class="gap-title">Marcas ausentes do portfólio</div><div class="gap-desc">Fossil, Skagen e DKNY (mid-range) estão na Monte Carlo. TAG Heuer e Montblanc (luxo) estão na Vivara. A Official Time está num intervalo sem os extremos.</div></div>
+      <div class="gap-card is-win"><div class="gap-badge win-badge">Vantagem exclusiva</div><div class="gap-title">Laboratório técnico — único na região</div><div class="gap-desc">Nenhum concorrente em Jundiaí tem estrutura de manutenção comparável. Principal diferencial de autoridade — ainda pouco explorado no marketing.</div></div>
+      <div class="gap-card is-win"><div class="gap-badge win-badge">Vantagem</div><div class="gap-title">Atendimento consultivo e especializado</div><div class="gap-desc">Monte Carlo e Vivara operam em escala nacional. A Official Time entrega experiência mais personalizada, especialmente no PDV e via WhatsApp.</div></div>
+    </div>
+
+    <div class="comp-sub-hd fi"><span class="eyebrow">Ações recomendadas</span></div>
+    <div class="recs-grid fi">
+      <div class="rec-card"><span class="rec-priority pri-high">Alta prioridade</span><h3 class="rec-title">Elevar o cupom de boas-vindas para 10%</h3><p class="rec-desc">Equiparar ao mínimo da Monte Carlo. Comunicar como "10% na 1ª compra" em vez de "até R$300 de desconto" — o percentual é mais persuasivo e padroniza com o mercado.</p><div class="rec-impact">Impacto direto na conversão e-commerce</div></div>
+      <div class="rec-card"><span class="rec-priority pri-high">Alta prioridade</span><h3 class="rec-title">Criar programa de fidelidade simples</h3><p class="rec-desc">Modelo Giftback: crédito de 10% na próxima compra. Incentiva recompra sem depender de aprovação de campanha a cada mês. Implementável no CRM atual.</p><div class="rec-impact">Aumenta LTV e reduz dependência de mídia paga</div></div>
+      <div class="rec-card"><span class="rec-priority pri-high">Alta prioridade</span><h3 class="rec-title">Testar Mercado Livre com 3–5 SKUs</h3><p class="rec-desc">Pilotar com os produtos mais buscados (Seiko, G-Shock, Casio) que já têm demanda comprovada na plataforma. Baixo custo de entrada, valida hipótese antes de escalar.</p><div class="rec-impact">Novo canal com demanda ativa já existente</div></div>
+      <div class="rec-card"><span class="rec-priority pri-mid">Média prioridade</span><h3 class="rec-title">Comunicar frete grátis com threshold claro</h3><p class="rec-desc">Definir e anunciar um valor mínimo para frete grátis (ex: acima de R$699). Exibir no topo do site e nas campanhas — incentiva o cliente a completar o carrinho.</p><div class="rec-impact">Reduz abandono de carrinho</div></div>
+      <div class="rec-card"><span class="rec-priority pri-mid">Média prioridade</span><h3 class="rec-title">Ativar atendimento consultivo via WhatsApp</h3><p class="rec-desc">Vendedoras treinadas no PDV atendem pelo WhatsApp, enviam fotos, comparam modelos. Converte o diferencial de atendimento especializado em argumento de venda digital.</p><div class="rec-impact">Diferencial competitivo vs. redes nacionais</div></div>
+      <div class="rec-card"><span class="rec-priority pri-grow">Crescimento</span><h3 class="rec-title">Explorar laboratório como hub de conteúdo</h3><p class="rec-desc">Laboratório técnico é o único diferencial que os concorrentes não têm. Séries sobre manutenção ("quando seu relógio precisa de revisão") geram autoridade e tráfego orgânico.</p><div class="rec-impact">Posicionamento de autoridade no segmento</div></div>
+    </div>
+  </div>
+</section>
+
+<script>
+// ─── Theme ────────────────────────────────────────────────
+const root = document.documentElement;
+const themeBtn = document.getElementById('themeBtn');
+function applyTheme(t) {
+  root.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'dark' ? '☀ Claro' : '☾ Escuro';
+  try { localStorage.setItem('ot-theme', t); } catch(e) {}
+  drawRevChart(); drawWatchDeco(); drawDailyChart();
+}
+try { const s = localStorage.getItem('ot-theme'); if (s) applyTheme(s); } catch(e) {}
+themeBtn.addEventListener('click', () => {
+  applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+// ─── Nav links ─────────────────────────────────────────────
+const SECS = ['capa','resultado','dossie','cenarios','novas'];
+const navLinks = document.querySelectorAll('.nav-link');
+navLinks.forEach(l => l.addEventListener('click', () => {
+  document.getElementById(l.dataset.s)?.scrollIntoView({behavior:'smooth'});
+}));
+const secObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const i = SECS.indexOf(e.target.id);
+      navLinks.forEach((l,j) => l.classList.toggle('active', j === i));
+    }
+  });
+}, {threshold: 0.3});
+SECS.forEach(id => { const el = document.getElementById(id); if(el) secObs.observe(el); });
+
+// ─── Fade-in ──────────────────────────────────────────────
+const fiObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); fiObs.unobserve(e.target); } });
+}, {threshold: 0.06});
+document.querySelectorAll('.fi').forEach(el => fiObs.observe(el));
+
+// ─── Tabs ─────────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    const tab = b.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById(tab)?.classList.add('active');
+  });
+});
+
+// ─── Detail expand ────────────────────────────────────────
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('.det-btn');
+  if (!btn) return;
+  const row = btn.closest('tr');
+  if (!row) return;
+  const detRow = row.nextElementSibling;
+  if (!detRow || !detRow.classList.contains('detail-row')) return;
+  const isOpen = detRow.classList.contains('open');
+  detRow.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? '+ Detalhes' : '− Fechar';
+});
+
+// ─── Simulator ────────────────────────────────────────────
+const slider = document.getElementById('simSlider');
+const ROAS = {pess:8, cons:12, otim:14};
+function fmtBRL(v) { return 'R$ ' + v.toLocaleString('pt-BR'); }
+function fmtAnnual(v) {
+  const a = v * 12;
+  return '≈ ' + (a >= 1000000 ? 'R$ ' + (a/1000000).toFixed(1) + 'M / ano' : 'R$ ' + (a/1000).toFixed(0) + 'k / ano');
+}
+function updateSim() {
+  const inv = parseInt(slider.value);
+  document.getElementById('simValLabel').textContent = fmtBRL(inv);
+  ['pess','cons','otim'].forEach(k => {
+    const rev = inv * ROAS[k];
+    document.getElementById(k+'-rev').textContent = fmtBRL(rev);
+    document.getElementById(k+'-annual').textContent = fmtAnnual(rev);
+  });
+}
+slider?.addEventListener('input', updateSim);
+updateSim();
+
+// ─── Token helper ─────────────────────────────────────────
+function tok(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+
+// ─── Monthly Revenue Chart ─────────────────────────────────
+const REV = [
+  {m:'Jan', v:49004.77},
+  {m:'Fev', v:37889.43},
+  {m:'Mar', v:26351.44},
+  {m:'Abr', v:55341.53},
+  {m:'Mai', v:56606.40},
+  {m:'Jun', v:28238.92},
+  {m:'Jul', v:37538.22},
+  {m:'Ago*',v:14069.04, partial:true},
+];
+
+function drawRevChart() {
+  const cvs = document.getElementById('revCvs');
+  if (!cvs) return;
+  const ctx = cvs.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const W = cvs.parentElement.clientWidth - 44;
+  const H = 220;
+  cvs.width = W * dpr; cvs.height = H * dpr;
+  cvs.style.width = W + 'px'; cvs.style.height = H + 'px';
+  ctx.scale(dpr, dpr);
+
+  const accent  = tok('--accent');
+  const accentD = tok('--accent-dim');
+  const muted   = tok('--text-muted');
+  const body    = tok('--text-body');
+  const surf2   = tok('--surface-2');
+  const border  = tok('--border-n');
+
+  const maxV = Math.max(...REV.map(d => d.v));
+  const P = {t:18, r:8, b:34, l:54};
+  const cW = W - P.l - P.r;
+  const cH = H - P.t - P.b;
+  const slot = cW / REV.length;
+  const bW = slot * 0.52;
+
+  ctx.clearRect(0, 0, W, H);
+
+  [0,.25,.5,.75,1].forEach(frac => {
+    const y = P.t + cH * (1 - frac);
+    ctx.strokeStyle = border; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(P.l, y); ctx.lineTo(W - P.r, y); ctx.stroke();
+    const val = maxV * frac;
+    ctx.fillStyle = muted; ctx.font = '10px "Inter",sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText(val >= 1000 ? 'R$' + (val/1000).toFixed(0) + 'k' : '', P.l - 6, y + 3.5);
+  });
+
+  REV.forEach((d, i) => {
+    ctx.globalAlpha = 1;
+    const x = P.l + slot * i + (slot - bW) / 2;
+    const bH = (d.v / maxV) * cH;
+    const y = P.t + cH - bH;
+    const r = 3;
+
+    if (i === 4) {
+      ctx.fillStyle = accent;
+      ctx.globalAlpha = 1;
+    } else if (d.partial) {
+      ctx.fillStyle = accentD;
+      ctx.globalAlpha = 0.55;
+    } else {
+      ctx.fillStyle = accentD;
+      ctx.globalAlpha = 0.65;
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + bW - r, y);
+    ctx.quadraticCurveTo(x + bW, y, x + bW, y + r);
+    ctx.lineTo(x + bW, y + bH);
+    ctx.lineTo(x, y + bH);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    ctx.fillStyle = (i === 4) ? accent : body;
+    ctx.font = `${i === 4 ? '500' : '400'} 10px "Inter",sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText(d.m, x + bW / 2, H - 8);
+  });
+
+  const pi = 4;
+  const px = P.l + slot * pi + slot / 2;
+  const pv = REV[pi].v;
+  const py = P.t + cH - (pv / maxV) * cH;
+  ctx.fillStyle = accent; ctx.font = '10px "Inter",sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('▲ pico', px, py - 5);
+}
+
+// ─── Watch decoration ─────────────────────────────────────
+function drawWatchDeco() {
+  const cvs = document.getElementById('watchCvs');
+  if (!cvs) return;
+  cvs.width  = cvs.offsetWidth || window.innerWidth / 2;
+  cvs.height = cvs.offsetHeight || window.innerHeight;
+  const ctx = cvs.getContext('2d');
+  const cx = cvs.width / 2, cy = cvs.height / 2;
+  const r = Math.min(cvs.width, cvs.height) * 0.36;
+  const ac = tok('--accent');
+
+  ctx.clearRect(0, 0, cvs.width, cvs.height);
+  ctx.strokeStyle = ac;
+
+  ctx.globalAlpha = 0.13; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(cx, cy, r * 1.06, 0, Math.PI*2); ctx.stroke();
+  ctx.globalAlpha = 0.07;
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
+  ctx.globalAlpha = 0.05;
+  ctx.beginPath(); ctx.arc(cx, cy, r * 0.88, 0, Math.PI*2); ctx.stroke();
+
+  for (let i = 0; i < 60; i++) {
+    const ang = (i / 60) * Math.PI * 2 - Math.PI / 2;
+    const isHour = i % 5 === 0;
+    const len = isHour ? r * 0.1 : r * 0.04;
+    ctx.globalAlpha = isHour ? 0.16 : 0.05;
+    ctx.lineWidth = isHour ? 1.5 : 0.8;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(ang) * r * 0.88, cy + Math.sin(ang) * r * 0.88);
+    ctx.lineTo(cx + Math.cos(ang) * (r * 0.88 - len), cy + Math.sin(ang) * (r * 0.88 - len));
+    ctx.stroke();
+  }
+
+  const hands = [{frac:10/12, len:0.45, w:2}, {frac:2/12, len:0.62, w:1.5}];
+  hands.forEach(h => {
+    const ang = h.frac * Math.PI * 2 - Math.PI / 2;
+    ctx.globalAlpha = 0.16; ctx.lineWidth = h.w; ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(ang) * r * h.len, cy + Math.sin(ang) * r * h.len);
+    ctx.stroke();
+  });
+
+  ctx.globalAlpha = 0.25; ctx.fillStyle = ac;
+  ctx.beginPath(); ctx.arc(cx, cy, 4, 0, Math.PI*2); ctx.fill();
+  ctx.globalAlpha = 1;
+}
+
+// ─── Daily orders chart ────────────────────────────────────
+const DAILY_ORD = [1,0,0,1,0,0,0,0,0,2,0,1,0,1,0,0,1,0,0,0,1,0,1,0,3,2,1,
+  0,1,0,0,3,0,0,0,0,1,0,0,2,0,0,0,0,0,1,1,1,0,0,0,2,0,1,0,
+  0,0,0,0,1,0,0,2,0,0,0,0,0,1,0,0,1,1,0,0,1,1,0,0,1,0,0,1,1,0,0,
+  0,0,0,1,0,0,1,0,0,0,1,1,0,2,1,0,2,0,0,0,0,0,0,0,0,0,3,0,1,0,
+  3,1,1,3,1,0,0,1,0,1,3,0,0,2,1,0,1,0,2,0,0,0,0,1,0,0,0,0,1,0,1,
+  1,0,1,2,0,0,1,0,0,2,1,0,0,0,0,0,0,2,1,0,1,1,0,0,0,0,0,0,0,0,
+  1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,2,0,1,0,0,2,
+  0,0,2,2,0,2,3,0,1];
+const MONTH_STARTS_D = [
+  {i:0,label:'Jan'},{i:27,label:'Fev'},{i:55,label:'Mar'},{i:86,label:'Abr'},
+  {i:116,label:'Mai'},{i:147,label:'Jun'},{i:177,label:'Jul'},{i:208,label:'Ago'}
+];
+const SEAS_MARKS = [
+  {i:126,label:'Dia das Mães'},{i:158,label:'Dia dos Namorados'}
+];
+function drawDailyChart() {
+  const cvs = document.getElementById('dailyCvs');
+  if (!cvs) return;
+  const ctx = cvs.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const W = Math.max(cvs.parentElement.clientWidth - 44, 100);
+  const H = 140;
+  cvs.width = W * dpr; cvs.height = H * dpr;
+  cvs.style.width = W + 'px'; cvs.style.height = H + 'px';
+  ctx.scale(dpr, dpr);
+
+  const accent = tok('--accent');
+  const muted  = tok('--text-muted');
+  const surf2  = tok('--surface-2');
+  const border = tok('--border-n');
+
+  const n = DAILY_ORD.length;
+  const P = {t:22, r:8, b:22, l:8};
+  const cW = W - P.l - P.r;
+  const cH = H - P.t - P.b;
+  const slot = cW / n;
+  const bW = Math.max(slot * 0.72, 1.2);
+
+  ctx.clearRect(0, 0, W, H);
+
+  ctx.strokeStyle = surf2; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(P.l, P.t + cH); ctx.lineTo(W - P.r, P.t + cH); ctx.stroke();
+
+  MONTH_STARTS_D.forEach(ms => {
+    const x = P.l + ms.i * slot;
+    ctx.strokeStyle = surf2; ctx.lineWidth = 1; ctx.setLineDash([2,3]);
+    ctx.beginPath(); ctx.moveTo(x, P.t); ctx.lineTo(x, P.t + cH); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = muted; ctx.font = '9px "Inter",sans-serif'; ctx.textAlign = 'left';
+    ctx.fillText(ms.label, x + 2, P.t + cH + 14);
+  });
+
+  SEAS_MARKS.forEach(sm => {
+    const x = P.l + sm.i * slot + slot / 2;
+    ctx.strokeStyle = accent; ctx.globalAlpha = 0.55; ctx.lineWidth = 1.2; ctx.setLineDash([3,3]);
+    ctx.beginPath(); ctx.moveTo(x, P.t - 2); ctx.lineTo(x, P.t + cH); ctx.stroke();
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+    ctx.fillStyle = accent; ctx.font = '8px "Inter",sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText(sm.label, x, P.t - 5);
+  });
+
+  DAILY_ORD.forEach((v, i) => {
+    if (!v) return;
+    const x = P.l + i * slot + (slot - bW) / 2;
+    const bH = (v / 3) * cH;
+    const y  = P.t + cH - bH;
+    const r  = Math.min(2, bH / 2);
+    ctx.fillStyle = accent; ctx.globalAlpha = 0.82;
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.lineTo(x + bW - r, y);
+    ctx.quadraticCurveTo(x + bW, y, x + bW, y + r);
+    ctx.lineTo(x + bW, y + bH); ctx.lineTo(x, y + bH);
+    ctx.quadraticCurveTo(x, y, x + r, y); ctx.closePath();
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  });
+}
+
+drawRevChart();
+drawDailyChart();
+drawWatchDeco();
+window.addEventListener('resize', () => { drawRevChart(); drawDailyChart(); drawWatchDeco(); });
+</script>
