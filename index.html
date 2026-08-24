@@ -472,17 +472,6 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
             <span class="seas-bar-label">0,5 ped/dia · 9/14 dias sem compra</span>
           </div>
         </div>
-        <div>
-          <span class="seas-date">Dia dos Namorados · 12 de junho</span>
-          <div class="seas-bar-block">
-            <div class="seas-bar-wrap"><div class="seas-bar" style="width:67%"></div></div>
-            <span class="seas-bar-label bld">0,6 ped/dia <span style="font-weight:400;color:var(--text-muted)">(7 dias antes)</span></span>
-          </div>
-          <div class="seas-bar-block after">
-            <div class="seas-bar-wrap"><div class="seas-bar" style="width:40%"></div></div>
-            <span class="seas-bar-label">0,4 ped/dia · 10/14 dias sem compra</span>
-          </div>
-        </div>
       </div>
       <p class="seas-rec">→ <strong>Ação recomendada:</strong> campanhas de reativação 3–7 dias após cada data sazonal, quando há menor concorrência de leilão e o ROAS tende a subir.</p>
     </div>
@@ -745,18 +734,18 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
         </div>
         <div class="sim-card cons">
           <div class="sim-card-label">Conservador</div>
-          <div class="sim-roas">ROAS 12×</div>
-          <div class="sim-rev" id="cons-rev">R$ 33.180</div>
-          <div class="sim-annual" id="cons-annual">≈ R$ 398k / ano</div>
+          <div class="sim-roas">ROAS 10×</div>
+          <div class="sim-rev" id="cons-rev">R$ 27.650</div>
+          <div class="sim-annual" id="cons-annual">≈ R$ 332k / ano</div>
         </div>
         <div class="sim-card otim">
           <div class="sim-card-label">Otimista</div>
-          <div class="sim-roas">ROAS 14×</div>
-          <div class="sim-rev" id="otim-rev">R$ 38.710</div>
-          <div class="sim-annual" id="otim-annual">≈ R$ 465k / ano</div>
+          <div class="sim-roas">ROAS 12×</div>
+          <div class="sim-rev" id="otim-rev">R$ 33.180</div>
+          <div class="sim-annual" id="otim-annual">≈ R$ 398k / ano</div>
         </div>
       </div>
-      <p class="sim-note"><strong>Referência atual:</strong> R$2.765/mês · ROAS 13.9× — já em cenário otimista. Com aumento de budget, o ROAS tende a se estabilizar enquanto a <strong>receita absoluta cresce</strong>. Pessimista = 8× (queda inicial de ROAS ao escalar — normal). Conservador = 12× (leve estabilização). Otimista = 14× (manutenção da eficiência histórica). Dados via Windsor AI.</p>
+      <p class="sim-note"><strong>Referência atual:</strong> R$2.765/mês · ROAS 13.9× — já acima do cenário otimista. Com aumento de budget, o ROAS tende a se estabilizar enquanto a <strong>receita absoluta cresce</strong>. Pessimista = 8× (queda inicial ao escalar — normal). Conservador = 10× (leve estabilização). Otimista = 12× (eficiência sustentada). Dados via Windsor AI.</p>
     </div>
   </div>
 </section>
@@ -939,7 +928,7 @@ document.addEventListener('click', function(e) {
 
 // ─── Simulator ────────────────────────────────────────────
 const slider = document.getElementById('simSlider');
-const ROAS = {pess:8, cons:12, otim:14};
+const ROAS = {pess:8, cons:10, otim:12};
 function fmtBRL(v) { return 'R$ ' + v.toLocaleString('pt-BR'); }
 function fmtAnnual(v) {
   const a = v * 12;
@@ -1113,7 +1102,7 @@ const MONTH_STARTS_D = [
   {i:116,label:'Mai'},{i:147,label:'Jun'},{i:177,label:'Jul'},{i:208,label:'Ago'}
 ];
 const SEAS_MARKS = [
-  {i:126,label:'Dia das Mães'},{i:158,label:'Dia dos Namorados'}
+  {i:126,label:'Dia das Mães'}
 ];
 function drawDailyChart() {
   const cvs = document.getElementById('dailyCvs');
