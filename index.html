@@ -195,6 +195,10 @@ canvas.chart{display:block;width:100%;}
 .td-status{white-space:nowrap;}
 .det-btn{background:none;border:1px solid var(--border-n);color:var(--text-muted);padding:2px 8px;border-radius:2px;cursor:pointer;font-size:.62rem;font-family:'Inter',sans-serif;margin-left:.5rem;transition:color .15s,border-color .15s;vertical-align:middle;}
 .det-btn:hover{color:var(--accent);border-color:var(--accent);}
+.wpp-alert-row>td{background:rgba(229,9,20,.055) !important;border-top:2px solid var(--accent) !important;}
+.wpp-alert-row .act-name{color:var(--accent);}
+.diag-open-btn{display:block;margin-top:.55rem;background:var(--accent);border:none;color:#fff;padding:4px 12px;border-radius:2px;cursor:pointer;font-size:.67rem;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.04em;text-transform:uppercase;transition:opacity .15s;}
+.diag-open-btn:hover{opacity:.85;}
 .detail-row{display:none;}
 .detail-row.open{display:table-row;}
 .detail-cell{padding:.85rem .75rem 1.1rem 2rem;font-size:.8rem;color:var(--text-body);background:var(--surface-2);border-bottom:1px solid var(--border-n) !important;line-height:1.7;}
@@ -587,39 +591,7 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
       </div>
     </div>
 
-    <!-- KPI ROW -->
-    <div class="kpi-row fi">
-      <div class="kpi-item" style="border-left:3px solid var(--accent);">
-        <span class="kpi-eyebrow">Receita Total 2026</span>
-        <div class="kpi-val" style="color:var(--accent);">R$ 305k</div>
-        <div class="kpi-note" style="color:var(--accent);font-weight:600;">+296% vs. R$77k em 2025</div>
-      </div>
-      <div class="kpi-item">
-        <span class="kpi-eyebrow">Ticket Médio</span>
-        <div class="kpi-val">R$ 2,8k</div>
-        <div class="kpi-note">+61% vs. R$1,75k em 2025</div>
-      </div>
-      <div class="kpi-item">
-        <span class="kpi-eyebrow">Volume de Pedidos</span>
-        <div class="kpi-val">108</div>
-        <div class="kpi-note">+145% vs. 44 pedidos em 2025</div>
-      </div>
-    </div>
-
-    <!-- REVENUE CHART -->
-    <div class="chart-card fi">
-      <div class="chart-card-hd">
-        <h3 class="label">Receita mensal — pedidos finalizados (e-commerce)</h3>
-        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
-          <span class="chart-note">Jan–Ago · Ago parcial</span>
-          <button id="revToggle" onclick="toggleRevMode()" style="font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:3px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;">Ver 2025 vs 2026</button>
-        </div>
-      </div>
-      <div id="revTooltip" style="display:none;font-size:.75rem;font-weight:600;color:var(--text-h);text-align:center;padding:4px 0;margin-bottom:4px;"></div>
-      <canvas id="revCvs" class="chart" height="220" style="cursor:pointer;"></canvas>
-    </div>
-
-    <!-- ROAS BENCHMARK -->
+    <!-- ROAS BENCHMARK (immediately after the 13.9× band) -->
     <div class="chart-card fi">
       <div class="chart-card-hd">
         <h3 class="label">ROAS — Official Time vs benchmark do nicho</h3>
@@ -644,6 +616,38 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
       <p class="roas-note">Escala 0–20×. R$22.122 investidos → R$307.127 atribuídos. A Official Time opera <strong>39% acima do teto do segmento</strong>, já em cenário otimista — o que reforça a tese de aumentar o budget para crescer receita absoluta mantendo eficiência.</p>
     </div>
 
+    <!-- KPI ROW -->
+    <div class="kpi-row fi">
+      <div class="kpi-item" style="border-left:3px solid var(--accent);">
+        <span class="kpi-eyebrow">Receita Total 2026</span>
+        <div class="kpi-val" style="color:var(--accent);">R$ 305k</div>
+        <div class="kpi-note" style="color:var(--accent);font-weight:600;">+296% vs. R$77k em 2025</div>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-eyebrow">Ticket Médio</span>
+        <div class="kpi-val">R$ 2,8k</div>
+        <div class="kpi-note">+61% vs. R$1,75k em 2025</div>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-eyebrow">Volume de Pedidos</span>
+        <div class="kpi-val">108</div>
+        <div class="kpi-note">+145% vs. 44 pedidos em 2025</div>
+      </div>
+    </div>
+
+    <!-- REVENUE CHART (MoM) -->
+    <div class="chart-card fi">
+      <div class="chart-card-hd">
+        <h3 class="label">Receita mensal — pedidos finalizados (e-commerce)</h3>
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
+          <span class="chart-note">Jan–Ago · Ago parcial</span>
+          <button id="revToggle" onclick="toggleRevMode()" style="font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:3px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;">Ver 2025 vs 2026</button>
+        </div>
+      </div>
+      <div id="revTooltip" style="display:none;font-size:.75rem;font-weight:600;color:var(--text-h);text-align:center;padding:4px 0;margin-bottom:4px;"></div>
+      <canvas id="revCvs" class="chart" height="220" style="cursor:pointer;"></canvas>
+    </div>
+
     <!-- DAILY ORDERS -->
     <div class="chart-card fi pres-hide" style="margin-top:1.25rem;">
       <div class="chart-card-hd">
@@ -656,7 +660,7 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
 
     <!-- SEASONAL INSIGHT -->
     <div class="seasonal-insight fi pres-hide">
-      <div class="seas-title">Hipótese confirmada — hiato de compras pós-data sazonal</div>
+      <div class="seas-title">Hiato de compras pós-data sazonal</div>
       <p class="seas-desc">Após datas comemorativas, os pedidos caem consistentemente nos 14 dias seguintes. O cliente que comprou não retorna imediatamente, e novos clientes levam semanas para reiniciar o ciclo de busca ativa.</p>
       <div class="seas-cases">
         <div>
@@ -746,7 +750,7 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Mapeamento completo do negócio: público, concorrência e canais ativos</li><li>Definição de identidade visual nas campanhas e tom de comunicação</li><li>Estruturação do funil digital integrado ao PDV</li></ul></td></tr>
             <tr><td><span class="act-name">Black Friday + Natal integrados</span><span class="act-obj">Campanha cross-channel com criativos e ofertas</span></td><td>Gerar venda no e-com e apoiar PDV</td><td class="act-period">Nov – Dez 25</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Campanha integrada PDV + e-com com KVs aprovados e criativos produzidos</li><li>Cobertura de Black Friday com antecedência de 2 semanas</li><li>Natal com retargeting de quem visitou o site durante a BF</li></ul></td></tr>
-            <tr><td><span class="act-name">Campanhas para WhatsApp — Gargalo Identificado</span><span class="act-obj">Leads para atendimento e convite ao PDV · cliente oculto realizado</span></td><td>Ativar funil local via atendimento consultivo</td><td class="act-period">—</td><td class="td-status"><span class="badge s-done">✓ Executada (pausada)</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="wpp-alert-row"><td><span class="act-name">Campanhas para WhatsApp — Gargalo Identificado</span><span class="act-obj">Leads para atendimento e convite ao PDV · cliente oculto realizado</span></td><td>Ativar funil local via atendimento consultivo</td><td class="act-period">—</td><td class="td-status"><span class="badge s-done">✓ Executada (pausada)</span><button class="det-btn">+ Detalhes</button><button class="diag-open-btn" onclick="openDiag()">▶ Ver Diagnóstico</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Campanhas geraram leads qualificados — pausadas após diagnóstico de gargalo</li><li>Cliente oculto confirmou: o problema está no processo de resposta, não na geração de leads</li><li><strong>Insight crítico:</strong> a Official Time demorou 22h para responder vs. 3 minutos da Vivara</li><li style="list-style:none;padding-left:.5rem;"><button class="wpp-btn" onclick="document.getElementById('wppOverlay').classList.add('open')">Ver comparativo de atendimento →</button></li><li><strong>Recomendação:</strong> estruturar protocolo de resposta antes de reativar campanhas</li></ul></td></tr>
             <tr><td><span class="act-name">31 anos + Mês do Cliente</span><span class="act-obj">KV aprovado, criativos em desdobramento</span></td><td>Celebração + venda integrada</td><td class="act-period">Ago – Set 26</td><td class="td-status"><span class="badge s-dev">⟳ Em desenvolvimento</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>KV aprovado — desdobramentos em produção (PDV, e-com e social)</li><li>Criativos finais previstos para início de setembro</li><li>Ativação CRM planejada junto com lançamento da campanha</li></ul></td></tr>
@@ -1120,19 +1124,32 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
       <div class="diag-slide" id="dslide-1">
         <p class="eyebrow" style="margin-bottom:.5rem;">Slide 2 de 4 · Official Time — atendimento registrado</p>
         <h2 class="diag-h" style="color:var(--s-no-fg);">Official Time · Diagnóstico: Atendimento Quebrado</h2>
-        <p class="diag-body" style="margin-bottom:1rem;">Solicitação enviada: "Quero ver um relógio de Dia dos Pais para meu pai, até R$2.000." Resultado: primeira resposta chegou após 22 horas. Sem personalização, sem apresentação de produto.</p>
-        <div style="background:#111B21;border-radius:4px;padding:.85rem .75rem;display:flex;flex-direction:column;gap:.35rem;max-height:320px;overflow-y:auto;">
-          <div style="text-align:center;margin:.4rem auto;"><span style="background:#1F2C34;color:#8696A0;font-size:.66rem;padding:3px 12px;border-radius:6px;display:inline-block;">Hoje 13:32</span></div>
-          <div style="max-width:84%;background:#6B44B2;color:#fff;border-radius:8px 8px 0 8px;align-self:flex-end;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;">Oi, eu quero ver um relógio de dia dos pais pro meu pai, na faixa de até 2 mil reais<span style="font-size:.6rem;color:rgba(255,255,255,.55);display:block;text-align:right;margin-top:.2rem;">13:48 ✓✓</span></div>
-          <div style="max-width:84%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;">Everton Official Time agradece seu contato. Como podemos ajudar?<span style="font-size:.6rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">13:34</span></div>
-          <div style="max-width:84%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;">Olá tudo bem?<span style="font-size:.6rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">13:48</span></div>
-          <div style="max-width:84%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;word-break:break-all;font-size:.73rem;color:#53BDEB;">https://www.lojaofficialtime.com.br/<span style="font-size:.6rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;color:#8696A0;">13:48</span></div>
-          <div style="max-width:84%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;">Selecionei até 2.000 — veja se gosta de algum<span style="font-size:.6rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">13:50</span></div>
-          <div style="text-align:center;margin:.8rem auto;font-size:.7rem;color:#8696A0;font-style:italic;">— conversa encerrada sem resposta do cliente —</div>
+        <p class="diag-body" style="margin-bottom:.75rem;">Solicitação: relógio Dia dos Pais até R$2.000. A loja respondeu com dois links genéricos, sem cumprimentar, sem perguntar nada, sem apresentar produto.</p>
+        <div style="background:#111B21;border-radius:6px;overflow:hidden;">
+          <!-- header bar -->
+          <div style="background:#1F2C34;padding:.5rem .75rem;display:flex;align-items:center;gap:.6rem;">
+            <div style="width:34px;height:34px;border-radius:50%;background:#2C3E50;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#8696A0;flex-shrink:0;">OT</div>
+            <div>
+              <div style="font-size:.78rem;font-weight:600;color:#E9EDEF;">+55 11 91949-4668</div>
+              <div style="font-size:.63rem;color:#8696A0;">Toque para adicionar aos contatos</div>
+            </div>
+          </div>
+          <div style="padding:.75rem .65rem;display:flex;flex-direction:column;gap:.38rem;max-height:270px;overflow-y:auto;">
+            <div style="text-align:center;margin:.2rem auto .3rem;"><span style="background:#1F2C34;color:#8696A0;font-size:.63rem;padding:3px 12px;border-radius:6px;display:inline-block;">sex., 24 de jul.</span></div>
+            <div style="max-width:82%;background:#6B44B2;color:#fff;border-radius:8px 8px 0 8px;align-self:flex-end;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">Link:<br>Olá! Posso ter mais informações sobre isso?<span style="font-size:.58rem;color:rgba(255,255,255,.5);display:block;text-align:right;margin-top:.2rem;">13:27 ✓✓</span></div>
+            <div style="max-width:82%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">Everton Official Time agradece seu contato. Como podemos ajudar?<span style="font-size:.58rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">13:34</span></div>
+            <div style="max-width:82%;background:#6B44B2;color:#fff;border-radius:8px 8px 0 8px;align-self:flex-end;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">Oi, eu quero ver um relógio de dia dos pais pro meu pai, na faixa de até 2 mil reais<span style="font-size:.58rem;color:rgba(255,255,255,.5);display:block;text-align:right;margin-top:.2rem;">13:48 ✓✓</span></div>
+            <div style="max-width:82%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">Olá tudo bem?<span style="font-size:.58rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">13:48</span></div>
+            <div style="max-width:82%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.5rem .75rem .35rem;font-size:.73rem;line-height:1.5;"><span style="color:#53BDEB;word-break:break-all;">https://www.lojaofficialtime.com.br/</span><span style="font-size:.58rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">13:48</span></div>
+            <div style="max-width:82%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.5rem .75rem .35rem;font-size:.73rem;line-height:1.5;"><span style="color:#53BDEB;word-break:break-all;">https://www.lojaofficialtime.com.br/relogios?loja=1252243&palavra_busca=&prices%5B%5D=168.99%2C2000&order=2&categoria=65</span><span style="font-size:.58rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">13:49</span></div>
+            <div style="max-width:82%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">Selecionei ate 2.000<span style="font-size:.58rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">13:50</span></div>
+            <div style="max-width:82%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">Veja se gosta de algum<span style="font-size:.58rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">13:50</span></div>
+            <div style="text-align:center;margin:.5rem auto;font-size:.65rem;color:#8696A0;font-style:italic;">— sem resposta do cliente —</div>
+          </div>
         </div>
-        <div style="margin-top:.9rem;padding:.7rem 1rem;background:var(--s-no-bg);border-left:3px solid var(--s-no-fg);">
-          <span style="font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--s-no-fg);">✗ Diagnóstico</span>
-          <p style="font-size:.78rem;color:var(--text-body);line-height:1.65;margin-top:.3rem;"><strong style="color:var(--text-h)">7+ minutos para primeira resposta.</strong> Atendimento sem personalização — dois links e uma frase. Nenhum produto apresentado. Sem fechamento. Conversa encerrou sem engajamento.</p>
+        <div style="margin-top:.8rem;padding:.65rem .9rem;background:var(--s-no-bg);border-left:3px solid var(--s-no-fg);">
+          <span style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--s-no-fg);">✗ Diagnóstico</span>
+          <p style="font-size:.76rem;color:var(--text-body);line-height:1.65;margin-top:.25rem;"><strong style="color:var(--text-h)">22h para retornar ao primeiro contato.</strong> Sem personalização: dois links e duas frases. Nenhum produto apresentado, nenhuma pergunta feita. Conversa encerrou sem engajamento.</p>
         </div>
       </div>
 
@@ -1140,25 +1157,38 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
       <div class="diag-slide" id="dslide-2">
         <p class="eyebrow" style="margin-bottom:.5rem;">Slide 3 de 4 · Vivara — benchmark de atendimento</p>
         <h2 class="diag-h" style="color:var(--s-exec-fg);">Vivara · Bot Vicky — funil completo em 7 minutos</h2>
-        <p class="diag-body" style="margin-bottom:1rem;">Mesmo perfil, mesma solicitação. A Vivara respondeu em 3 minutos com um bot (Vicky) que coletou dados, apresentou 3 produtos com preços e botão de carrinho — tudo sem intervenção humana.</p>
-        <div style="background:#111B21;border-radius:4px;padding:.85rem .75rem;display:flex;flex-direction:column;gap:.35rem;max-height:320px;overflow-y:auto;">
-          <div style="max-width:84%;background:#6B44B2;color:#fff;border-radius:8px 8px 0 8px;align-self:flex-end;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;">quero comprar um relógio para meu marido de presente de aniversário, até R$3.000<span style="font-size:.6rem;color:rgba(255,255,255,.55);display:block;text-align:right;margin-top:.2rem;">10:18 ✓✓</span></div>
-          <div style="max-width:84%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;">Selecionei alguns relógios masculinos elegantes para presentear, todos dentro do seu orçamento. Gostou de algum?<span style="font-size:.6rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">10:18</span></div>
-          <div style="background:#1F2C34;border-radius:8px;padding:.65rem .85rem;max-width:84%;align-self:flex-start;margin:.15rem 0;">
-            <div style="font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#53BDEB;margin-bottom:.3rem;">Opção 1</div>
-            <div style="font-size:.77rem;font-weight:600;color:#E9EDEF;line-height:1.35;margin-bottom:.2rem;">Relógio Nautica Pacific Beach Masculino Aço</div>
-            <div style="font-size:.82rem;color:#00A884;font-weight:700;">R$ 990,00</div>
+        <p class="diag-body" style="margin-bottom:.75rem;">Mesmo perfil, solicitação equivalente. A Vivara respondeu em 3 minutos com bot (Vicky): coletou nome, e-mail e CPF, depois apresentou produtos com foto e preço — tudo sem intervenção humana.</p>
+        <div style="background:#111B21;border-radius:6px;overflow:hidden;">
+          <!-- Vivara brand card -->
+          <div style="background:#fff;padding:.6rem .75rem;display:flex;align-items:center;gap:.75rem;border-bottom:1px solid #eee;">
+            <div style="width:36px;height:36px;border-radius:50%;background:#E8B4A0;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.55rem;font-weight:900;color:#6B3A2A;letter-spacing:-.02em;">VIVARA</div>
+            <div>
+              <div style="font-size:.78rem;font-weight:700;color:#222;">Vivara ✓</div>
+              <div style="font-size:.62rem;color:#666;">Conta comercial · cadastrada desde set. de 2025 · 1,3M seguidores</div>
+            </div>
           </div>
-          <div style="background:#1F2C34;border-radius:8px;padding:.65rem .85rem;max-width:84%;align-self:flex-start;margin:.15rem 0;">
-            <div style="font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#53BDEB;margin-bottom:.3rem;">Opção 2</div>
-            <div style="font-size:.77rem;font-weight:600;color:#E9EDEF;line-height:1.35;margin-bottom:.2rem;">Relógio Calvin Klein CK Empower Masculino em Aço Azul</div>
-            <div style="font-size:.82rem;color:#00A884;font-weight:700;">R$ 1.450,00</div>
+          <div style="padding:.75rem .65rem;display:flex;flex-direction:column;gap:.38rem;max-height:255px;overflow-y:auto;">
+            <div style="max-width:82%;background:#6B44B2;color:#fff;border-radius:8px 8px 0 8px;align-self:flex-end;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">Olá! Gostaria de atendimento personalizado para encontrar a joia ideal<span style="font-size:.58rem;color:rgba(255,255,255,.5);display:block;text-align:right;margin-top:.2rem;">10:15 ✓✓</span></div>
+            <div style="max-width:82%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">Olá, Luma Lorenzon! Sou a Vicky, sua assistente virtual exclusiva da Vivara. É um prazer te receber aqui! ✨ Seu protocolo é <span style="color:#53BDEB;">773987694</span>.<span style="font-size:.58rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">10:15</span></div>
+            <div style="max-width:82%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">Por gentileza, poderia me informar seu <strong>e-mail</strong>?<span style="font-size:.58rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">10:15</span></div>
+            <div style="max-width:82%;background:#6B44B2;color:#fff;border-radius:8px 8px 0 8px;align-self:flex-end;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">lumalorenzon@gmail.com<span style="font-size:.58rem;color:rgba(255,255,255,.5);display:block;text-align:right;margin-top:.2rem;">10:16 ✓✓</span></div>
+            <div style="max-width:82%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">Poderia me informar seu <strong>CPF</strong>?<span style="font-size:.58rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">10:16</span></div>
+            <div style="max-width:82%;background:#6B44B2;color:#fff;border-radius:8px 8px 0 8px;align-self:flex-end;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">40780182898<span style="font-size:.58rem;color:rgba(255,255,255,.5);display:block;text-align:right;margin-top:.2rem;">10:17 ✓✓</span></div>
+            <div style="max-width:82%;background:#6B44B2;color:#fff;border-radius:8px 8px 0 8px;align-self:flex-end;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">quero comprar um relógio para o meu marido de presente de aniversário, o preço seria de até 3 mil reais<span style="font-size:.58rem;color:rgba(255,255,255,.5);display:block;text-align:right;margin-top:.2rem;">10:18 ✓✓</span></div>
+            <div style="max-width:82%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.5rem .75rem .35rem;font-size:.76rem;line-height:1.5;">Selecionei alguns relógios masculinos elegantes e sofisticados para presentear seu marido no aniversário, todos dentro do seu orçamento de até R$3.000.<span style="font-size:.58rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">10:18</span></div>
+            <div style="background:#1F2C34;border-radius:8px;padding:.55rem .75rem;max-width:84%;align-self:flex-start;display:flex;gap:.6rem;align-items:center;">
+              <div style="width:38px;height:38px;border-radius:4px;background:#2A4060;display:flex;align-items:center;justify-content:center;font-size:.55rem;color:#8696A0;flex-shrink:0;">⌚</div>
+              <div><div style="font-size:.72rem;font-weight:600;color:#E9EDEF;">Relógio Nautica Pacific Beach Masculino Aço</div><div style="font-size:.8rem;color:#00A884;font-weight:700;margin-top:.15rem;">R$ 990,00</div></div>
+            </div>
+            <div style="background:#1F2C34;border-radius:8px;padding:.55rem .75rem;max-width:84%;align-self:flex-start;display:flex;gap:.6rem;align-items:center;">
+              <div style="width:38px;height:38px;border-radius:4px;background:#1A2540;display:flex;align-items:center;justify-content:center;font-size:.55rem;color:#8696A0;flex-shrink:0;">⌚</div>
+              <div><div style="font-size:.72rem;font-weight:600;color:#E9EDEF;">Relógio Calvin Klein CK Empower Masculino em Aço Azul</div><div style="font-size:.8rem;color:#00A884;font-weight:700;margin-top:.15rem;">R$ 1.450,00</div></div>
+            </div>
           </div>
-          <div style="align-self:flex-start;margin:.1rem 0;"><span style="display:inline-block;border:1px solid #00A884;color:#00A884;padding:.28rem .8rem;border-radius:20px;font-size:.71rem;">Adicionar ao carrinho →</span></div>
         </div>
-        <div style="margin-top:.9rem;padding:.7rem 1rem;background:var(--s-exec-bg);border-left:3px solid var(--s-exec-fg);">
-          <span style="font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--s-exec-fg);">✓ Benchmark</span>
-          <p style="font-size:.78rem;color:var(--text-body);line-height:1.65;margin-top:.3rem;"><strong style="color:var(--text-h)">3 minutos para primeira resposta, funil completo em 7 minutos.</strong> Bot coletou nome, e-mail e CPF. Apresentou 3 produtos com foto, preço e botão de carrinho. Engajamento total — o comprador não precisou ir ao site.</p>
+        <div style="margin-top:.8rem;padding:.65rem .9rem;background:var(--s-exec-bg);border-left:3px solid var(--s-exec-fg);">
+          <span style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--s-exec-fg);">✓ Benchmark</span>
+          <p style="font-size:.76rem;color:var(--text-body);line-height:1.65;margin-top:.25rem;"><strong style="color:var(--text-h)">3 minutos para primeira resposta, funil completo em 7 minutos.</strong> Bot coletou nome, e-mail e CPF. Apresentou produtos com preço e imagem. Engajamento total — o comprador não precisou ir ao site.</p>
         </div>
       </div>
 
