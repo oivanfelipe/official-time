@@ -363,6 +363,64 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
 @keyframes accentPulse{0%,100%{box-shadow:0 0 0 0 rgba(229,9,20,0);}60%{box-shadow:0 0 0 8px rgba(229,9,20,0.08);}}
 .roas-hero{animation:accentPulse 3s ease-in-out 1s 2;}
 
+/* ── PDV DIAG BUTTON ── */
+.pdv-diag-row{margin-bottom:1.75rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.pdv-diag-btn{display:inline-flex;align-items:center;gap:.55rem;padding:.65rem 1.4rem;background:var(--accent);color:#fff;border:none;font-family:'Oswald',sans-serif;font-size:.88rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:opacity .15s;}
+.pdv-diag-btn:hover{opacity:.85;}
+.pdv-diag-note{font-size:.75rem;color:var(--text-muted);}
+
+/* ── DIAG CAROUSEL MODAL ── */
+.diag-overlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.94);backdrop-filter:blur(8px);padding:1rem;align-items:center;justify-content:center;}
+.diag-overlay.open{display:flex;}
+.diag-modal{width:100%;max-width:940px;max-height:92vh;display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--border-n);}
+.diag-modal-hd{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border-n);flex-shrink:0;}
+.diag-modal-title{font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:700;color:var(--text-h);letter-spacing:.04em;text-transform:uppercase;}
+.diag-modal-sub{font-size:.67rem;color:var(--text-muted);margin-top:.15rem;}
+.diag-close{background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;padding:.2rem .5rem;line-height:1;}
+.diag-close:hover{color:var(--accent);}
+.diag-slides{flex:1;overflow:hidden;position:relative;min-height:0;}
+.diag-slide{display:none;padding:1.8rem 2rem;overflow-y:auto;height:100%;box-sizing:border-box;}
+.diag-slide.active{display:block;}
+.diag-nav{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.5rem;border-top:1px solid var(--border-n);background:var(--surface);flex-shrink:0;}
+.diag-prev,.diag-next{background:none;border:1px solid var(--border-n);color:var(--text-muted);padding:.32rem .9rem;cursor:pointer;font-size:.72rem;font-family:'Inter',sans-serif;letter-spacing:.04em;transition:color .15s,border-color .15s;}
+.diag-prev:hover,.diag-next:hover,.diag-prev:not(:disabled):hover,.diag-next:not(:disabled):hover{color:var(--accent);border-color:var(--accent);}
+.diag-prev:disabled,.diag-next:disabled{opacity:.3;cursor:default;}
+.diag-dots{display:flex;gap:.45rem;align-items:center;}
+.diag-dot-btn{width:8px;height:8px;border-radius:50%;background:var(--border-n);border:none;cursor:pointer;padding:0;transition:background .2s;}
+.diag-dot-btn.active{background:var(--accent);}
+.diag-counter{font-size:.68rem;color:var(--text-muted);font-variant-numeric:tabular-nums;}
+/* slide content helpers */
+.diag-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);margin:1.25rem 0;}
+.diag-stat-cell{background:var(--surface-2);padding:1.1rem 1.2rem;}
+.diag-stat-val{font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;line-height:1;margin-bottom:.25rem;font-variant-numeric:tabular-nums;}
+.diag-stat-val.bad{color:var(--s-no-fg);}
+.diag-stat-val.good{color:var(--s-exec-fg);}
+.diag-stat-lbl{font-size:.69rem;color:var(--text-muted);line-height:1.4;}
+.diag-h{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text-h);margin-bottom:.6rem;line-height:1.2;}
+.diag-body{font-size:.82rem;color:var(--text-body);line-height:1.75;}
+.diag-rec-list{list-style:none;display:flex;flex-direction:column;gap:.75rem;margin-top:1.1rem;}
+.diag-rec-list li{display:flex;gap:.7rem;font-size:.81rem;color:var(--text-body);line-height:1.6;}
+.diag-rec-list li::before{content:'→';color:var(--accent);font-weight:700;flex-shrink:0;}
+.diag-rec-list li strong{color:var(--text-h);}
+.diag-quote{border-left:3px solid var(--accent);background:var(--surface);padding:.9rem 1.2rem;margin:1rem 0;font-size:.82rem;color:var(--text-body);line-height:1.7;}
+.diag-quote strong{color:var(--text-h);}
+
+/* ── BUDGET CONTEXT ── */
+.budget-ctx{background:var(--surface);border:1px solid var(--border-n);border-left:3px solid var(--accent);padding:1.6rem 2rem;margin-bottom:1.25rem;}
+.budget-ctx-hd{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:.8rem;}
+.budget-ctx-tag{font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);padding:2px 10px;border-radius:20px;}
+.budget-ctx-title{font-family:'Oswald',sans-serif;font-size:1.25rem;font-weight:700;color:var(--text-h);}
+.budget-ctx-body{font-size:.83rem;color:var(--text-body);line-height:1.75;}
+.budget-ctx-foot{margin-top:.9rem;padding-top:.75rem;border-top:1px solid var(--border-n);font-size:.73rem;color:var(--text-muted);}
+
+/* ── PRESENTATION MODE ── */
+.pres-btn{background:none;border:1px solid var(--border-n);color:var(--text-muted);padding:3px 10px;border-radius:2px;cursor:pointer;font-size:.65rem;font-family:'Inter',sans-serif;letter-spacing:.04em;transition:color .15s,border-color .15s;}
+.pres-btn.on{color:var(--accent);border-color:var(--accent);}
+.pres-btn:hover{color:var(--accent);border-color:var(--accent);}
+body.pres-mode .pres-hide{display:none!important;}
+body.pres-mode .section-pad{padding:2rem 0;}
+body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
+
 /* ── SECTION DIVIDER ── */
 .sec-divider{height:1px;background:var(--border-n);}
 
@@ -432,6 +490,7 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
     <button class="nav-link" data-s="novas" data-idx="4">Concorrência + Investimento</button>
   </div>
   <div class="nav-right">
+    <button class="pres-btn" id="presBtn" title="Modo Apresentação (P) — oculta gráficos secundários">Apresentação</button>
     <button class="nav-fs" id="fsBtn" title="Tela cheia (F)">⛶</button>
     <button class="nav-theme" id="themeBtn">☀ Tema</button>
   </div>
@@ -586,7 +645,7 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
     </div>
 
     <!-- DAILY ORDERS -->
-    <div class="chart-card fi" style="margin-top:1.25rem;">
+    <div class="chart-card fi pres-hide" style="margin-top:1.25rem;">
       <div class="chart-card-hd">
         <h3 class="label">Compras diárias — pedidos finalizados</h3>
         <span class="chart-note">5/jan – 9/ago 2026 · 217 dias · 64,5% sem nenhuma compra</span>
@@ -596,7 +655,7 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
     </div>
 
     <!-- SEASONAL INSIGHT -->
-    <div class="seasonal-insight fi">
+    <div class="seasonal-insight fi pres-hide">
       <div class="seas-title">Hipótese confirmada — hiato de compras pós-data sazonal</div>
       <p class="seas-desc">Após datas comemorativas, os pedidos caem consistentemente nos 14 dias seguintes. O cliente que comprou não retorna imediatamente, e novos clientes levam semanas para reiniciar o ciclo de busca ativa.</p>
       <div class="seas-cases">
@@ -630,6 +689,12 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
       <div class="sec-hd-right">
         <p class="sec-hd-desc">Todas as ações propostas, aprovadas e reprovadas desde o início do projeto — com detalhes expandíveis. Status atualizado em 21/08/2026.</p>
       </div>
+    </div>
+
+    <!-- PDV DIAGNÓSTICO -->
+    <div class="pdv-diag-row fi">
+      <button class="pdv-diag-btn" onclick="openDiag()">▶ Análise PDV — Diagnóstico de Atendimento</button>
+      <span class="pdv-diag-note">Cliente oculto realizado · comparativo Official Time vs. Vivara · 4 slides</span>
     </div>
 
     <div class="tab-nav fi">
@@ -827,36 +892,8 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
       </div>
     </div>
 
-    <div class="intel-grid fi">
-      <div class="intel-card">
-        <div class="intel-card-top">
-          <div class="intel-tag">PDV · Diagnóstico</div>
-          <p class="intel-title">WhatsApp: Gargalo no Atendimento</p>
-          <p class="intel-desc">Cliente oculto revelou 22h de espera para resposta vs. 3 minutos da Vivara. Oportunidade está em estruturar o protocolo. Detalhes completos no Dossiê · aba PDV.</p>
-          <button class="wpp-btn" onclick="document.getElementById('wppOverlay').classList.add('open')">Ver comparativo →</button>
-        </div>
-        <div class="intel-status">Ver análise completa no Dossiê · aba PDV</div>
-      </div>
-      <div class="intel-card">
-        <div class="intel-card-top">
-          <div class="intel-tag">Contexto · Budget</div>
-          <p class="intel-title">Dificuldade de Baixo Orçamento em Mídia</p>
-          <p class="intel-desc">Com R$2.765/mês de investimento médio, a capacidade de aprendizado algorítmico é limitada. O ROAS de 13.9× resulta de qualidade de audiência e ticket alto, não de volume. Mais budget = mais aprendizado = ROAS estável em escala.</p>
-        </div>
-        <div class="intel-status">Budget atual: R$2.765/mês · Recomendado: R$6–10k</div>
-      </div>
-      <div class="intel-card">
-        <div class="intel-card-top">
-          <div class="intel-tag">Forecast Estratégico</div>
-          <p class="intel-title">Simulação com Cenários de Investimento</p>
-          <p class="intel-desc">Projeção com cenário pessimista, conservador e otimista — calibrada com dados reais (Jan–Ago 2026, Windsor AI). Fundamenta pedido de aumento de budget com evidência histórica de ROAS 13.9×.</p>
-        </div>
-        <div class="intel-status">Simulador interativo abaixo</div>
-      </div>
-    </div>
-
     <!-- MARKET SIZE -->
-    <div class="mkt-block fi">
+    <div class="mkt-block fi pres-hide">
       <div class="mkt-header">
         <h3>Mercado Brasileiro — Relógios &amp; Joalheria</h3>
         <span style="font-size:.71rem;color:var(--text-muted);">Estimativas ABVD · ABComm 2024 · dados setoriais</span>
@@ -998,8 +1035,18 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
       <div class="rec-card"><span class="rec-priority pri-grow">Crescimento</span><h3 class="rec-title">Iniciar blog com guias de relógio</h3><p class="rec-desc">A Relojoaria Impala já captura tráfego orgânico via blog (Seiko, G-Shock, Citizen). 4–6 artigos/ano nos mesmos termos, com foco em Jundiaí e interior SP, compete diretamente por essa demanda a custo zero.</p><div class="rec-impact">SEO orgânico — tráfego sem custo de mídia</div></div>
     </div>
 
-    <!-- INVESTMENT ASK — last thing in the presentation -->
-    <div class="sim-box fi" style="margin-top:2.5rem;">
+    <!-- BUDGET CONTEXT -->
+    <div class="budget-ctx fi">
+      <div class="budget-ctx-hd">
+        <span class="budget-ctx-tag">Contexto · Budget</span>
+        <span class="budget-ctx-title">O Limite do Orçamento Atual</span>
+      </div>
+      <p class="budget-ctx-body">Com <strong style="color:var(--text-h)">R$2.765/mês</strong> de investimento médio em mídia, a capacidade de aprendizado algorítmico do Meta e Google é limitada. O ROAS de 13.9× que entregamos resulta de qualidade de audiência e ticket alto — <em>não</em> de volume de budget. Algoritmos de alta performance precisam de volume de dados para otimizar: mais budget significa mais eventos de conversão por semana, ciclo de aprendizado mais curto e ROAS estável mesmo em escala. Monte Carlo e Vivara operam com budget 3× a 10× maior — e a Official Time tem ROAS superior. Essa é a principal alavanca disponível.</p>
+      <div class="budget-ctx-foot">Budget atual: <strong>R$2.765/mês</strong> · Recomendado para escala eficiente: <strong style="color:var(--accent)">R$6.000 – R$10.000/mês</strong> · Simulação abaixo usa dados reais Windsor AI</div>
+    </div>
+
+    <!-- INVESTMENT SIMULATOR -->
+    <div class="sim-box fi">
       <div class="sim-header">
         <h3>Proposta de Aumento de Investimento em Mídia</h3>
         <span style="font-size:.71rem;color:var(--text-muted);">Calibrado com dados reais Windsor AI · Jan–Ago 2026</span>
@@ -1034,6 +1081,117 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
     </div>
   </div>
 </section>
+
+<!-- ══ DIAGNÓSTICO PDV CAROUSEL ══ -->
+<div class="diag-overlay" id="diagOverlay">
+  <div class="diag-modal">
+    <div class="diag-modal-hd">
+      <div>
+        <div class="diag-modal-title">Diagnóstico PDV — Análise de Atendimento</div>
+        <div class="diag-modal-sub">Cliente oculto · WhatsApp · Agosto 2026</div>
+      </div>
+      <button class="diag-close" onclick="closeDiag()">×</button>
+    </div>
+    <div class="diag-slides" id="diagSlides">
+
+      <!-- SLIDE 1: SUMÁRIO -->
+      <div class="diag-slide active" id="dslide-0">
+        <p class="eyebrow" style="margin-bottom:.5rem;">Slide 1 de 4 · Sumário executivo</p>
+        <h2 class="diag-h">Cliente oculto revelou gargalo crítico no atendimento via WhatsApp</h2>
+        <p class="diag-body">Em agosto de 2026, realizamos um cliente oculto simultâneo na Official Time e na Vivara pelo WhatsApp, com o mesmo perfil de comprador e mesma solicitação. Os resultados mostram que o problema de conversão não está na geração de leads — está no protocolo de resposta.</p>
+        <div class="diag-stat-row">
+          <div class="diag-stat-cell">
+            <div class="diag-stat-val bad">22h</div>
+            <div class="diag-stat-lbl">Tempo de resposta · Official Time</div>
+          </div>
+          <div class="diag-stat-cell">
+            <div class="diag-stat-val good">3 min</div>
+            <div class="diag-stat-lbl">Tempo de resposta · Vivara</div>
+          </div>
+          <div class="diag-stat-cell">
+            <div class="diag-stat-val bad">0</div>
+            <div class="diag-stat-lbl">Produtos apresentados pela Official Time</div>
+          </div>
+        </div>
+        <div class="diag-quote"><strong>Insight principal:</strong> campanhas de WhatsApp estavam gerando leads qualificados. O funil quebra no atendimento — não na mídia. Reativar as campanhas sem protocolo de resposta resulta no mesmo gargalo.</div>
+      </div>
+
+      <!-- SLIDE 2: OFFICIAL TIME -->
+      <div class="diag-slide" id="dslide-1">
+        <p class="eyebrow" style="margin-bottom:.5rem;">Slide 2 de 4 · Official Time — atendimento registrado</p>
+        <h2 class="diag-h" style="color:var(--s-no-fg);">Official Time · Diagnóstico: Atendimento Quebrado</h2>
+        <p class="diag-body" style="margin-bottom:1rem;">Solicitação enviada: "Quero ver um relógio de Dia dos Pais para meu pai, até R$2.000." Resultado: primeira resposta chegou após 22 horas. Sem personalização, sem apresentação de produto.</p>
+        <div style="background:#111B21;border-radius:4px;padding:.85rem .75rem;display:flex;flex-direction:column;gap:.35rem;max-height:320px;overflow-y:auto;">
+          <div style="text-align:center;margin:.4rem auto;"><span style="background:#1F2C34;color:#8696A0;font-size:.66rem;padding:3px 12px;border-radius:6px;display:inline-block;">Hoje 13:32</span></div>
+          <div style="max-width:84%;background:#6B44B2;color:#fff;border-radius:8px 8px 0 8px;align-self:flex-end;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;">Oi, eu quero ver um relógio de dia dos pais pro meu pai, na faixa de até 2 mil reais<span style="font-size:.6rem;color:rgba(255,255,255,.55);display:block;text-align:right;margin-top:.2rem;">13:48 ✓✓</span></div>
+          <div style="max-width:84%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;">Everton Official Time agradece seu contato. Como podemos ajudar?<span style="font-size:.6rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">13:34</span></div>
+          <div style="max-width:84%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;">Olá tudo bem?<span style="font-size:.6rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">13:48</span></div>
+          <div style="max-width:84%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;word-break:break-all;font-size:.73rem;color:#53BDEB;">https://www.lojaofficialtime.com.br/<span style="font-size:.6rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;color:#8696A0;">13:48</span></div>
+          <div style="max-width:84%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;">Selecionei até 2.000 — veja se gosta de algum<span style="font-size:.6rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">13:50</span></div>
+          <div style="text-align:center;margin:.8rem auto;font-size:.7rem;color:#8696A0;font-style:italic;">— conversa encerrada sem resposta do cliente —</div>
+        </div>
+        <div style="margin-top:.9rem;padding:.7rem 1rem;background:var(--s-no-bg);border-left:3px solid var(--s-no-fg);">
+          <span style="font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--s-no-fg);">✗ Diagnóstico</span>
+          <p style="font-size:.78rem;color:var(--text-body);line-height:1.65;margin-top:.3rem;"><strong style="color:var(--text-h)">7+ minutos para primeira resposta.</strong> Atendimento sem personalização — dois links e uma frase. Nenhum produto apresentado. Sem fechamento. Conversa encerrou sem engajamento.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: VIVARA -->
+      <div class="diag-slide" id="dslide-2">
+        <p class="eyebrow" style="margin-bottom:.5rem;">Slide 3 de 4 · Vivara — benchmark de atendimento</p>
+        <h2 class="diag-h" style="color:var(--s-exec-fg);">Vivara · Bot Vicky — funil completo em 7 minutos</h2>
+        <p class="diag-body" style="margin-bottom:1rem;">Mesmo perfil, mesma solicitação. A Vivara respondeu em 3 minutos com um bot (Vicky) que coletou dados, apresentou 3 produtos com preços e botão de carrinho — tudo sem intervenção humana.</p>
+        <div style="background:#111B21;border-radius:4px;padding:.85rem .75rem;display:flex;flex-direction:column;gap:.35rem;max-height:320px;overflow-y:auto;">
+          <div style="max-width:84%;background:#6B44B2;color:#fff;border-radius:8px 8px 0 8px;align-self:flex-end;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;">quero comprar um relógio para meu marido de presente de aniversário, até R$3.000<span style="font-size:.6rem;color:rgba(255,255,255,.55);display:block;text-align:right;margin-top:.2rem;">10:18 ✓✓</span></div>
+          <div style="max-width:84%;background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;">Selecionei alguns relógios masculinos elegantes para presentear, todos dentro do seu orçamento. Gostou de algum?<span style="font-size:.6rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;">10:18</span></div>
+          <div style="background:#1F2C34;border-radius:8px;padding:.65rem .85rem;max-width:84%;align-self:flex-start;margin:.15rem 0;">
+            <div style="font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#53BDEB;margin-bottom:.3rem;">Opção 1</div>
+            <div style="font-size:.77rem;font-weight:600;color:#E9EDEF;line-height:1.35;margin-bottom:.2rem;">Relógio Nautica Pacific Beach Masculino Aço</div>
+            <div style="font-size:.82rem;color:#00A884;font-weight:700;">R$ 990,00</div>
+          </div>
+          <div style="background:#1F2C34;border-radius:8px;padding:.65rem .85rem;max-width:84%;align-self:flex-start;margin:.15rem 0;">
+            <div style="font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#53BDEB;margin-bottom:.3rem;">Opção 2</div>
+            <div style="font-size:.77rem;font-weight:600;color:#E9EDEF;line-height:1.35;margin-bottom:.2rem;">Relógio Calvin Klein CK Empower Masculino em Aço Azul</div>
+            <div style="font-size:.82rem;color:#00A884;font-weight:700;">R$ 1.450,00</div>
+          </div>
+          <div style="align-self:flex-start;margin:.1rem 0;"><span style="display:inline-block;border:1px solid #00A884;color:#00A884;padding:.28rem .8rem;border-radius:20px;font-size:.71rem;">Adicionar ao carrinho →</span></div>
+        </div>
+        <div style="margin-top:.9rem;padding:.7rem 1rem;background:var(--s-exec-bg);border-left:3px solid var(--s-exec-fg);">
+          <span style="font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--s-exec-fg);">✓ Benchmark</span>
+          <p style="font-size:.78rem;color:var(--text-body);line-height:1.65;margin-top:.3rem;"><strong style="color:var(--text-h)">3 minutos para primeira resposta, funil completo em 7 minutos.</strong> Bot coletou nome, e-mail e CPF. Apresentou 3 produtos com foto, preço e botão de carrinho. Engajamento total — o comprador não precisou ir ao site.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: RECOMENDAÇÕES -->
+      <div class="diag-slide" id="dslide-3">
+        <p class="eyebrow" style="margin-bottom:.5rem;">Slide 4 de 4 · Recomendações</p>
+        <h2 class="diag-h">Protocolo de resposta antes de reativar campanhas</h2>
+        <p class="diag-body">As campanhas de WhatsApp estavam gerando leads qualificados. Reativar sem resolver o atendimento desperdiça o budget e frustra o comprador. O problema é processual, não técnico — pode ser resolvido sem custo adicional.</p>
+        <ul class="diag-rec-list">
+          <li><strong>SLA máximo de 15 minutos</strong> para primeira resposta em horário comercial. Leads que esperam mais de 1h convertem 60% menos (benchmark de e-commerce B2C).</li>
+          <li><strong>Template de atendimento consultivo:</strong> saudar pelo nome, perguntar a ocasião e o orçamento, apresentar 2–3 produtos com foto e preço — sem só enviar link.</li>
+          <li><strong>Ativar WhatsApp Business com catálogo:</strong> permite enviar card de produto diretamente na conversa, como a Vivara faz com o bot — sem precisar de bot ou integração.</li>
+          <li><strong>Designar responsável com turno definido</strong> para atendimento digital — separado do atendimento presencial no PDV.</li>
+          <li><strong>Após protocolo estruturado:</strong> reativar campanhas de WhatsApp. Leads já existem — falta fechar o funil.</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="diag-nav">
+      <button class="diag-prev" id="diagPrev" onclick="diagNav(-1)" disabled>← Anterior</button>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="diag-dots" id="diagDots">
+          <button class="diag-dot-btn active" onclick="diagGo(0)"></button>
+          <button class="diag-dot-btn" onclick="diagGo(1)"></button>
+          <button class="diag-dot-btn" onclick="diagGo(2)"></button>
+          <button class="diag-dot-btn" onclick="diagGo(3)"></button>
+        </div>
+        <span class="diag-counter" id="diagCounter">1 / 4</span>
+      </div>
+      <button class="diag-next" id="diagNext" onclick="diagNav(1)">Próximo →</button>
+    </div>
+  </div>
+</div>
 
 <!-- ══ WPP MODAL ══ -->
 <div class="wpp-overlay" id="wppOverlay">
@@ -1225,8 +1383,9 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') document.getElementById('wppOverlay').classList.remove('open');
     return;
   }
-  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goToSec(curSec + 1); }
-  else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); goToSec(curSec - 1); }
+  if (document.getElementById('diagOverlay').classList.contains('open')) return;
+  if (e.key === 'ArrowDown') { e.preventDefault(); goToSec(curSec + 1); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); goToSec(curSec - 1); }
   else if (e.key === 'Home')  { e.preventDefault(); goToSec(0); }
   else if (e.key === 'End')   { e.preventDefault(); goToSec(SECS.length - 1); }
   else if (e.key === 'f' || e.key === 'F') {
@@ -1591,6 +1750,48 @@ window.addEventListener('resize', () => { drawRevChart(); drawDailyChart(); draw
 const wppOverlay = document.getElementById('wppOverlay');
 wppOverlay.addEventListener('click', function(e) {
   if (e.target === wppOverlay) wppOverlay.classList.remove('open');
+});
+
+// ─── Diagnóstico PDV Carousel ─────────────────────────────
+let diagCur = 0;
+const DIAG_TOTAL = 4;
+function openDiag() {
+  diagCur = 0;
+  diagGo(0);
+  document.getElementById('diagOverlay').classList.add('open');
+}
+function closeDiag() {
+  document.getElementById('diagOverlay').classList.remove('open');
+}
+function diagGo(n) {
+  diagCur = Math.max(0, Math.min(n, DIAG_TOTAL - 1));
+  document.querySelectorAll('.diag-slide').forEach((s,i) => s.classList.toggle('active', i === diagCur));
+  document.querySelectorAll('.diag-dot-btn').forEach((d,i) => d.classList.toggle('active', i === diagCur));
+  document.getElementById('diagPrev').disabled = diagCur === 0;
+  document.getElementById('diagNext').disabled = diagCur === DIAG_TOTAL - 1;
+  document.getElementById('diagCounter').textContent = (diagCur + 1) + ' / ' + DIAG_TOTAL;
+}
+function diagNav(dir) { diagGo(diagCur + dir); }
+document.getElementById('diagOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeDiag();
+});
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('diagOverlay').classList.contains('open')) return;
+  if (e.key === 'Escape') { closeDiag(); return; }
+  if (e.key === 'ArrowRight') { e.preventDefault(); diagNav(1); }
+  if (e.key === 'ArrowLeft')  { e.preventDefault(); diagNav(-1); }
+});
+
+// ─── Presentation mode ────────────────────────────────────
+const presBtn = document.getElementById('presBtn');
+presBtn.addEventListener('click', () => {
+  const on = document.body.classList.toggle('pres-mode');
+  presBtn.classList.toggle('on', on);
+  presBtn.textContent = on ? 'Modo Normal' : 'Apresentação';
+});
+document.addEventListener('keydown', function(e) {
+  if (['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
+  if (e.key === 'p' || e.key === 'P') presBtn.click();
 });
 
 // ─── Count-up for capa stats ──────────────────────────────
