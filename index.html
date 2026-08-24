@@ -213,7 +213,7 @@ canvas.chart{display:block;width:100%;}
 
 /* ── CAMPAIGN CALENDAR ── */
 .cal-intro{margin-top:3rem;padding-top:2.5rem;border-top:1px solid var(--border-n);}
-.cal-timeline{display:grid;grid-template-columns:repeat(8,1fr);border:1px solid var(--border-n);margin-top:1.5rem;}
+.cal-timeline{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--border-n);margin-top:1.5rem;}.cal-month-card:nth-child(6n){border-right:none;}.cal-month-card:nth-child(n+7){border-top:1px solid var(--border-n);}
 .cal-month-card{border-right:1px solid var(--border-n);padding:1.1rem .9rem 1.1rem;position:relative;}
 .cal-month-card:last-child{border-right:none;}
 .cal-month-card.cal-peak{border-top:2px solid var(--accent);}
@@ -226,8 +226,8 @@ canvas.chart{display:block;width:100%;}
 .cal-tag.tag-done{background:var(--s-done-bg);color:var(--s-done-fg);}
 .cal-tag.tag-exec{background:var(--s-exec-bg);color:var(--s-exec-fg);}
 .cal-tag.tag-key{background:var(--accent-dim);color:var(--accent);}
-@media(max-width:900px){.cal-timeline{grid-template-columns:repeat(4,1fr);}.cal-month-card:nth-child(4n){border-right:none;}.cal-month-card:nth-child(n+5){border-top:1px solid var(--border-n);}}
-@media(max-width:560px){.cal-timeline{grid-template-columns:repeat(2,1fr);}.cal-month-card:nth-child(even){border-right:none;}.cal-month-card:nth-child(n+3){border-top:1px solid var(--border-n);}}
+@media(max-width:1100px){.cal-timeline{grid-template-columns:repeat(4,1fr);}.cal-month-card:nth-child(6n){border-right:var(--border-n) 1px solid;}.cal-month-card:nth-child(4n){border-right:none;}.cal-month-card:nth-child(n+7){border-top:none;}.cal-month-card:nth-child(n+5){border-top:1px solid var(--border-n);}}
+@media(max-width:600px){.cal-timeline{grid-template-columns:repeat(2,1fr);}.cal-month-card:nth-child(6n),.cal-month-card:nth-child(4n){border-right:var(--border-n) 1px solid;}.cal-month-card:nth-child(even){border-right:none;}.cal-month-card:nth-child(n+5),.cal-month-card:nth-child(n+7){border-top:none;}.cal-month-card:nth-child(n+3){border-top:1px solid var(--border-n);}}
 
 /* ── INTEL GRID ── */
 .intel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);margin-bottom:2.5rem;}
@@ -403,8 +403,8 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
     <button class="nav-link active" data-s="capa" data-idx="0">Capa</button>
     <button class="nav-link" data-s="resultado" data-idx="1">Resultado</button>
     <button class="nav-link" data-s="dossie" data-idx="2">Dossiê</button>
-    <button class="nav-link" data-s="cenarios" data-idx="3">Cenários</button>
-    <button class="nav-link" data-s="novas" data-idx="4">Concorrência</button>
+    <button class="nav-link" data-s="cenarios" data-idx="3">Mercado</button>
+    <button class="nav-link" data-s="novas" data-idx="4">Concorrência + Investimento</button>
   </div>
   <div class="nav-right">
     <button class="nav-fs" id="fsBtn" title="Tela cheia (F)">⛶</button>
@@ -474,19 +474,19 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
     <!-- KPI ROW -->
     <div class="kpi-row fi">
       <div class="kpi-item">
-        <span class="kpi-eyebrow">Receita Total</span>
+        <span class="kpi-eyebrow">Receita Total 2026</span>
         <div class="kpi-val">R$ 305k</div>
-        <div class="kpi-note">108 pedidos finalizados</div>
+        <div class="kpi-note">+296% vs. R$77k em 2025 · mesmo período</div>
       </div>
       <div class="kpi-item">
         <span class="kpi-eyebrow">Ticket Médio</span>
         <div class="kpi-val">R$ 2,8k</div>
-        <div class="kpi-note">Por pedido concluído</div>
+        <div class="kpi-note">+61% vs. R$1,75k em 2025</div>
       </div>
       <div class="kpi-item">
-        <span class="kpi-eyebrow">Mês Pico</span>
-        <div class="kpi-val">Maio</div>
-        <div class="kpi-note">R$56,6k · 23 pedidos</div>
+        <span class="kpi-eyebrow">Volume de Pedidos</span>
+        <div class="kpi-val">108</div>
+        <div class="kpi-note">+145% vs. 44 pedidos em 2025</div>
       </div>
     </div>
 
@@ -494,9 +494,13 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
     <div class="chart-card fi">
       <div class="chart-card-hd">
         <h3 class="label">Receita mensal — pedidos finalizados (e-commerce)</h3>
-        <span class="chart-note">Jan–Ago 2026 · Ago parcial</span>
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">
+          <span class="chart-note">Jan–Ago · Ago parcial</span>
+          <button id="revToggle" onclick="toggleRevMode()" style="font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:3px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer;">Ver 2025 vs 2026</button>
+        </div>
       </div>
-      <canvas id="revCvs" class="chart" height="220"></canvas>
+      <div id="revTooltip" style="display:none;font-size:.75rem;font-weight:600;color:var(--text-h);text-align:center;padding:4px 0;margin-bottom:4px;"></div>
+      <canvas id="revCvs" class="chart" height="220" style="cursor:pointer;"></canvas>
     </div>
 
     <!-- ROAS BENCHMARK -->
@@ -600,11 +604,11 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
             <tr><td><span class="act-name">Expansão com influenciadores</span><span class="act-obj">UGC, microinfluenciadores e roteiros de performance</span></td><td>Ampliar alcance e prova social</td><td class="act-period">Mai – Jun 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Apresentada como alternativa de conteúdo de baixo custo</li><li>Reprovada por resistência à gestão de parceria externa</li><li>Proposta incluía microinfluenciadores locais de Jundiaí</li></ul></td></tr>
             <tr><td><span class="act-name">Novas captações próprias</span><span class="act-obj">Rotina de vídeos e fotos para criativos de performance</span></td><td>Melhorar qualidade e volume de criativos</td><td class="act-period">—</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
-            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta de rotina mensal de produção de conteúdo</li><li>Reprovada por limitação de agenda e estrutura interna do cliente</li><li>Impacto: criativos dependem de biblioteca existente — risco de fadiga</li></ul></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta de rotina mensal de produção de conteúdo</li><li>Reprovada por orçamento — budget não aprovado pelo cliente</li><li>Impacto: criativos dependem de biblioteca existente — risco de fadiga de anúncios</li></ul></td></tr>
             <tr><td><span class="act-name">Marketplace (Mercado Livre)</span><span class="act-obj">Canal adicional com demanda mapeada existente</span></td><td>Novo canal de vendas sem depender do site</td><td class="act-period">Jul 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Demanda mapeada no Mercado Livre para relógios de alto ticket em Jundiaí</li><li>Reprovada por resistência a gestão de novo canal e comissionamento</li><li>Canal pode ser retomado com operação simplificada em 2027</li></ul></td></tr>
-            <tr><td><span class="act-name">Troca do Ouro</span><span class="act-obj">Ouro antigo como crédito ou matéria-prima para nova joia</span></td><td>Mecânica diferenciada de geração de lead</td><td class="act-period">Jan 26</td><td class="td-status"><span class="badge s-pend">? Pendente aprovação</span><button class="det-btn">+ Detalhes</button></td></tr>
-            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta desde janeiro — sem retorno definitivo do cliente em 8 meses</li><li>Mecânica de alto potencial emocional: troca + joia nova personalizada</li><li><strong>Alto valor estratégico:</strong> diferencial competitivo único no segmento local</li></ul></td></tr>
+            <tr><td><span class="act-name">31 anos + Mês do Cliente</span><span class="act-obj">KV aprovado — desdobramentos e-com em produção</span></td><td>Celebração + conversão digital integrada</td><td class="act-period">Ago – Set 26</td><td class="td-status"><span class="badge s-dev">⟳ Em desenvolvimento</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>KV aprovado — desdobramentos digitais e e-com em produção</li><li>Criativos finais previstos para início de setembro</li><li>Ativação CRM e e-mail marketing planejada junto ao lançamento</li></ul></td></tr>
           </tbody>
         </table>
       </div>
@@ -620,18 +624,22 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Mapeamento completo do negócio: público, concorrência e canais ativos</li><li>Definição de identidade visual nas campanhas e tom de comunicação</li><li>Estruturação do funil digital integrado ao PDV</li></ul></td></tr>
             <tr><td><span class="act-name">Black Friday + Natal integrados</span><span class="act-obj">Campanha cross-channel com criativos e ofertas</span></td><td>Gerar venda no e-com e apoiar PDV</td><td class="act-period">Nov – Dez 25</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Campanha integrada PDV + e-com com KVs aprovados e criativos produzidos</li><li>Cobertura de Black Friday com antecedência de 2 semanas</li><li>Natal com retargeting de quem visitou o site durante a BF</li></ul></td></tr>
-            <tr><td><span class="act-name">Campanhas para WhatsApp</span><span class="act-obj">Leads para atendimento e convite ao PDV</span></td><td>Ativar funil local via atendimento</td><td class="act-period">—</td><td class="td-status"><span class="badge s-done">✓ Executada (pausada)</span><button class="det-btn">+ Detalhes</button></td></tr>
-            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Campanhas geraram leads mas follow-up interno insuficiente — pausadas</li><li>Cliente oculto realizado para diagnóstico interno de atendimento</li><li><strong>Insight:</strong> problema de conversão está no processo de resposta, não na geração de leads</li></ul></td></tr>
+            <tr><td><span class="act-name">Campanhas para WhatsApp — Gargalo Identificado</span><span class="act-obj">Leads para atendimento e convite ao PDV · cliente oculto realizado</span></td><td>Ativar funil local via atendimento consultivo</td><td class="act-period">—</td><td class="td-status"><span class="badge s-done">✓ Executada (pausada)</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Campanhas geraram leads qualificados — pausadas após diagnóstico de gargalo</li><li>Cliente oculto confirmou: o problema está no processo de resposta, não na geração de leads</li><li><strong>Insight crítico:</strong> a Official Time demorou 22h para responder vs. 3 minutos da Vivara</li><li style="list-style:none;padding-left:.5rem;"><button class="wpp-btn" onclick="document.getElementById('wppOverlay').classList.add('open')">Ver comparativo de atendimento →</button></li><li><strong>Recomendação:</strong> estruturar protocolo de resposta antes de reativar campanhas</li></ul></td></tr>
             <tr><td><span class="act-name">31 anos + Mês do Cliente</span><span class="act-obj">KV aprovado, criativos em desdobramento</span></td><td>Celebração + venda integrada</td><td class="act-period">Ago – Set 26</td><td class="td-status"><span class="badge s-dev">⟳ Em desenvolvimento</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>KV aprovado — desdobramentos em produção (PDV, e-com e social)</li><li>Criativos finais previstos para início de setembro</li><li>Ativação CRM planejada junto com lançamento da campanha</li></ul></td></tr>
             <tr><td><span class="act-name">Evento na Geely</span><span class="act-obj">Mostruário e ativação com clientes da Geely</span></td><td>Ativar novo público no PDV de forma colaborativa</td><td class="act-period">Set 26</td><td class="td-status"><span class="badge s-exec">▶ Em execução</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Collab confirmada — mostruário Official Time dentro da Geely</li><li>Convidados da base da Geely + clientes passantes</li><li>Produção de vídeo comemorativo incluída — divisão de custo 50/50</li><li><strong>Próximo passo:</strong> fechar orçamento final e confirmar data em setembro</li></ul></td></tr>
             <tr><td><span class="act-name">Planejamento Antecipado de Black Friday</span><span class="act-obj">Estrutura integrada de criativos físicos e ativação no PDV</span></td><td>Garantir exposição no ponto de venda com antecedência</td><td class="act-period">Set – Nov 26</td><td class="td-status"><span class="badge s-exec">▶ Em execução</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Alinhado com a frente e-com — campanha integrada PDV + digital</li><li>Vitrine temática + criativos físicos coordenados com campanha paga</li><li>Foco em tráfego físico no período de maior conversão do ano</li></ul></td></tr>
-            <tr><td><span class="act-name">Quadro Permanente de Vitrine</span><span class="act-obj">Painel físico substituível no lugar do adesivo</span></td><td>Solução de longo prazo para PDV</td><td class="act-period">Ago 26</td><td class="td-status"><span class="badge s-exec">▶ Em execução</span><button class="det-btn">+ Detalhes</button></td></tr>
-            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Fornecedor inativo retomou contato — cotação em andamento</li><li>Solução superior à adesivação temporária (mais durável, trocável)</li><li>Permitirá atualização sazonal sem custo de nova produção de adesivo</li></ul></td></tr>
-            <tr><td><span class="act-name">Adesivação de vitrines</span><span class="act-obj">Aplicação do KV de 31 anos no ponto de venda</span></td><td>Impacto visual e reconhecimento local</td><td class="act-period">Ago 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
-            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Reprovada por custo de aplicação e remoção temporária do adesivo</li><li>Substituída pela solução de quadro permanente (painel físico)</li></ul></td></tr>
+            <tr><td><span class="act-name">Adesivação de vitrines</span><span class="act-obj">Aplicação do KV de 31 anos no ponto de venda</span></td><td>Impacto visual e reconhecimento local</td><td class="act-period">Ago 26</td><td class="td-status"><span class="badge s-exec">▶ Em execução</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Aplicação do KV comemorativo de 31 anos nas vitrines do PDV</li><li>Em execução — alinhada com campanha de aniversário</li></ul></td></tr>
+            <tr><td><span class="act-name">Ações para alianças — Mês das Noivas</span><span class="act-obj">Foco em PDV com KV aprovado e depois reprovado</span></td><td>Capitalizar demanda de casamentos em maio</td><td class="act-period">Mai 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Ação focada em alianças para o Mês das Noivas (maio) — foco no PDV</li><li>KV aprovado e produzido — posteriormente reprovado para focar em joias no geral</li><li>Oportunidade de retomar com recorte mais amplo: alianças + joias para noivas</li></ul></td></tr>
+            <tr><td><span class="act-name">Troca do Ouro</span><span class="act-obj">Ouro antigo como crédito ou matéria-prima para nova joia</span></td><td>Mecânica diferenciada de geração de lead no PDV</td><td class="act-period">Jan 26</td><td class="td-status"><span class="badge s-pend">? Pendente aprovação</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta desde janeiro — sem retorno definitivo do cliente</li><li>Mecânica de alto potencial emocional: cliente traz ouro + recebe crédito para nova joia</li><li><strong>Alto valor estratégico:</strong> diferencial competitivo único no segmento local</li></ul></td></tr>
+            <tr><td><span class="act-name">Quadro Permanente de Vitrine</span><span class="act-obj">Painel físico substituível para o ponto de venda</span></td><td>Solução de longo prazo para PDV</td><td class="act-period">—</td><td class="td-status"><span class="badge s-pend">? Buscando fornecedor</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Buscando fornecedores — data de execução não garantida</li><li>Solução superior à adesivação temporária (durável, trocável sazonalmente)</li><li>Permitirá atualização sazonal sem custo de nova produção a cada campanha</li></ul></td></tr>
             <tr><td><span class="act-name">Brinde — Dia da Mulher</span><span class="act-obj">Ação promocional para gerar visita ao PDV</span></td><td>Tráfego físico + valor percebido</td><td class="act-period">Mar 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta de brinde com mecânica de visita ao PDV em data sazonal</li><li>Reprovada por custo de produção dos brindes</li></ul></td></tr>
             <tr><td><span class="act-name">Brinde — Dia das Mães</span><span class="act-obj">Mecânica integrada à campanha sazonal</span></td><td>Incremento de tráfego em data de pico</td><td class="act-period">Mai 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
@@ -673,14 +681,14 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
     <div class="cal-timeline fi">
       <div class="cal-month-card">
         <span class="cal-mo">Jan</span><span class="cal-yr">2026</span>
-        <div class="cal-camp">Onboarding &amp; Setup</div>
-        <div class="cal-det">Diagnóstico inicial, estruturação de mídia Google + Meta, integração de pixels e tracking. R$49k no primeiro mês.</div>
+        <div class="cal-camp">Onboarding + Outlet no Site</div>
+        <div class="cal-det">Diagnóstico, estruturação de mídia Google + Meta, pixels e tracking. Outlet no site ativo. R$49k no 1º mês.</div>
         <span class="cal-tag tag-done">Concluído</span>
       </div>
       <div class="cal-month-card">
         <span class="cal-mo">Fev</span><span class="cal-yr">2026</span>
-        <div class="cal-camp">Ativação de Canais</div>
-        <div class="cal-det">Google Ads e Meta Ads em plena operação. Estruturação inicial de CRM. R$37,9k em receita.</div>
+        <div class="cal-camp">Ativação + Outlet no Site</div>
+        <div class="cal-det">Google Ads e Meta Ads em plena operação. Outlet no site em andamento. CRM estruturado. R$37,9k.</div>
         <span class="cal-tag tag-done">Concluído</span>
       </div>
       <div class="cal-month-card">
@@ -716,8 +724,32 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
       <div class="cal-month-card cal-exec">
         <span class="cal-mo">Ago</span><span class="cal-yr">2026</span>
         <div class="cal-camp">Dia dos Pais + Pré-BF</div>
-        <div class="cal-det">Quadro vitrine PDV. Planejamento antecipado de Black Friday iniciado. Reunião estratégica de 21/ago.</div>
+        <div class="cal-det">Adesivação de vitrines. Planejamento de Black Friday iniciado. Reunião estratégica 21/ago.</div>
         <span class="cal-tag tag-exec">Em execução</span>
+      </div>
+      <div class="cal-month-card cal-peak">
+        <span class="cal-mo">Set</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Aniversário da Loja</div>
+        <div class="cal-det">31 anos da Official Time — campanha comemorativa PDV + e-com. Mês do Cliente com ativação CRM.</div>
+        <span class="cal-tag tag-key">Destaque</span>
+      </div>
+      <div class="cal-month-card cal-exec">
+        <span class="cal-mo">Out</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Pré-Black Friday</div>
+        <div class="cal-det">Início das ações de Black. Criativos, ofertas e vitrine preparados com antecedência. Aquecimento da base CRM.</div>
+        <span class="cal-tag tag-exec">Planejado</span>
+      </div>
+      <div class="cal-month-card cal-exec">
+        <span class="cal-mo">Nov</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Black Friday</div>
+        <div class="cal-det">Campanha integrada PDV + e-com. Ofertas com antecedência de 2 semanas. Maior janela de conversão do ano.</div>
+        <span class="cal-tag tag-exec">Planejado</span>
+      </div>
+      <div class="cal-month-card">
+        <span class="cal-mo">Nov</span><span class="cal-yr">– Dez</span>
+        <div class="cal-camp">Natal</div>
+        <div class="cal-det">Campanha de Natal integrada PDV + e-com. Retargeting de visitantes da BF. Criativos físicos e digitais coordenados.</div>
+        <span class="cal-tag tag-exec">Planejado</span>
       </div>
     </div>
   </div>
@@ -730,11 +762,11 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
   <div class="container">
     <div class="sec-hd fi">
       <div>
-        <span class="eyebrow">Inteligência &amp; Simulação</span>
-        <h2 class="display">Cenários de Crescimento</h2>
+        <span class="eyebrow">Inteligência de Mercado</span>
+        <h2 class="display">Contexto &amp; Oportunidade</h2>
       </div>
       <div class="sec-hd-right">
-        <p class="sec-hd-desc">Diagnóstico sobre gargalos operacionais, contexto de budget e simulador de retorno calibrado com dados reais da Official Time.</p>
+        <p class="sec-hd-desc">Diagnóstico de gargalos operacionais, tamanho de mercado e contexto estratégico para as recomendações a seguir.</p>
       </div>
     </div>
 
@@ -742,11 +774,11 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
       <div class="intel-card">
         <div class="intel-card-top">
           <div class="intel-tag">PDV · Diagnóstico</div>
-          <p class="intel-title">Campanhas para WhatsApp — Gargalo Identificado</p>
-          <p class="intel-desc">Campanhas de WhatsApp geraram leads qualificados para o PDV, mas foram pausadas após diagnóstico: o problema estava no processo de resposta interno, não na geração de leads. Cliente oculto confirmou falhas no follow-up.</p>
-          <button class="wpp-btn" onclick="document.getElementById('wppOverlay').classList.add('open')">Ver comparativo de atendimento →</button>
+          <p class="intel-title">WhatsApp: Gargalo no Atendimento</p>
+          <p class="intel-desc">Cliente oculto revelou 22h de espera para resposta vs. 3 minutos da Vivara. Oportunidade está em estruturar o protocolo. Detalhes completos no Dossiê · aba PDV.</p>
+          <button class="wpp-btn" onclick="document.getElementById('wppOverlay').classList.add('open')">Ver comparativo →</button>
         </div>
-        <div class="intel-status">Pausado — aguarda estruturação interna</div>
+        <div class="intel-status">Ver análise completa no Dossiê · aba PDV</div>
       </div>
       <div class="intel-card">
         <div class="intel-card-top">
@@ -793,39 +825,6 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
       <p class="mkt-note">Com 85% das compras de relógios e joias ainda acontecendo no canal físico, o Brasil representa um dos maiores espaços de captura digital no varejo. Marcas que construírem presença online sólida agora sairão na frente na consolidação do canal — que já cresce +22% ao ano. <strong>O ROAS de 13,9× da Official Time, em orçamento de apenas R$2.765/mês, indica demanda latente não capturada</strong>: mais investimento significa alcançar mais compradores num mercado em expansão, não competir por audiência saturada.</p>
     </div>
 
-    <!-- SIMULATOR -->
-    <div class="sim-box fi">
-      <div class="sim-header">
-        <h3>Simulador de Investimento em Mídia</h3>
-        <span style="font-size:.71rem;color:var(--text-muted);">Calibrado com dados reais Windsor AI · Jan–Ago 2026</span>
-      </div>
-      <div class="sim-input-row">
-        <span class="sim-label">Investimento mensal em mídia:</span>
-        <span class="sim-val" id="simValLabel">R$ 2.765</span>
-        <input type="range" class="sim-slider" id="simSlider" min="2000" max="20000" step="250" value="2765">
-      </div>
-      <div class="sim-cards">
-        <div class="sim-card pess">
-          <div class="sim-card-label">Pessimista</div>
-          <div class="sim-roas">ROAS 8×</div>
-          <div class="sim-rev" id="pess-rev">R$ 22.120</div>
-          <div class="sim-annual" id="pess-annual">≈ R$ 265k / ano</div>
-        </div>
-        <div class="sim-card cons">
-          <div class="sim-card-label">Conservador</div>
-          <div class="sim-roas">ROAS 10×</div>
-          <div class="sim-rev" id="cons-rev">R$ 27.650</div>
-          <div class="sim-annual" id="cons-annual">≈ R$ 332k / ano</div>
-        </div>
-        <div class="sim-card otim">
-          <div class="sim-card-label">Otimista</div>
-          <div class="sim-roas">ROAS 12×</div>
-          <div class="sim-rev" id="otim-rev">R$ 33.180</div>
-          <div class="sim-annual" id="otim-annual">≈ R$ 398k / ano</div>
-        </div>
-      </div>
-      <p class="sim-note"><strong>Referência atual:</strong> R$2.765/mês · ROAS 13.9× — já acima do cenário otimista. Com aumento de budget, o ROAS tende a se estabilizar enquanto a <strong>receita absoluta cresce</strong>. Pessimista = 8× (queda inicial ao escalar — normal). Conservador = 10× (leve estabilização). Otimista = 12× (eficiência sustentada). Dados via Windsor AI.</p>
-    </div>
   </div>
 </section>
 
@@ -836,11 +835,11 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
   <div class="container">
     <div class="sec-hd fi">
       <div>
-        <span class="eyebrow">Dossiê de mercado</span>
-        <h2 class="display">O que a concorrência tem</h2>
+        <span class="eyebrow">Dossiê de mercado · Proposta de investimento</span>
+        <h2 class="display">Concorrência &amp; Próximo Passo</h2>
       </div>
       <div class="sec-hd-right">
-        <p class="sec-hd-desc">Comparativo de features, portfólio e estratégia de preço — Official Time vs. Monte Carlo vs. Vivara. 11 lacunas identificadas, 3 diferenciais exclusivos. Agosto 2026.</p>
+        <p class="sec-hd-desc">Comparativo com Monte Carlo, Vivara e Relojoaria Impala — lacunas identificadas, diferenciais exclusivos. Seguido da proposta de escalonamento de mídia, fundamentada em dados reais.</p>
       </div>
     </div>
 
@@ -920,10 +919,10 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
 
     <div class="comp-sub-hd fi"><span class="eyebrow">Lacunas &amp; vantagens</span></div>
     <div class="gaps-grid fi">
-      <div class="gap-card"><div class="gap-badge">Alta prioridade</div><div class="gap-title">Programa de fidelidade inexistente</div><div class="gap-desc">Concorrentes retêm e reativam clientes automaticamente. A Official Time depende de campanhas CRM avulsas, aprovadas caso a caso, para gerar recompra.</div></div>
+      <div class="gap-card"><div class="gap-badge">Alta prioridade</div><div class="gap-title">CRM sem benefício claro</div><div class="gap-desc">Campanhas de CRM existem, mas sem incentivo concreto ao cliente. Concorrentes retêm com crédito automático e regras transparentes. A Official Time depende de aprovação caso a caso, sem benefício definido para a recompra.</div></div>
       <div class="gap-card"><div class="gap-badge">Alta prioridade</div><div class="gap-title">Desconto de boas-vindas pouco competitivo</div><div class="gap-desc">5% (até R$300) vs. 10% da Monte Carlo e até 50% da Vivara. O cliente tende a preferir onde a oferta inicial é mais vantajosa.</div></div>
       <div class="gap-card"><div class="gap-badge">Alta prioridade</div><div class="gap-title">Ausência em marketplace</div><div class="gap-desc">Monte Carlo e Vivara vendem no Mercado Livre, captando demanda ativa de usuários que já buscam as marcas que a Official Time também carrega.</div></div>
-      <div class="gap-card"><div class="gap-badge">Média prioridade</div><div class="gap-title">Frete grátis não comunicado</div><div class="gap-desc">Ambos concorrentes usam frete grátis como âncora de conversão. A Official Time não posiciona isso claramente, mesmo praticando em algumas condições.</div></div>
+      <div class="gap-card"><div class="gap-badge">Média prioridade</div><div class="gap-title">Frete grátis ausente da página do produto</div><div class="gap-desc">Ambos concorrentes usam frete grátis como âncora de conversão. A Official Time pratica frete grátis em algumas condições mas não comunica isso na página do produto — onde a decisão acontece.</div></div>
       <div class="gap-card"><div class="gap-badge">Média prioridade</div><div class="gap-title">Filtros de produto muito básicos</div><div class="gap-desc">Monte Carlo filtra por mecanismo, tamanho de caixa e material da pulseira; Impala filtra por movimento e estilo. A Official Time não oferece filtros específicos de relógio — critérios decisivos para o comprador especializado.</div></div>
       <div class="gap-card"><div class="gap-badge">Média prioridade</div><div class="gap-title">Marcas ausentes do portfólio</div><div class="gap-desc">Fossil, Skagen e DKNY (mid-range) estão na Monte Carlo. TAG Heuer e Montblanc (luxo) estão na Vivara. A Official Time está num intervalo sem os extremos.</div></div>
       <div class="gap-card"><div class="gap-badge">Média prioridade</div><div class="gap-title">Ausência de blog e conteúdo orgânico</div><div class="gap-desc">A Relojoaria Impala mantém blog ativo com guias sobre relógios — gerando tráfego orgânico e autoridade de SEO sem custo de mídia. A Official Time não tem estratégia de conteúdo ativa, perdendo buscas de alto valor.</div></div>
@@ -934,12 +933,47 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
     <div class="comp-sub-hd fi"><span class="eyebrow">Ações recomendadas</span></div>
     <div class="recs-grid fi">
       <div class="rec-card"><span class="rec-priority pri-high">Alta prioridade</span><h3 class="rec-title">Elevar o cupom de boas-vindas para 10%</h3><p class="rec-desc">Equiparar ao mínimo da Monte Carlo. Comunicar como "10% na 1ª compra" em vez de "até R$300 de desconto" — o percentual é mais persuasivo e padroniza com o mercado.</p><div class="rec-impact">Impacto direto na conversão e-commerce</div></div>
-      <div class="rec-card"><span class="rec-priority pri-high">Alta prioridade</span><h3 class="rec-title">Criar programa de fidelidade simples</h3><p class="rec-desc">Modelo Giftback: crédito de 10% na próxima compra. Incentiva recompra sem depender de aprovação de campanha a cada mês. Implementável no CRM atual.</p><div class="rec-impact">Aumenta LTV e reduz dependência de mídia paga</div></div>
+      <div class="rec-card"><span class="rec-priority pri-high">Alta prioridade</span><h3 class="rec-title">Definir benefício claro no CRM</h3><p class="rec-desc">O CRM existe, mas sem incentivo concreto. Modelo sugerido: crédito automático de 10% na próxima compra após cada venda — sem aprovação manual a cada campanha. Implementável no CRM atual.</p><div class="rec-impact">Aumenta LTV e recompra sem depender de campanha avulsa</div></div>
       <div class="rec-card"><span class="rec-priority pri-high">Alta prioridade</span><h3 class="rec-title">Testar Mercado Livre com 3–5 SKUs</h3><p class="rec-desc">Pilotar com os produtos mais buscados (Seiko, G-Shock, Casio) que já têm demanda comprovada na plataforma. Baixo custo de entrada, valida hipótese antes de escalar.</p><div class="rec-impact">Novo canal com demanda ativa já existente</div></div>
-      <div class="rec-card"><span class="rec-priority pri-mid">Média prioridade</span><h3 class="rec-title">Comunicar frete grátis com threshold claro</h3><p class="rec-desc">Definir e anunciar um valor mínimo para frete grátis (ex: acima de R$699). Exibir no topo do site e nas campanhas — incentiva o cliente a completar o carrinho.</p><div class="rec-impact">Reduz abandono de carrinho</div></div>
+      <div class="rec-card"><span class="rec-priority pri-mid">Média prioridade</span><h3 class="rec-title">Exibir frete grátis na página do produto</h3><p class="rec-desc">Incluir a condição de frete grátis diretamente na página do produto, junto ao preço — onde o cliente decide comprar. É o ponto de maior abandono e onde concorrentes posicionam esse argumento.</p><div class="rec-impact">Reduz abandono na página de produto</div></div>
       <div class="rec-card"><span class="rec-priority pri-mid">Média prioridade</span><h3 class="rec-title">Ativar atendimento consultivo via WhatsApp</h3><p class="rec-desc">Vendedoras treinadas no PDV atendem pelo WhatsApp, enviam fotos, comparam modelos. Converte o diferencial de atendimento especializado em argumento de venda digital.</p><div class="rec-impact">Diferencial competitivo vs. redes nacionais</div></div>
       <div class="rec-card"><span class="rec-priority pri-grow">Crescimento</span><h3 class="rec-title">Explorar laboratório como hub de conteúdo</h3><p class="rec-desc">Laboratório técnico é o único diferencial que os concorrentes não têm. Séries sobre manutenção ("quando seu relógio precisa de revisão") geram autoridade e tráfego orgânico.</p><div class="rec-impact">Posicionamento de autoridade no segmento</div></div>
       <div class="rec-card"><span class="rec-priority pri-grow">Crescimento</span><h3 class="rec-title">Iniciar blog com guias de relógio</h3><p class="rec-desc">A Relojoaria Impala já captura tráfego orgânico via blog (Seiko, G-Shock, Citizen). 4–6 artigos/ano nos mesmos termos, com foco em Jundiaí e interior SP, compete diretamente por essa demanda a custo zero.</p><div class="rec-impact">SEO orgânico — tráfego sem custo de mídia</div></div>
+    </div>
+
+    <!-- INVESTMENT ASK — last thing in the presentation -->
+    <div class="sim-box fi" style="margin-top:2.5rem;">
+      <div class="sim-header">
+        <h3>Proposta de Aumento de Investimento em Mídia</h3>
+        <span style="font-size:.71rem;color:var(--text-muted);">Calibrado com dados reais Windsor AI · Jan–Ago 2026</span>
+      </div>
+      <p style="font-size:.82rem;color:var(--text-body);line-height:1.7;margin-bottom:1.2rem;">Com ROAS real de 13,9× e um mercado ainda 85% offline, aumentar o investimento em mídia é a alavanca de maior retorno disponível. Monte Carlo e Vivara já escalam com budget — a Official Time tem ROAS superior mas budget 3× menor. O simulador abaixo usa os dados reais do período para projetar o retorno com diferentes cenários de investimento.</p>
+      <div class="sim-input-row">
+        <span class="sim-label">Investimento mensal em mídia:</span>
+        <span class="sim-val" id="simValLabel">R$ 2.765</span>
+        <input type="range" class="sim-slider" id="simSlider" min="2000" max="20000" step="250" value="2765">
+      </div>
+      <div class="sim-cards">
+        <div class="sim-card pess">
+          <div class="sim-card-label">Pessimista</div>
+          <div class="sim-roas">ROAS 8×</div>
+          <div class="sim-rev" id="pess-rev">R$ 22.120</div>
+          <div class="sim-annual" id="pess-annual">≈ R$ 265k / ano</div>
+        </div>
+        <div class="sim-card cons">
+          <div class="sim-card-label">Conservador</div>
+          <div class="sim-roas">ROAS 10×</div>
+          <div class="sim-rev" id="cons-rev">R$ 27.650</div>
+          <div class="sim-annual" id="cons-annual">≈ R$ 332k / ano</div>
+        </div>
+        <div class="sim-card otim">
+          <div class="sim-card-label">Otimista</div>
+          <div class="sim-roas">ROAS 12×</div>
+          <div class="sim-rev" id="otim-rev">R$ 33.180</div>
+          <div class="sim-annual" id="otim-annual">≈ R$ 398k / ano</div>
+        </div>
+      </div>
+      <p class="sim-note"><strong>Referência atual:</strong> R$2.765/mês · ROAS 13.9× — já acima do cenário otimista. Com aumento de budget, o ROAS tende a se estabilizar enquanto a <strong>receita absoluta cresce</strong>. Pessimista = 8× (queda inicial ao escalar — normal). Conservador = 10×. Otimista = 12×. Dados via Windsor AI.</p>
     </div>
   </div>
 </section>
@@ -1221,6 +1255,16 @@ const REV = [
   {m:'Jul', v:37538.22},
   {m:'Ago*',v:14069.04, partial:true},
 ];
+const REV25 = [18484.79, 7117.59, 5928.24, 16991.62, 11058.45, 7408.30, 1379.50, 8625.92];
+let revMode = '26';
+function toggleRevMode() {
+  revMode = revMode === '26' ? 'cmp' : '26';
+  const btn = document.getElementById('revToggle');
+  if (btn) btn.textContent = revMode === 'cmp' ? 'Ver só 2026' : 'Ver 2025 vs 2026';
+  const tip = document.getElementById('revTooltip');
+  if (tip) tip.style.display = 'none';
+  drawRevChart();
+}
 
 function drawRevChart() {
   const cvs = document.getElementById('revCvs');
@@ -1240,12 +1284,14 @@ function drawRevChart() {
   const surf2   = tok('--surface-2');
   const border  = tok('--border-n');
 
-  const maxV = Math.max(...REV.map(d => d.v));
+  const isCmp = revMode === 'cmp';
+  const maxV = Math.max(...REV.map(d => d.v), ...(isCmp ? REV25 : []));
   const P = {t:18, r:8, b:34, l:54};
   const cW = W - P.l - P.r;
   const cH = H - P.t - P.b;
-  const slot = cW / REV.length;
-  const bW = slot * 0.52;
+  const n = REV.length;
+  const slot = cW / n;
+  const bW = isCmp ? slot * 0.38 : slot * 0.52;
 
   ctx.clearRect(0, 0, W, H);
 
@@ -1258,47 +1304,88 @@ function drawRevChart() {
     ctx.fillText(val >= 1000 ? 'R$' + (val/1000).toFixed(0) + 'k' : '', P.l - 6, y + 3.5);
   });
 
+  const hitAreas = [];
   REV.forEach((d, i) => {
-    ctx.globalAlpha = 1;
-    const x = P.l + slot * i + (slot - bW) / 2;
-    const bH = (d.v / maxV) * cH;
-    const y = P.t + cH - bH;
-    const r = 3;
-
-    if (i === 4) {
-      ctx.fillStyle = accent;
+    const slotX = P.l + slot * i;
+    const r2 = 3;
+    if (isCmp) {
+      const v25 = REV25[i];
+      const bH25 = (v25 / maxV) * cH;
+      const x25 = slotX + (slot - bW * 2.2) / 2;
+      const y25 = P.t + cH - bH25;
+      ctx.globalAlpha = 0.45; ctx.fillStyle = muted;
+      ctx.beginPath(); ctx.moveTo(x25+r2,y25); ctx.lineTo(x25+bW-r2,y25);
+      ctx.quadraticCurveTo(x25+bW,y25,x25+bW,y25+r2);
+      ctx.lineTo(x25+bW,y25+bH25); ctx.lineTo(x25,y25+bH25);
+      ctx.quadraticCurveTo(x25,y25,x25+r2,y25); ctx.closePath(); ctx.fill();
+      const x26 = x25 + bW + bW * 0.2;
+      const bH26 = (d.v / maxV) * cH;
+      const y26 = P.t + cH - bH26;
+      ctx.globalAlpha = (i === 4) ? 1 : 0.8; ctx.fillStyle = accent;
+      ctx.beginPath(); ctx.moveTo(x26+r2,y26); ctx.lineTo(x26+bW-r2,y26);
+      ctx.quadraticCurveTo(x26+bW,y26,x26+bW,y26+r2);
+      ctx.lineTo(x26+bW,y26+bH26); ctx.lineTo(x26,y26+bH26);
+      ctx.quadraticCurveTo(x26,y26,x26+r2,y26); ctx.closePath(); ctx.fill();
       ctx.globalAlpha = 1;
-    } else if (d.partial) {
-      ctx.fillStyle = accentD;
-      ctx.globalAlpha = 0.55;
+      ctx.fillStyle = (i === 4) ? accent : body;
+      ctx.font = `${i === 4 ? '500' : '400'} 10px "Inter",sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(d.m, slotX + slot/2, H - 8);
     } else {
-      ctx.fillStyle = accentD;
-      ctx.globalAlpha = 0.65;
+      const x = slotX + (slot - bW) / 2;
+      const bH = (d.v / maxV) * cH;
+      const y = P.t + cH - bH;
+      if (i === 4) { ctx.fillStyle = accent; ctx.globalAlpha = 1; }
+      else if (d.partial) { ctx.fillStyle = accentD; ctx.globalAlpha = 0.55; }
+      else { ctx.fillStyle = accentD; ctx.globalAlpha = 0.65; }
+      ctx.beginPath(); ctx.moveTo(x+r2,y); ctx.lineTo(x+bW-r2,y);
+      ctx.quadraticCurveTo(x+bW,y,x+bW,y+r2);
+      ctx.lineTo(x+bW,y+bH); ctx.lineTo(x,y+bH);
+      ctx.quadraticCurveTo(x,y,x+r2,y); ctx.closePath(); ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = (i === 4) ? accent : body;
+      ctx.font = `${i === 4 ? '500' : '400'} 10px "Inter",sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(d.m, x + bW/2, H - 8);
     }
-
-    ctx.beginPath();
-    ctx.moveTo(x + r, y);
-    ctx.lineTo(x + bW - r, y);
-    ctx.quadraticCurveTo(x + bW, y, x + bW, y + r);
-    ctx.lineTo(x + bW, y + bH);
-    ctx.lineTo(x, y + bH);
-    ctx.quadraticCurveTo(x, y, x + r, y);
-    ctx.closePath();
-    ctx.fill();
-    ctx.globalAlpha = 1;
-
-    ctx.fillStyle = (i === 4) ? accent : body;
-    ctx.font = `${i === 4 ? '500' : '400'} 10px "Inter",sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.fillText(d.m, x + bW / 2, H - 8);
+    hitAreas.push({x: slotX, w: slot, v26: d.v, v25: REV25[i], m: d.m});
   });
 
-  const pi = 4;
-  const px = P.l + slot * pi + slot / 2;
-  const pv = REV[pi].v;
-  const py = P.t + cH - (pv / maxV) * cH;
-  ctx.fillStyle = accent; ctx.font = '10px "Inter",sans-serif'; ctx.textAlign = 'center';
-  ctx.fillText('▲ pico', px, py - 5);
+  if (!isCmp) {
+    const pi = 4;
+    const px = P.l + slot * pi + slot/2;
+    const pv = REV[pi].v;
+    const py = P.t + cH - (pv / maxV) * cH;
+    ctx.fillStyle = accent; ctx.font = '10px "Inter",sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('▲ pico', px, py - 5);
+  }
+
+  cvs._revHitAreas = hitAreas;
+  if (!cvs._revClickBound) {
+    cvs._revClickBound = true;
+    cvs.addEventListener('click', function(e) {
+      const rect = cvs.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      const areas = cvs._revHitAreas;
+      if (!areas) return;
+      const tip = document.getElementById('revTooltip');
+      if (!tip) return;
+      let found = null;
+      for (const a of areas) {
+        if (cx >= a.x && cx <= a.x + a.w) { found = a; break; }
+      }
+      if (!found) { tip.style.display = 'none'; return; }
+      const fmt = v => 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:2,maximumFractionDigits:2});
+      if (revMode === 'cmp') {
+        const delta = ((found.v26 - found.v25) / found.v25 * 100).toFixed(0);
+        const sign = delta > 0 ? '+' : '';
+        tip.textContent = `${found.m} — 2025: ${fmt(found.v25)} · 2026: ${fmt(found.v26)} · ${sign}${delta}%`;
+      } else {
+        tip.textContent = `${found.m} — ${fmt(found.v26)}`;
+      }
+      tip.style.display = 'block';
+    });
+  }
 }
 
 // ─── Watch decoration ─────────────────────────────────────
