@@ -108,19 +108,18 @@ h2.display{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(2.4re
 h3.label{font-size:.67rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0;}
 
 /* ── CAPA ── */
-#capa{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;padding-top:44px;}
-.capa-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 2.5rem 4rem 2.25rem;max-width:580px;margin-left:auto;position:relative;z-index:2;}
-.capa-rule-v{position:absolute;left:2.25rem;top:50%;transform:translateY(-50%);width:2px;height:72px;background:var(--accent);}
-.capa-v4{font-size:.64rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;}
-h1.capa-title{font-family:'Oswald',sans-serif;font-size:clamp(4rem,9vw,7.5rem);font-weight:700;letter-spacing:.04em;color:var(--text-h);line-height:.95;margin-bottom:2.2rem;}
+#capa{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:44px;background:#0d0a0a;}
+.capa-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.capa-inner{position:relative;z-index:2;padding:0 3.5rem;max-width:700px;}
+.capa-rule-v{width:2px;height:72px;background:var(--accent);margin-bottom:2.2rem;}
+.capa-v4{font-size:.64rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1.6rem;}
+h1.capa-title{font-family:'Oswald',sans-serif;font-size:clamp(5rem,11vw,9rem);font-weight:700;letter-spacing:.04em;color:#fff;line-height:.9;margin-bottom:2.4rem;}
 .capa-meta{display:flex;flex-direction:column;gap:.4rem;}
 .capa-period{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);letter-spacing:.04em;}
-.capa-sub{font-size:.82rem;letter-spacing:.04em;color:var(--text-body);}
-.capa-pillars{margin-top:2.5rem;display:flex;gap:1.5rem;flex-wrap:wrap;}
-.capa-pillar{font-size:.62rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);}
-.capa-right{position:relative;overflow:hidden;}
-.capa-canvas{position:absolute;inset:0;width:100%;height:100%;}
-@media(max-width:760px){#capa{grid-template-columns:1fr;}.capa-right{height:45vw;}.capa-left{padding:3rem 2.25rem 2rem;max-width:none;}}
+.capa-sub{font-size:.82rem;letter-spacing:.04em;color:rgba(255,255,255,.45);}
+.capa-pillars{margin-top:2.8rem;display:flex;gap:1.5rem;flex-wrap:wrap;}
+.capa-pillar{font-size:.62rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+@media(max-width:760px){.capa-inner{padding:0 2rem;}}
 
 /* ── ROAS HERO BAND ── */
 .roas-hero{border-top:3px solid var(--accent);background:var(--surface);display:flex;align-items:center;gap:2.5rem;padding:1.4rem 2rem;margin-bottom:1.25rem;flex-wrap:wrap;}
@@ -343,10 +342,10 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
 @media(max-width:480px){.recs-grid{grid-template-columns:1fr;}}
 
 /* ── CAPA STAT STRIP ── */
-.capa-stat-strip{margin-top:2.2rem;padding-top:1.6rem;border-top:1px solid var(--border-n);display:flex;flex-wrap:wrap;gap:2rem;}
+.capa-stat-strip{margin-top:3rem;display:flex;flex-wrap:wrap;gap:2.8rem;}
 .capa-stat{display:flex;flex-direction:column;}
-.capa-stat-val{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:700;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
-.capa-stat-lbl{font-size:.58rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin-top:.35rem;}
+.capa-stat-val{font-family:'Oswald',sans-serif;font-size:2.9rem;font-weight:700;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
+.capa-stat-lbl{font-size:.58rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:.4rem;}
 
 /* ── BEFORE / AFTER ── */
 .before-after{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;margin-bottom:1.25rem;border:1px solid var(--border-n);overflow:hidden;}
@@ -514,7 +513,9 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
 
 <!-- ══ CAPA ══ -->
 <section id="capa">
-  <div class="capa-left fi">
+  <canvas class="capa-canvas" id="watchCvs"></canvas>
+  <div class="capa-inner fi">
+    <div class="capa-rule-v"></div>
     <div class="capa-v4">V4 Company · Relatório Executivo</div>
     <h1 class="capa-title">Official<br>Time</h1>
     <div class="capa-meta">
@@ -540,9 +541,6 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
         <span class="capa-stat-lbl">Pedidos 2026</span>
       </div>
     </div>
-  </div>
-  <div class="capa-right">
-    <canvas class="capa-canvas" id="watchCvs"></canvas>
   </div>
 </section>
 
@@ -1595,62 +1593,98 @@ function drawRevChart() {
   }
 }
 
-// ─── Watch decoration ─────────────────────────────────────
+// ─── Cinematic atmosphere ──────────────────────────────────
 function drawWatchDeco() {
   const cvs = document.getElementById('watchCvs');
   if (!cvs) return;
-  cvs.width  = cvs.offsetWidth || window.innerWidth / 2;
+  cvs.width  = cvs.offsetWidth  || window.innerWidth;
   cvs.height = cvs.offsetHeight || window.innerHeight;
   const ctx = cvs.getContext('2d');
-  const cx = cvs.width / 2, cy = cvs.height / 2;
-  const r = Math.min(cvs.width, cvs.height) * 0.36;
-  const ac = tok('--accent');
+  const W = cvs.width, H = cvs.height;
+  const ac = '#E50914';
 
-  ctx.clearRect(0, 0, cvs.width, cvs.height);
-  ctx.strokeStyle = ac;
+  ctx.clearRect(0, 0, W, H);
 
-  ctx.globalAlpha = 0.13; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.arc(cx, cy, r * 1.06, 0, Math.PI*2); ctx.stroke();
-  ctx.globalAlpha = 0.07;
-  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
-  ctx.globalAlpha = 0.05;
-  ctx.beginPath(); ctx.arc(cx, cy, r * 0.88, 0, Math.PI*2); ctx.stroke();
+  /* radial glow — right-of-center origin */
+  const gx = W * 0.78, gy = H * 0.46;
+  const gr = ctx.createRadialGradient(gx, gy, 0, gx, gy, W * 0.65);
+  gr.addColorStop(0,   'rgba(229,9,20,.11)');
+  gr.addColorStop(0.4, 'rgba(229,9,20,.04)');
+  gr.addColorStop(1,   'rgba(229,9,20,0)');
+  ctx.fillStyle = gr;
+  ctx.fillRect(0, 0, W, H);
 
-  for (let i = 0; i < 60; i++) {
-    const ang = (i / 60) * Math.PI * 2 - Math.PI / 2;
-    const isHour = i % 5 === 0;
-    const len = isHour ? r * 0.1 : r * 0.04;
-    ctx.globalAlpha = isHour ? 0.16 : 0.05;
-    ctx.lineWidth = isHour ? 1.5 : 0.8;
+  /* diagonal key-light band */
+  ctx.save();
+  ctx.translate(W * 0.5, H * 0.5);
+  ctx.rotate(-Math.PI / 4);
+  const band = ctx.createLinearGradient(-W, 0, W, 0);
+  band.addColorStop(0,    'rgba(229,9,20,0)');
+  band.addColorStop(0.45, 'rgba(229,9,20,0)');
+  band.addColorStop(0.5,  'rgba(229,9,20,.042)');
+  band.addColorStop(0.55, 'rgba(229,9,20,0)');
+  band.addColorStop(1,    'rgba(229,9,20,0)');
+  ctx.fillStyle = band;
+  ctx.fillRect(-W * 1.5, -H * 2, W * 3, H * 4);
+  ctx.restore();
+
+  /* precision tick scale — right edge */
+  const tickX = W - 22;
+  const tickCount = 13;
+  const tickTop = H * 0.24;
+  const tickSpan = H * 0.52;
+  ctx.lineCap = 'butt';
+  for (let i = 0; i < tickCount; i++) {
+    const y = tickTop + (i / (tickCount - 1)) * tickSpan;
+    const long = i % 3 === 0;
+    ctx.globalAlpha = long ? 0.42 : 0.16;
+    ctx.lineWidth   = long ? 1.2 : 0.7;
+    ctx.strokeStyle = ac;
     ctx.beginPath();
-    ctx.moveTo(cx + Math.cos(ang) * r * 0.88, cy + Math.sin(ang) * r * 0.88);
-    ctx.lineTo(cx + Math.cos(ang) * (r * 0.88 - len), cy + Math.sin(ang) * (r * 0.88 - len));
+    ctx.moveTo(tickX, y);
+    ctx.lineTo(tickX - (long ? 14 : 7), y);
     ctx.stroke();
   }
 
-  const hands = [{frac:10/12, len:0.45, w:2}, {frac:2/12, len:0.62, w:1.5}];
-  hands.forEach(h => {
-    const ang = h.frac * Math.PI * 2 - Math.PI / 2;
-    ctx.globalAlpha = 0.16; ctx.lineWidth = h.w; ctx.lineCap = 'round';
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(cx + Math.cos(ang) * r * h.len, cy + Math.sin(ang) * r * h.len);
-    ctx.stroke();
-  });
+  /* primary vertical hairline */
+  const hx1 = W * 0.72;
+  const vg1 = ctx.createLinearGradient(0, 0, 0, H);
+  vg1.addColorStop(0,    'rgba(229,9,20,0)');
+  vg1.addColorStop(0.18, 'rgba(229,9,20,.28)');
+  vg1.addColorStop(0.5,  'rgba(229,9,20,.38)');
+  vg1.addColorStop(0.82, 'rgba(229,9,20,.28)');
+  vg1.addColorStop(1,    'rgba(229,9,20,0)');
+  ctx.strokeStyle = vg1; ctx.lineWidth = 1; ctx.globalAlpha = 1;
+  ctx.beginPath(); ctx.moveTo(hx1, 0); ctx.lineTo(hx1, H); ctx.stroke();
 
-  ctx.globalAlpha = 0.25; ctx.fillStyle = ac;
-  ctx.beginPath(); ctx.arc(cx, cy, 4, 0, Math.PI*2); ctx.fill();
+  /* secondary faint hairline */
+  const hx2 = W * 0.765;
+  const vg2 = ctx.createLinearGradient(0, 0, 0, H);
+  vg2.addColorStop(0,   'rgba(229,9,20,0)');
+  vg2.addColorStop(0.3, 'rgba(229,9,20,.09)');
+  vg2.addColorStop(0.7, 'rgba(229,9,20,.09)');
+  vg2.addColorStop(1,   'rgba(229,9,20,0)');
+  ctx.strokeStyle = vg2; ctx.lineWidth = 0.7;
+  ctx.beginPath(); ctx.moveTo(hx2, 0); ctx.lineTo(hx2, H); ctx.stroke();
 
-  /* ROAS text overlay — subtle anchor for the numbers */
-  const fs = Math.round(r * 0.26);
-  ctx.globalAlpha = 0.42; ctx.fillStyle = ac;
-  ctx.font = '700 ' + fs + 'px Oswald, sans-serif';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText('13.9×', cx, cy + r * 0.53);
-  ctx.font = '500 ' + Math.round(r * 0.095) + 'px Inter, sans-serif';
-  ctx.globalAlpha = 0.22;
-  ctx.fillText('ROAS REAL · JAN–AGO 2026', cx, cy + r * 0.7);
-  ctx.globalAlpha = 1; ctx.textAlign = 'start';
+  /* crosshair reticle — top-right quadrant */
+  const rx = W * 0.855, ry = H * 0.13;
+  ctx.strokeStyle = ac; ctx.lineWidth = 0.8;
+  ctx.globalAlpha = 0.28;
+  ctx.beginPath();
+  ctx.moveTo(rx - 14, ry); ctx.lineTo(rx + 14, ry);
+  ctx.moveTo(rx, ry - 14); ctx.lineTo(rx, ry + 14);
+  ctx.stroke();
+  ctx.globalAlpha = 0.18;
+  ctx.beginPath(); ctx.arc(rx, ry, 5.5, 0, Math.PI * 2); ctx.stroke();
+
+  /* scan lines — film grain texture */
+  ctx.strokeStyle = 'rgba(0,0,0,.55)'; ctx.lineWidth = 1; ctx.globalAlpha = 1;
+  for (let y = 0; y < H; y += 4) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+
+  ctx.globalAlpha = 1;
 }
 
 // ─── Daily orders chart ────────────────────────────────────
