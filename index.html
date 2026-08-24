@@ -695,12 +695,6 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
       </div>
     </div>
 
-    <!-- PDV DIAGNÓSTICO -->
-    <div class="pdv-diag-row fi">
-      <button class="pdv-diag-btn" onclick="openDiag()">▶ Análise PDV — Diagnóstico de Atendimento</button>
-      <span class="pdv-diag-note">Cliente oculto realizado · comparativo Official Time vs. Vivara · 4 slides</span>
-    </div>
-
     <div class="tab-nav fi">
       <button class="tab-btn active" data-tab="tab-ecom">E-Commerce</button>
       <button class="tab-btn" data-tab="tab-pdv">PDV</button>
@@ -751,7 +745,7 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
             <tr><td><span class="act-name">Black Friday + Natal integrados</span><span class="act-obj">Campanha cross-channel com criativos e ofertas</span></td><td>Gerar venda no e-com e apoiar PDV</td><td class="act-period">Nov – Dez 25</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Campanha integrada PDV + e-com com KVs aprovados e criativos produzidos</li><li>Cobertura de Black Friday com antecedência de 2 semanas</li><li>Natal com retargeting de quem visitou o site durante a BF</li></ul></td></tr>
             <tr class="wpp-alert-row"><td><span class="act-name">Campanhas para WhatsApp — Gargalo Identificado</span><span class="act-obj">Leads para atendimento e convite ao PDV · cliente oculto realizado</span></td><td>Ativar funil local via atendimento consultivo</td><td class="act-period">—</td><td class="td-status"><span class="badge s-done">✓ Executada (pausada)</span><button class="det-btn">+ Detalhes</button><button class="diag-open-btn" onclick="openDiag()">▶ Ver Diagnóstico</button></td></tr>
-            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Campanhas geraram leads qualificados — pausadas após diagnóstico de gargalo</li><li>Cliente oculto confirmou: o problema está no processo de resposta, não na geração de leads</li><li><strong>Insight crítico:</strong> a Official Time demorou 22h para responder vs. 3 minutos da Vivara</li><li style="list-style:none;padding-left:.5rem;"><button class="wpp-btn" onclick="document.getElementById('wppOverlay').classList.add('open')">Ver comparativo de atendimento →</button></li><li><strong>Recomendação:</strong> estruturar protocolo de resposta antes de reativar campanhas</li></ul></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Campanhas geraram leads qualificados — pausadas após diagnóstico de gargalo</li><li>Cliente oculto confirmou: o problema está no processo de resposta, não na geração de leads</li><li><strong>Insight crítico:</strong> Official Time respondeu em ~7 min mas sem personalização — a Vivara respondeu em 3 min com bot, coletou dados e apresentou produtos com preço</li><li style="list-style:none;padding-left:.5rem;"><button class="wpp-btn" onclick="document.getElementById('wppOverlay').classList.add('open')">Ver comparativo de atendimento →</button></li><li><strong>Recomendação:</strong> estruturar protocolo de resposta antes de reativar campanhas</li></ul></td></tr>
             <tr><td><span class="act-name">31 anos + Mês do Cliente</span><span class="act-obj">KV aprovado, criativos em desdobramento</span></td><td>Celebração + venda integrada</td><td class="act-period">Ago – Set 26</td><td class="td-status"><span class="badge s-dev">⟳ Em desenvolvimento</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>KV aprovado — desdobramentos em produção (PDV, e-com e social)</li><li>Criativos finais previstos para início de setembro</li><li>Ativação CRM planejada junto com lançamento da campanha</li></ul></td></tr>
             <tr><td><span class="act-name">Evento na Geely</span><span class="act-obj">Mostruário e ativação com clientes da Geely</span></td><td>Ativar novo público no PDV de forma colaborativa</td><td class="act-period">Set 26</td><td class="td-status"><span class="badge s-exec">▶ Em execução</span><button class="det-btn">+ Detalhes</button></td></tr>
@@ -1105,7 +1099,7 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
         <p class="diag-body">Em agosto de 2026, realizamos um cliente oculto simultâneo na Official Time e na Vivara pelo WhatsApp, com o mesmo perfil de comprador e mesma solicitação. Os resultados mostram que o problema de conversão não está na geração de leads — está no protocolo de resposta.</p>
         <div class="diag-stat-row">
           <div class="diag-stat-cell">
-            <div class="diag-stat-val bad">22h</div>
+            <div class="diag-stat-val bad">7 min</div>
             <div class="diag-stat-lbl">Tempo de resposta · Official Time</div>
           </div>
           <div class="diag-stat-cell">
@@ -1133,7 +1127,7 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
           <div style="flex:1;min-width:0;">
             <div style="padding:.65rem .9rem;background:var(--s-no-bg);border-left:3px solid var(--s-no-fg);border-radius:0 4px 4px 0;">
               <span style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--s-no-fg);">✗ Diagnóstico</span>
-              <p style="font-size:.76rem;color:var(--text-body);line-height:1.65;margin-top:.25rem;"><strong style="color:var(--text-h)">22h para retornar ao primeiro contato.</strong> Sem personalização: dois links e duas frases. Nenhum produto apresentado, nenhuma pergunta feita. Conversa encerrou sem engajamento do cliente.</p>
+              <p style="font-size:.76rem;color:var(--text-body);line-height:1.65;margin-top:.25rem;"><strong style="color:var(--text-h)">Resposta em ~7 minutos — mas sem nenhuma personalização.</strong> Dois links genéricos e duas frases. Nenhum produto apresentado, nenhuma pergunta feita ao cliente. Conversa encerrou sem engajamento.</p>
             </div>
           </div>
         </div>
