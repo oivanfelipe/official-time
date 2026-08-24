@@ -62,8 +62,8 @@
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;scroll-snap-type:y proximity;}
-body{background:var(--bg);color:var(--text-body);font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity;font-size:18px;}
+body{background:var(--bg);color:var(--text-body);font-family:'Inter',system-ui,sans-serif;font-size:1rem;line-height:1.7;-webkit-font-smoothing:antialiased;}
 
 /* ── NAV ── */
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:44px;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-n);}
@@ -363,6 +363,15 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
 .ba-pct{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:700;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
 .ba-arr{font-size:1.4rem;color:var(--accent);line-height:1;}
 @media(max-width:640px){.before-after{grid-template-columns:1fr;}.ba-col.ba-after{border-left:none;border-top:3px solid var(--accent);}.ba-divider{flex-direction:row;padding:1rem 2rem;border-left:none;border-right:none;border-top:1px solid var(--border-n);border-bottom:1px solid var(--border-n);}}
+
+/* ── REF BUTTON ── */
+.ref-btn{display:inline-flex;align-items:center;gap:.3rem;margin-top:.7rem;padding:4px 11px;border:1px solid var(--border-n);border-radius:2px;cursor:pointer;font-size:.64rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);background:none;font-family:'Inter',sans-serif;transition:color .15s,border-color .15s;}
+.ref-btn:hover{color:var(--accent);border-color:var(--accent);}
+
+/* ── IMG LIGHTBOX ── */
+#imgOverlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.88);align-items:center;justify-content:center;cursor:zoom-out;}
+#imgOverlay.open{display:flex;}
+#imgOverlay img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:3px;box-shadow:0 4px 40px rgba(0,0,0,.7);}
 
 /* ── ROAS HERO PULSE ── */
 @keyframes accentPulse{0%,100%{box-shadow:0 0 0 0 rgba(229,9,20,0);}60%{box-shadow:0 0 0 8px rgba(229,9,20,0.08);}}
@@ -1014,9 +1023,9 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
 
     <div class="comp-sub-hd fi"><span class="eyebrow">Lacunas &amp; vantagens</span></div>
     <div class="gaps-grid fi">
-      <div class="gap-card"><div class="gap-badge">Alta prioridade</div><div class="gap-title">CRM sem benefício claro</div><div class="gap-desc">Campanhas de CRM existem, mas sem incentivo concreto ao cliente. Concorrentes retêm com crédito automático e regras transparentes. A Official Time depende de aprovação caso a caso, sem benefício definido para a recompra.</div></div>
-      <div class="gap-card"><div class="gap-badge">Alta prioridade</div><div class="gap-title">Desconto de boas-vindas pouco competitivo</div><div class="gap-desc">5% (até R$300) vs. 10% da Monte Carlo e até 50% da Vivara. O cliente tende a preferir onde a oferta inicial é mais vantajosa.</div></div>
-      <div class="gap-card"><div class="gap-badge">Alta prioridade</div><div class="gap-title">Ausência em marketplace</div><div class="gap-desc">Monte Carlo e Vivara vendem no Mercado Livre, captando demanda ativa de usuários que já buscam as marcas que a Official Time também carrega.</div></div>
+      <div class="gap-card"><div class="gap-badge">Alta prioridade</div><div class="gap-title">CRM sem benefício claro</div><div class="gap-desc">Campanhas de CRM existem, mas sem incentivo concreto ao cliente. Concorrentes retêm com crédito automático e regras transparentes. A Official Time depende de aprovação caso a caso, sem benefício definido para a recompra.</div><button class="ref-btn" onclick="openImg('https://mzwynanvhojzyoirvxkc.supabase.co/storage/v1/object/public/official-time-prints/vivara-store.webp')">↗ Ver exemplo Vivara</button></div>
+      <div class="gap-card"><div class="gap-badge">Alta prioridade</div><div class="gap-title">Desconto de boas-vindas pouco competitivo</div><div class="gap-desc">5% (até R$300) vs. 10% da Monte Carlo e até 50% da Vivara. O cliente tende a preferir onde a oferta inicial é mais vantajosa.</div><button class="ref-btn" onclick="openImg('https://mzwynanvhojzyoirvxkc.supabase.co/storage/v1/object/public/official-time-prints/monte-carlo-popup.webp')">↗ Ver cupom Monte Carlo</button></div>
+      <div class="gap-card"><div class="gap-badge">Alta prioridade</div><div class="gap-title">Ausência em marketplace</div><div class="gap-desc">Monte Carlo e Vivara vendem no Mercado Livre, captando demanda ativa de usuários que já buscam as marcas que a Official Time também carrega. <strong style="color:var(--text-h)">Estimativa de mercado:</strong> categoria relógios/acessórios no Mercado Livre Brasil movimenta ~R$1,5–2B/ano. Vivara (Grupo Vivara · R$3,4B receita FY2024) é a maior joalheira do Brasil — relógios representam ~15% do mix, com presença ativa no ML. A Official Time não tem presença nesse canal.</div></div>
       <div class="gap-card"><div class="gap-badge">Média prioridade</div><div class="gap-title">Frete grátis ausente da página do produto</div><div class="gap-desc">Ambos concorrentes usam frete grátis como âncora de conversão. A Official Time pratica frete grátis em algumas condições mas não comunica isso na página do produto — onde a decisão acontece.</div></div>
       <div class="gap-card"><div class="gap-badge">Média prioridade</div><div class="gap-title">Filtros de produto muito básicos</div><div class="gap-desc">Monte Carlo filtra por mecanismo, tamanho de caixa e material da pulseira; Impala filtra por movimento e estilo. A Official Time não oferece filtros específicos de relógio — critérios decisivos para o comprador especializado.</div></div>
       <div class="gap-card"><div class="gap-badge">Média prioridade</div><div class="gap-title">Marcas ausentes do portfólio</div><div class="gap-desc">Fossil, Skagen e DKNY (mid-range) estão na Monte Carlo. TAG Heuer e Montblanc (luxo) estão na Vivara. A Official Time está num intervalo sem os extremos.</div></div>
@@ -1058,30 +1067,36 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
         <span class="sim-val" id="simValLabel">R$ 2.765</span>
         <input type="range" class="sim-slider" id="simSlider" min="2000" max="20000" step="250" value="2765">
       </div>
+      <div id="simPctLabel" style="font-size:.7rem;color:var(--text-muted);margin:.4rem 0 1rem;letter-spacing:.04em;">Referência atual: R$2.765 · ROAS 13.9×</div>
       <div class="sim-cards">
         <div class="sim-card pess">
-          <div class="sim-card-label">Pessimista</div>
-          <div class="sim-roas">ROAS 8×</div>
-          <div class="sim-rev" id="pess-rev">R$ 22.120</div>
-          <div class="sim-annual" id="pess-annual">≈ R$ 265k / ano</div>
+          <div class="sim-card-label">ROAS mínimo</div>
+          <div class="sim-roas" id="pess-roas">13.9×</div>
+          <div class="sim-rev" id="pess-rev">R$ 38.434</div>
+          <div class="sim-annual" id="pess-annual">≈ R$ 461k / ano</div>
         </div>
         <div class="sim-card cons">
-          <div class="sim-card-label">Conservador</div>
-          <div class="sim-roas">ROAS 10×</div>
-          <div class="sim-rev" id="cons-rev">R$ 27.650</div>
-          <div class="sim-annual" id="cons-annual">≈ R$ 332k / ano</div>
+          <div class="sim-card-label">ROAS médio</div>
+          <div class="sim-roas" id="cons-roas">13.9×</div>
+          <div class="sim-rev" id="cons-rev">R$ 38.434</div>
+          <div class="sim-annual" id="cons-annual">≈ R$ 461k / ano</div>
         </div>
         <div class="sim-card otim">
-          <div class="sim-card-label">Otimista</div>
-          <div class="sim-roas">ROAS 12×</div>
-          <div class="sim-rev" id="otim-rev">R$ 33.180</div>
-          <div class="sim-annual" id="otim-annual">≈ R$ 398k / ano</div>
+          <div class="sim-card-label">ROAS máximo</div>
+          <div class="sim-roas" id="otim-roas">13.9×</div>
+          <div class="sim-rev" id="otim-rev">R$ 38.434</div>
+          <div class="sim-annual" id="otim-annual">≈ R$ 461k / ano</div>
         </div>
       </div>
-      <p class="sim-note"><strong>Referência atual:</strong> R$2.765/mês · ROAS 13.9× — já acima do cenário otimista. Com aumento de budget, o ROAS tende a se estabilizar enquanto a <strong>receita absoluta cresce</strong>. Pessimista = 8× (queda inicial ao escalar — normal). Conservador = 10×. Otimista = 12×. Dados via Windsor AI.</p>
+      <p class="sim-note"><strong>Decaimento de ROAS ao escalar budget</strong> (referência de mercado): 0–10% de aumento → perda esperada de 0–3%; 10–20% → 3–6%; 20–30% → 6–10%; 30–50% → 10–15%; 50%+ → 15–25%+. Base atual: R$2.765/mês · ROAS 13.9×. Ao aumentar o budget, o ROAS tende a cair progressivamente — a <strong>receita absoluta ainda cresce</strong> mesmo com eficiência menor. Dados: Windsor AI.</p>
     </div>
   </div>
 </section>
+
+<!-- ══ IMG LIGHTBOX ══ -->
+<div id="imgOverlay" onclick="this.classList.remove('open')">
+  <img id="imgOverlayImg" src="" alt="Referência">
+</div>
 
 <!-- ══ DIAGNÓSTICO PDV CAROUSEL ══ -->
 <div class="diag-overlay" id="diagOverlay">
@@ -1435,23 +1450,57 @@ document.addEventListener('click', function(e) {
 
 // ─── Simulator ────────────────────────────────────────────
 const slider = document.getElementById('simSlider');
-const ROAS = {pess:8, cons:10, otim:12};
-function fmtBRL(v) { return 'R$ ' + v.toLocaleString('pt-BR'); }
+const BASE_INV = 2765, BASE_ROAS = 13.9;
+const DECAY_TABLE = [
+  {maxPct:0.10,minLoss:0.00,maxLoss:0.03},
+  {maxPct:0.20,minLoss:0.03,maxLoss:0.06},
+  {maxPct:0.30,minLoss:0.06,maxLoss:0.10},
+  {maxPct:0.50,minLoss:0.10,maxLoss:0.15},
+  {maxPct:Infinity,minLoss:0.15,maxLoss:0.25},
+];
+function fmtBRL(v) { return 'R$ ' + Math.round(v).toLocaleString('pt-BR'); }
 function fmtAnnual(v) {
   const a = v * 12;
   return '≈ ' + (a >= 1000000 ? 'R$ ' + (a/1000000).toFixed(1) + 'M / ano' : 'R$ ' + (a/1000).toFixed(0) + 'k / ano');
 }
+function getDecay(pct) {
+  for (const r of DECAY_TABLE) { if (pct <= r.maxPct) return {min:r.minLoss,max:r.maxLoss}; }
+  return {min:0.15,max:0.25};
+}
 function updateSim() {
   const inv = parseInt(slider.value);
-  document.getElementById('simValLabel').textContent = fmtBRL(inv);
-  ['pess','cons','otim'].forEach(k => {
-    const rev = inv * ROAS[k];
-    document.getElementById(k+'-rev').textContent = fmtBRL(rev);
-    document.getElementById(k+'-annual').textContent = fmtAnnual(rev);
+  document.getElementById('simValLabel').textContent = 'R$ ' + inv.toLocaleString('pt-BR');
+  const pct = (inv - BASE_INV) / BASE_INV;
+  const lbl = document.getElementById('simPctLabel');
+  if (lbl) lbl.textContent = pct > 0.005 ? '+' + Math.round(pct * 100) + '% vs. investimento atual' : 'Referência atual: R$2.765 · ROAS 13.9×';
+  let rMin, rMid, rMax;
+  if (pct <= 0.005) {
+    rMin = rMid = rMax = BASE_ROAS;
+  } else {
+    const d = getDecay(pct);
+    rMin = BASE_ROAS * (1 - d.max);
+    rMax = BASE_ROAS * (1 - d.min);
+    rMid = (rMin + rMax) / 2;
+  }
+  ['pess','cons','otim'].forEach((k,i) => {
+    const r = [rMin,rMid,rMax][i];
+    const el = document.getElementById(k+'-roas');
+    if (el) el.textContent = r.toFixed(1) + '×';
+    document.getElementById(k+'-rev').textContent = fmtBRL(inv * r);
+    document.getElementById(k+'-annual').textContent = fmtAnnual(inv * r);
   });
 }
 slider?.addEventListener('input', updateSim);
 updateSim();
+
+// ─── Image Lightbox ───────────────────────────────────────
+function openImg(src) {
+  document.getElementById('imgOverlayImg').src = src;
+  document.getElementById('imgOverlay').classList.add('open');
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('imgOverlay').classList.remove('open');
+});
 
 // ─── Token helper ─────────────────────────────────────────
 function tok(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
