@@ -62,28 +62,42 @@
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity;}
 body{background:var(--bg);color:var(--text-body);font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
 
 /* ── NAV ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:50px;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-n);}
-.nav-brand{font-family:'Oswald',sans-serif;font-size:.92rem;font-weight:700;letter-spacing:.2em;color:var(--text-h);text-transform:uppercase;}
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:44px;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-n);}
+.nav-brand{font-family:'Oswald',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.2em;color:var(--text-h);text-transform:uppercase;}
 .nav-links{display:flex;gap:0;}
-.nav-link{background:none;border:none;border-bottom:2px solid transparent;padding:.2rem 1rem;cursor:pointer;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);transition:color .15s,border-color .15s;}
+.nav-link{background:none;border:none;border-bottom:2px solid transparent;padding:.2rem .85rem;cursor:pointer;font-family:'Inter',sans-serif;font-size:.67rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);transition:color .15s,border-color .15s;}
 .nav-link.active{color:var(--accent);border-bottom-color:var(--accent);}
 .nav-link:hover{color:var(--text-h);}
 .nav-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
-.nav-theme{background:none;border:1px solid var(--border-n);color:var(--text-muted);padding:3px 11px;border-radius:2px;cursor:pointer;font-size:.68rem;font-family:'Inter',sans-serif;letter-spacing:.04em;transition:color .15s,border-color .15s;}
+.nav-right{display:flex;align-items:center;gap:.5rem;}
+.nav-theme{background:none;border:1px solid var(--border-n);color:var(--text-muted);padding:3px 10px;border-radius:2px;cursor:pointer;font-size:.65rem;font-family:'Inter',sans-serif;letter-spacing:.04em;transition:color .15s,border-color .15s;}
 .nav-theme:hover{color:var(--accent);border-color:var(--accent);}
+.nav-fs{background:none;border:1px solid var(--border-n);color:var(--text-muted);padding:3px 8px;border-radius:2px;cursor:pointer;font-size:.72rem;font-family:'Inter',sans-serif;transition:color .15s,border-color .15s;line-height:1;}
+.nav-fs:hover{color:var(--accent);border-color:var(--accent);}
 @media(max-width:660px){.nav-links{display:none;}}
 
+/* ── SECTION DOTS ── */
+.sec-dots{position:fixed;right:1.1rem;top:50%;transform:translateY(-50%);z-index:190;display:flex;flex-direction:column;gap:.6rem;}
+.sec-dot{width:7px;height:7px;border-radius:50%;background:var(--border-n);cursor:pointer;border:none;padding:0;transition:background .25s,transform .25s;}
+.sec-dot.active{background:var(--accent);transform:scale(1.55);}
+.sec-dot:hover{background:var(--text-muted);}
+@media(max-width:600px){.sec-dots{display:none;}}
+
+/* ── KEYBOARD HINT ── */
+.kbd-hint{position:fixed;bottom:.9rem;right:1.1rem;z-index:190;font-size:.6rem;color:var(--text-muted);letter-spacing:.06em;opacity:.55;pointer-events:none;}
+@media(max-width:600px){.kbd-hint{display:none;}}
+
 /* ── LAYOUT ── */
-section{scroll-margin-top:50px;}
-.container{max-width:1080px;margin:0 auto;padding:0 2.25rem;}
-.section-pad{padding:5.5rem 0;}
+section{scroll-margin-top:44px;scroll-snap-align:start;}
+.container{max-width:1080px;margin:0 auto;padding:0 2rem;}
+.section-pad{padding:4rem 0;}
 
 /* ── SEC HEADER (2-col editorial) ── */
-.sec-hd{display:grid;grid-template-columns:1fr 1fr;gap:3rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border-n);margin-bottom:3rem;}
+.sec-hd{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border-n);margin-bottom:2.5rem;}
 .sec-hd-right{display:flex;align-items:flex-end;}
 .sec-hd-desc{font-size:.88rem;color:var(--text-body);line-height:1.75;}
 @media(max-width:720px){.sec-hd{grid-template-columns:1fr;gap:1rem;}.sec-hd-right{align-items:flex-start;}}
@@ -94,7 +108,7 @@ h2.display{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(2.4re
 h3.label{font-size:.67rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0;}
 
 /* ── CAPA ── */
-#capa{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;padding-top:50px;}
+#capa{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;padding-top:44px;}
 .capa-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 2.5rem 4rem 2.25rem;max-width:580px;margin-left:auto;position:relative;z-index:2;}
 .capa-rule-v{position:absolute;left:2.25rem;top:50%;transform:translateY(-50%);width:2px;height:72px;background:var(--accent);}
 .capa-v4{font-size:.64rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;}
@@ -109,7 +123,7 @@ h1.capa-title{font-family:'Oswald',sans-serif;font-size:clamp(4rem,9vw,7.5rem);f
 @media(max-width:760px){#capa{grid-template-columns:1fr;}.capa-right{height:45vw;}.capa-left{padding:3rem 2.25rem 2rem;max-width:none;}}
 
 /* ── ROAS HERO BAND ── */
-.roas-hero{border-top:3px solid var(--accent);background:var(--surface);display:flex;align-items:center;gap:2.5rem;padding:1.8rem 2rem;margin-bottom:2rem;flex-wrap:wrap;}
+.roas-hero{border-top:3px solid var(--accent);background:var(--surface);display:flex;align-items:center;gap:2.5rem;padding:1.4rem 2rem;margin-bottom:1.25rem;flex-wrap:wrap;}
 .roas-hero-val{font-family:'Oswald',sans-serif;font-size:4.5rem;font-weight:700;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
 .roas-hero-divider{width:1px;height:52px;background:var(--border-n);flex-shrink:0;}
 .roas-hero-right{flex:1;min-width:180px;}
@@ -118,8 +132,8 @@ h1.capa-title{font-family:'Oswald',sans-serif;font-size:clamp(4rem,9vw,7.5rem);f
 .roas-hero-detail strong{color:var(--text-h);}
 
 /* ── KPI ROW ── */
-.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border-n);margin-bottom:2rem;}
-.kpi-item{padding:1.4rem 1.6rem;border-right:1px solid var(--border-n);}
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border-n);margin-bottom:1.25rem;}
+.kpi-item{padding:1.1rem 1.4rem;border-right:1px solid var(--border-n);}
 .kpi-item:last-child{border-right:none;}
 .kpi-eyebrow{font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:.5rem;}
 .kpi-val{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:700;color:var(--text-h);line-height:1;margin-bottom:.2rem;font-variant-numeric:tabular-nums;}
@@ -127,7 +141,7 @@ h1.capa-title{font-family:'Oswald',sans-serif;font-size:clamp(4rem,9vw,7.5rem);f
 @media(max-width:600px){.kpi-row{grid-template-columns:1fr;}.kpi-item{border-right:none;border-bottom:1px solid var(--border-n);}.kpi-item:last-child{border-bottom:none;}}
 
 /* ── CHARTS ── */
-.chart-card{background:var(--surface);border:1px solid var(--border-n);padding:1.6rem 1.6rem 1.4rem;margin-bottom:1.25rem;}
+.chart-card{background:var(--surface);border:1px solid var(--border-n);padding:1.2rem 1.4rem 1.1rem;margin-bottom:1rem;}
 .chart-card-hd{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.4rem;flex-wrap:wrap;}
 .chart-note{font-size:.71rem;color:var(--text-muted);}
 canvas.chart{display:block;width:100%;}
@@ -386,14 +400,29 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
 <nav class="nav">
   <span class="nav-brand">Official Time</span>
   <div class="nav-links" id="navLinks">
-    <button class="nav-link active" data-s="capa">Capa</button>
-    <button class="nav-link" data-s="resultado">Resultado</button>
-    <button class="nav-link" data-s="dossie">Dossiê</button>
-    <button class="nav-link" data-s="cenarios">Cenários</button>
-    <button class="nav-link" data-s="novas">Concorrência</button>
+    <button class="nav-link active" data-s="capa" data-idx="0">Capa</button>
+    <button class="nav-link" data-s="resultado" data-idx="1">Resultado</button>
+    <button class="nav-link" data-s="dossie" data-idx="2">Dossiê</button>
+    <button class="nav-link" data-s="cenarios" data-idx="3">Cenários</button>
+    <button class="nav-link" data-s="novas" data-idx="4">Concorrência</button>
   </div>
-  <button class="nav-theme" id="themeBtn">☀ Tema</button>
+  <div class="nav-right">
+    <button class="nav-fs" id="fsBtn" title="Tela cheia (F)">⛶</button>
+    <button class="nav-theme" id="themeBtn">☀ Tema</button>
+  </div>
 </nav>
+
+<!-- SECTION DOTS -->
+<div class="sec-dots" id="secDots">
+  <button class="sec-dot active" data-idx="0" title="Capa"></button>
+  <button class="sec-dot" data-idx="1" title="Resultado"></button>
+  <button class="sec-dot" data-idx="2" title="Dossiê"></button>
+  <button class="sec-dot" data-idx="3" title="Cenários"></button>
+  <button class="sec-dot" data-idx="4" title="Concorrência"></button>
+</div>
+
+<!-- KEYBOARD HINT -->
+<div class="kbd-hint">↑↓ navegar · F tela cheia</div>
 
 <!-- ══ CAPA ══ -->
 <section id="capa">
@@ -1077,20 +1106,55 @@ themeBtn.addEventListener('click', () => {
   applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 });
 
-// ─── Nav links ─────────────────────────────────────────────
+// ─── Nav + keyboard navigation ─────────────────────────────
 const SECS = ['capa','resultado','dossie','cenarios','novas'];
 const navLinks = document.querySelectorAll('.nav-link');
-navLinks.forEach(l => l.addEventListener('click', () => {
-  document.getElementById(l.dataset.s)?.scrollIntoView({behavior:'smooth'});
-}));
+const secDots  = document.querySelectorAll('.sec-dot');
+let curSec = 0;
+
+function goToSec(idx) {
+  idx = Math.max(0, Math.min(idx, SECS.length - 1));
+  curSec = idx;
+  document.getElementById(SECS[idx])?.scrollIntoView({behavior:'smooth'});
+  navLinks.forEach((l,j) => l.classList.toggle('active', j === idx));
+  secDots.forEach((d,j)  => d.classList.toggle('active', j === idx));
+}
+
+navLinks.forEach(l => l.addEventListener('click', () => goToSec(parseInt(l.dataset.idx))));
+secDots.forEach(d  => d.addEventListener('click',  () => goToSec(parseInt(d.dataset.idx))));
+
+document.getElementById('fsBtn').addEventListener('click', () => {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen().catch(()=>{});
+});
+
+document.addEventListener('keydown', function(e) {
+  if (['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
+  if (document.getElementById('wppOverlay').classList.contains('open')) {
+    if (e.key === 'Escape') document.getElementById('wppOverlay').classList.remove('open');
+    return;
+  }
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goToSec(curSec + 1); }
+  else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); goToSec(curSec - 1); }
+  else if (e.key === 'Home')  { e.preventDefault(); goToSec(0); }
+  else if (e.key === 'End')   { e.preventDefault(); goToSec(SECS.length - 1); }
+  else if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+    else document.exitFullscreen().catch(()=>{});
+  }
+});
+
 const secObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       const i = SECS.indexOf(e.target.id);
+      if (i < 0) return;
+      curSec = i;
       navLinks.forEach((l,j) => l.classList.toggle('active', j === i));
+      secDots.forEach((d,j)  => d.classList.toggle('active', j === i));
     }
   });
-}, {threshold: 0.3});
+}, {threshold: 0.25});
 SECS.forEach(id => { const el = document.getElementById(id); if(el) secObs.observe(el); });
 
 // ─── Fade-in ──────────────────────────────────────────────
@@ -1369,12 +1433,9 @@ drawDailyChart();
 drawWatchDeco();
 window.addEventListener('resize', () => { drawRevChart(); drawDailyChart(); drawWatchDeco(); });
 
-// ─── WPP Modal close on overlay click / Escape ───────────
+// ─── WPP Modal close on overlay click ────────────────────
 const wppOverlay = document.getElementById('wppOverlay');
 wppOverlay.addEventListener('click', function(e) {
   if (e.target === wppOverlay) wppOverlay.classList.remove('open');
-});
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') wppOverlay.classList.remove('open');
 });
 </script>
