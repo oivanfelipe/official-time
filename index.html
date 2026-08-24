@@ -124,7 +124,7 @@ h1.capa-title{font-family:'Oswald',sans-serif;font-size:clamp(4rem,9vw,7.5rem);f
 
 /* ── ROAS HERO BAND ── */
 .roas-hero{border-top:3px solid var(--accent);background:var(--surface);display:flex;align-items:center;gap:2.5rem;padding:1.4rem 2rem;margin-bottom:1.25rem;flex-wrap:wrap;}
-.roas-hero-val{font-family:'Oswald',sans-serif;font-size:4.5rem;font-weight:700;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
+.roas-hero-val{font-family:'Oswald',sans-serif;font-size:clamp(4rem,8vw,6.5rem);font-weight:700;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
 .roas-hero-divider{width:1px;height:52px;background:var(--border-n);flex-shrink:0;}
 .roas-hero-right{flex:1;min-width:180px;}
 .roas-hero-label{font-size:.67rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.35rem;}
@@ -338,6 +338,31 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
 @media(max-width:760px){.recs-grid{grid-template-columns:1fr 1fr;}}
 @media(max-width:480px){.recs-grid{grid-template-columns:1fr;}}
 
+/* ── CAPA STAT STRIP ── */
+.capa-stat-strip{margin-top:2.2rem;padding-top:1.6rem;border-top:1px solid var(--border-n);display:flex;flex-wrap:wrap;gap:2rem;}
+.capa-stat{display:flex;flex-direction:column;}
+.capa-stat-val{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:700;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
+.capa-stat-lbl{font-size:.58rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin-top:.35rem;}
+
+/* ── BEFORE / AFTER ── */
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;margin-bottom:1.25rem;border:1px solid var(--border-n);overflow:hidden;}
+.ba-col{padding:1.8rem 2rem;display:flex;flex-direction:column;}
+.ba-col.ba-before{background:var(--surface);}
+.ba-col.ba-after{background:var(--accent-dim-2);border-left:3px solid var(--accent);}
+.ba-label{font-size:.63rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.55rem;}
+.ba-after .ba-label{color:var(--accent);}
+.ba-val{font-family:'Oswald',sans-serif;font-size:clamp(2.8rem,5vw,4rem);font-weight:700;color:var(--text-muted);line-height:1;font-variant-numeric:tabular-nums;}
+.ba-after .ba-val{color:var(--accent);}
+.ba-sub{font-size:.77rem;color:var(--text-muted);margin-top:.5rem;line-height:1.5;}
+.ba-divider{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;padding:0 2rem;background:var(--surface);border-left:1px solid var(--border-n);border-right:1px solid var(--border-n);}
+.ba-pct{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:700;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
+.ba-arr{font-size:1.4rem;color:var(--accent);line-height:1;}
+@media(max-width:640px){.before-after{grid-template-columns:1fr;}.ba-col.ba-after{border-left:none;border-top:3px solid var(--accent);}.ba-divider{flex-direction:row;padding:1rem 2rem;border-left:none;border-right:none;border-top:1px solid var(--border-n);border-bottom:1px solid var(--border-n);}}
+
+/* ── ROAS HERO PULSE ── */
+@keyframes accentPulse{0%,100%{box-shadow:0 0 0 0 rgba(229,9,20,0);}60%{box-shadow:0 0 0 8px rgba(229,9,20,0.08);}}
+.roas-hero{animation:accentPulse 3s ease-in-out 1s 2;}
+
 /* ── SECTION DIVIDER ── */
 .sec-divider{height:1px;background:var(--border-n);}
 
@@ -440,6 +465,20 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
       <span class="capa-pillar">PDV</span>
       <span class="capa-pillar">B2B</span>
     </div>
+    <div class="capa-stat-strip">
+      <div class="capa-stat">
+        <span class="capa-stat-val" id="statRev">+296%</span>
+        <span class="capa-stat-lbl">Receita vs 2025</span>
+      </div>
+      <div class="capa-stat">
+        <span class="capa-stat-val" id="statRoas">13.9×</span>
+        <span class="capa-stat-lbl">ROAS real</span>
+      </div>
+      <div class="capa-stat">
+        <span class="capa-stat-val" id="statPed">108</span>
+        <span class="capa-stat-lbl">Pedidos 2026</span>
+      </div>
+    </div>
   </div>
   <div class="capa-right">
     <canvas class="capa-canvas" id="watchCvs"></canvas>
@@ -453,11 +492,29 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
   <div class="container">
     <div class="sec-hd fi">
       <div>
-        <span class="eyebrow">Performance consolidada</span>
-        <h2 class="display">Resultado do Ano</h2>
+        <span class="eyebrow">V4 Company · Prova de entrega · Jan–Ago 2026</span>
+        <h2 class="display">O que entregamos</h2>
       </div>
       <div class="sec-hd-right">
-        <p class="sec-hd-desc">Pedidos finalizados no e-commerce entre janeiro e agosto de 2026. Agosto em andamento — número parcial. ROAS real coletado via Windsor AI.</p>
+        <p class="sec-hd-desc">Em 2025, o e-commerce operava sem estratégia de mídia — R$77k em 8 meses, 44 pedidos. Em 2026, com a V4 ativa desde janeiro, os números falam por si.</p>
+      </div>
+    </div>
+
+    <!-- BEFORE / AFTER -->
+    <div class="before-after fi">
+      <div class="ba-col ba-before">
+        <span class="ba-label">2025 — antes da V4</span>
+        <span class="ba-val">R$ 77k</span>
+        <span class="ba-sub">44 pedidos · ticket médio R$ 1.750</span>
+      </div>
+      <div class="ba-divider">
+        <span class="ba-arr">↑</span>
+        <span class="ba-pct">+296%</span>
+      </div>
+      <div class="ba-col ba-after">
+        <span class="ba-label">2026 — com V4 ativa</span>
+        <span class="ba-val">R$ 305k</span>
+        <span class="ba-sub">108 pedidos · ticket médio R$ 2.824</span>
       </div>
     </div>
 
@@ -466,17 +523,17 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
       <div class="roas-hero-val">13.9×</div>
       <div class="roas-hero-divider"></div>
       <div class="roas-hero-right">
-        <div class="roas-hero-label">ROAS Real Combinado · Google + Meta</div>
-        <div class="roas-hero-detail"><strong>R$22.122</strong> investidos → <strong>R$307.127</strong> atribuídos · Jan–Ago 2026 · <strong>39% acima do teto do segmento</strong></div>
+        <div class="roas-hero-label">ROAS Real Combinado · Google + Meta · Jan–Ago 2026</div>
+        <div class="roas-hero-detail"><strong>R$22.122</strong> investidos → <strong>R$307.127</strong> atribuídos · <strong style="color:var(--accent)">39% acima do teto do segmento</strong> (benchmark 5–10×)</div>
       </div>
     </div>
 
     <!-- KPI ROW -->
     <div class="kpi-row fi">
-      <div class="kpi-item">
+      <div class="kpi-item" style="border-left:3px solid var(--accent);">
         <span class="kpi-eyebrow">Receita Total 2026</span>
-        <div class="kpi-val">R$ 305k</div>
-        <div class="kpi-note">+296% vs. R$77k em 2025 · mesmo período</div>
+        <div class="kpi-val" style="color:var(--accent);">R$ 305k</div>
+        <div class="kpi-note" style="color:var(--accent);font-weight:600;">+296% vs. R$77k em 2025</div>
       </div>
       <div class="kpi-item">
         <span class="kpi-eyebrow">Ticket Médio</span>
@@ -1433,7 +1490,17 @@ function drawWatchDeco() {
 
   ctx.globalAlpha = 0.25; ctx.fillStyle = ac;
   ctx.beginPath(); ctx.arc(cx, cy, 4, 0, Math.PI*2); ctx.fill();
-  ctx.globalAlpha = 1;
+
+  /* ROAS text overlay — subtle anchor for the numbers */
+  const fs = Math.round(r * 0.26);
+  ctx.globalAlpha = 0.42; ctx.fillStyle = ac;
+  ctx.font = '700 ' + fs + 'px Oswald, sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('13.9×', cx, cy + r * 0.53);
+  ctx.font = '500 ' + Math.round(r * 0.095) + 'px Inter, sans-serif';
+  ctx.globalAlpha = 0.22;
+  ctx.fillText('ROAS REAL · JAN–AGO 2026', cx, cy + r * 0.7);
+  ctx.globalAlpha = 1; ctx.textAlign = 'start';
 }
 
 // ─── Daily orders chart ────────────────────────────────────
@@ -1525,4 +1592,24 @@ const wppOverlay = document.getElementById('wppOverlay');
 wppOverlay.addEventListener('click', function(e) {
   if (e.target === wppOverlay) wppOverlay.classList.remove('open');
 });
+
+// ─── Count-up for capa stats ──────────────────────────────
+function countUp(id, target, decimals, suffix, prefix, duration) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const start = Date.now();
+  function frame() {
+    const pct = Math.min((Date.now() - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - pct, 3);
+    const val = target * ease;
+    el.textContent = prefix + (decimals > 0 ? val.toFixed(decimals) : Math.round(val)) + suffix;
+    if (pct < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+setTimeout(() => {
+  countUp('statRev',  296,  0, '%', '+', 1800);
+  countUp('statRoas', 13.9, 1, '×', '',  2000);
+  countUp('statPed',  108,  0, '',  '',  1600);
+}, 350);
 </script>
