@@ -1645,17 +1645,6 @@ function drawWatchDeco() {
 
   ctx.globalAlpha = 0.25; ctx.fillStyle = ac;
   ctx.beginPath(); ctx.arc(cx, cy, 4, 0, Math.PI*2); ctx.fill();
-
-  /* ROAS text overlay */
-  const fs = Math.round(r * 0.26);
-  ctx.globalAlpha = 0.42; ctx.fillStyle = ac;
-  ctx.font = '700 ' + fs + 'px Oswald, sans-serif';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText('13.9×', cx, cy + r * 0.53);
-  ctx.font = '500 ' + Math.round(r * 0.095) + 'px Inter, sans-serif';
-  ctx.globalAlpha = 0.22;
-  ctx.fillText('ROAS REAL · JAN–AGO 2026', cx, cy + r * 0.7);
-  ctx.globalAlpha = 1; ctx.textAlign = 'start';
 }
 
 // ─── Daily orders chart ────────────────────────────────────
