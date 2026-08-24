@@ -331,6 +331,55 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
 .fi{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease;}
 .fi.vis{opacity:1;transform:none;}
 @media(prefers-reduced-motion:reduce){.fi{opacity:1;transform:none;transition:none;}}
+
+/* ── WPP MODAL ── */
+.wpp-btn{display:inline-flex;align-items:center;gap:.45rem;margin-top:1.1rem;padding:.4rem 1rem;background:none;border:1px solid var(--accent);color:var(--accent);font-size:.67rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s,color .15s;border-radius:2px;}
+.wpp-btn:hover{background:var(--accent);color:#fff;}
+.wpp-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.88);backdrop-filter:blur(6px);padding:1.5rem 1rem;overflow-y:auto;}
+.wpp-overlay.open{display:flex;align-items:flex-start;justify-content:center;}
+.wpp-modal{background:var(--bg);border:1px solid var(--border-n);width:100%;max-width:1080px;margin:auto;}
+.wpp-modal-hd{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--border-n);}
+.wpp-modal-title{font-family:'Oswald',sans-serif;font-size:1.15rem;font-weight:700;color:var(--text-h);line-height:1.2;}
+.wpp-modal-sub{font-size:.72rem;color:var(--text-muted);margin-top:.2rem;}
+.wpp-close{background:none;border:none;color:var(--text-muted);font-size:1.5rem;cursor:pointer;padding:.2rem .5rem;line-height:1;transition:color .15s;}
+.wpp-close:hover{color:var(--accent);}
+.wpp-cols{display:grid;grid-template-columns:1fr 1fr;}
+@media(max-width:700px){.wpp-cols{grid-template-columns:1fr;}}
+.wpp-col{display:flex;flex-direction:column;}
+.wpp-col:first-child{border-right:1px solid var(--border-n);}
+.wpp-col-hd{padding:.9rem 1.25rem;border-bottom:1px solid var(--border-n);background:var(--surface);}
+.wpp-col-brand{font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:700;color:var(--text-h);margin-bottom:.15rem;}
+.wpp-col-meta{font-size:.67rem;color:var(--text-muted);}
+.wpp-screen{background:#111B21;padding:.85rem .75rem;overflow-y:auto;max-height:420px;display:flex;flex-direction:column;gap:.35rem;}
+.wpp-date-sep{text-align:center;margin:.4rem auto;}
+.wpp-date-pill{background:#1F2C34;color:#8696A0;font-size:.66rem;padding:3px 12px;border-radius:6px;display:inline-block;}
+.wpp-bubble{max-width:84%;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;word-break:break-word;}
+.wpp-bubble.recv{background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;}
+.wpp-bubble.sent{background:#6B44B2;color:#fff;border-radius:8px 8px 0 8px;align-self:flex-end;}
+.wpp-bubble.recv a{color:#53BDEB;word-break:break-all;font-size:.73rem;}
+.wpp-ts{font-size:.6rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;}
+.wpp-ts.sent{color:rgba(255,255,255,.55);}
+.wpp-product-card{background:#1F2C34;border-radius:8px;padding:.65rem .85rem;max-width:84%;align-self:flex-start;margin:.15rem 0;}
+.wpp-product-eyebrow{font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#53BDEB;margin-bottom:.3rem;}
+.wpp-product-name{font-size:.77rem;font-weight:600;color:#E9EDEF;line-height:1.35;margin-bottom:.2rem;}
+.wpp-product-price{font-size:.82rem;color:#00A884;font-weight:700;}
+.wpp-product-sku{font-size:.62rem;color:#8696A0;margin-top:.1rem;}
+.wpp-action-row{align-self:flex-start;margin:.1rem 0;}
+.wpp-action-tag{display:inline-block;border:1px solid #00A884;color:#00A884;padding:.28rem .8rem;border-radius:20px;font-size:.71rem;}
+.wpp-cart-block{background:#1F2C34;border-radius:8px;padding:.75rem 1rem;max-width:84%;align-self:flex-start;margin:.2rem 0;}
+.wpp-cart-hd{font-size:.7rem;font-weight:700;color:#E9EDEF;border-bottom:1px solid #2A3942;padding-bottom:.4rem;margin-bottom:.5rem;}
+.wpp-cart-row{font-size:.75rem;color:#8696A0;margin-bottom:.18rem;}
+.wpp-cart-row strong{color:#E9EDEF;}
+.wpp-pay-btn{align-self:flex-start;display:inline-flex;align-items:center;gap:.4rem;background:none;border:1px solid #53BDEB;color:#53BDEB;padding:.32rem .9rem;border-radius:20px;font-size:.72rem;margin:.15rem 0;}
+.wpp-verdict{padding:.9rem 1.25rem;border-top:1px solid var(--border-n);background:var(--surface);}
+.wpp-verdict-label{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem;}
+.wpp-verdict-label.bad{color:var(--s-no-fg);}
+.wpp-verdict-label.good{color:var(--s-exec-fg);}
+.wpp-verdict-text{font-size:.75rem;color:var(--text-body);line-height:1.68;}
+.wpp-verdict-text strong{color:var(--text-h);}
+.wpp-insight-bar{padding:1.1rem 1.5rem;border-top:3px solid var(--accent);background:var(--accent-dim-2);}
+.wpp-insight-bar p{font-size:.78rem;color:var(--text-body);line-height:1.7;}
+.wpp-insight-bar strong{color:var(--text-h);}
 </style>
 
 <!-- NAV -->
@@ -666,6 +715,7 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
           <div class="intel-tag">PDV · Diagnóstico</div>
           <p class="intel-title">Campanhas para WhatsApp — Gargalo Identificado</p>
           <p class="intel-desc">Campanhas de WhatsApp geraram leads qualificados para o PDV, mas foram pausadas após diagnóstico: o problema estava no processo de resposta interno, não na geração de leads. Cliente oculto confirmou falhas no follow-up.</p>
+          <button class="wpp-btn" onclick="document.getElementById('wppOverlay').classList.add('open')">Ver comparativo de atendimento →</button>
         </div>
         <div class="intel-status">Pausado — aguarda estruturação interna</div>
       </div>
@@ -864,6 +914,153 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
     </div>
   </div>
 </section>
+
+<!-- ══ WPP MODAL ══ -->
+<div class="wpp-overlay" id="wppOverlay">
+  <div class="wpp-modal">
+    <div class="wpp-modal-hd">
+      <div>
+        <div class="wpp-modal-title">Comparativo de Atendimento — Cliente Oculto</div>
+        <div class="wpp-modal-sub">Teste realizado pelo time V4 · Julho / Agosto 2026 · WhatsApp</div>
+      </div>
+      <button class="wpp-close" onclick="document.getElementById('wppOverlay').classList.remove('open')" aria-label="Fechar">×</button>
+    </div>
+
+    <div class="wpp-cols">
+      <!-- ── OFFICIAL TIME ── -->
+      <div class="wpp-col">
+        <div class="wpp-col-hd">
+          <div class="wpp-col-brand">Official Time</div>
+          <div class="wpp-col-meta">sex., 24 jul · +55 11 91949-4668 · 1 atendimento registrado</div>
+        </div>
+        <div class="wpp-screen">
+          <div class="wpp-date-sep"><span class="wpp-date-pill">sex., 24 de jul.</span></div>
+
+          <div class="wpp-bubble sent">Link:<br><br>Olá! Posso ter mais informações sobre isso?<span class="wpp-ts sent">13:27 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Everton Official Time agradece seu contato. Como podemos ajudar?<span class="wpp-ts">13:34</span></div>
+
+          <div class="wpp-bubble sent">Oi, eu quero ver um relógio de dia dos pais pro meu pai, na faixa de até 2 mil reais<span class="wpp-ts sent">13:48 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Olá tudo bem?<span class="wpp-ts">13:48</span></div>
+
+          <div class="wpp-bubble recv"><a href="#">https://www.lojaofficialtime.com.br/</a><span class="wpp-ts">13:48</span></div>
+
+          <div class="wpp-bubble recv"><a href="#">https://www.lojaofficialtime.com.br/relogios?loja=1252243&palavra_busca=&prices%5B%5D=168.99%2C2000&order=2&categoria=65</a><span class="wpp-ts">13:49</span></div>
+
+          <div class="wpp-bubble recv">Selecionei ate 2.000<span class="wpp-ts">13:50</span></div>
+
+          <div class="wpp-bubble recv">Veja se gosta de algum<span class="wpp-ts">13:50</span></div>
+          <!-- conversa encerrada aqui, sem resposta do cliente -->
+        </div>
+        <div class="wpp-verdict">
+          <div class="wpp-verdict-label bad">✗ Diagnóstico</div>
+          <div class="wpp-verdict-text"><strong>7 min sem resposta</strong> ao primeiro contato. Atendimento sem personalização: nenhum produto apresentado, nenhuma pergunta sobre o cliente. Resposta resumida a dois links e uma frase. <strong>Sem fechamento</strong> — conversa encerrou sem qualquer engajamento adicional.</div>
+        </div>
+      </div>
+
+      <!-- ── VIVARA ── -->
+      <div class="wpp-col">
+        <div class="wpp-col-hd">
+          <div class="wpp-col-brand">Vivara ✓</div>
+          <div class="wpp-col-meta">10h15–10h22 · Bot Vicky · funil completo em 7 minutos</div>
+        </div>
+        <div class="wpp-screen">
+          <div class="wpp-bubble sent">Olá! Gostaria de atendimento personalizado para encontrar a joia ideal<span class="wpp-ts sent">10:15 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Olá, Luma Lorenzon! 🌻<br>Sou a Vicky, sua assistente virtual exclusiva da Vivara. É um prazer te receber aqui! ✨<br><br>Para garantir a melhor experiência e segurança, durante nosso atendimento vou precisar de alguns dados pessoais. Enquanto isso, deixo aqui o link para nossa política de privacidade, onde você pode conferir todos os detalhes com tranquilidade 🔒<br><a href="#">https://www.vivara.com.br/institucional/politica-privacidade</a><br>Seu protocolo de atendimento é <a href="#">773987694</a>.<span class="wpp-ts">10:15</span></div>
+
+          <div class="wpp-bubble recv">Por gentileza, poderia me informar seu <strong>e-mail</strong>? Assim, poderei personalizar ainda mais seu atendimento e garantir que todas as informações cheguem até você com exclusividade. 💌<span class="wpp-ts">10:15</span></div>
+
+          <div class="wpp-bubble sent">lumalorenzon@gmail.com<span class="wpp-ts sent">10:16 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Para continuarmos com seu atendimento personalizado, poderia, por gentileza, me informar seu <strong>CPF</strong>? Isso nos ajuda a garantir a segurança e exclusividade que você merece. 💠<span class="wpp-ts">10:16</span></div>
+
+          <div class="wpp-bubble sent">40780182898<span class="wpp-ts sent">10:17 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Obrigada, Luma. Agora, para encontrar a joia ideal para você, gostaria de saber um pouco mais: para quem é a joia? É para você ou para presentear alguém especial? E qual a ocasião? Isso vai me ajudar a selecionar opções que combinem perfeitamente com o momento. ✨<span class="wpp-ts">10:17</span></div>
+
+          <div class="wpp-bubble sent">quero comprar um relógio para o meu marido de presente de aniversário, o preço seria de até 3 mil reais<span class="wpp-ts sent">10:18 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Selecionei alguns relógios masculinos elegantes e sofisticados para presentear seu marido no aniversário, todos dentro do seu orçamento de até R$ 3.000. São opções que combinam estilo e qualidade para momentos especiais. Gostou de algum? Posso ajudar a refinar a busca se desejar.<span class="wpp-ts">10:18</span></div>
+
+          <div class="wpp-product-card">
+            <div class="wpp-product-eyebrow">Opção 1</div>
+            <div class="wpp-product-name">Relógio Nautica Pacific Beach Masculino Aço</div>
+            <div class="wpp-product-price">R$ 990,00</div>
+          </div>
+
+          <div class="wpp-product-card">
+            <div class="wpp-product-eyebrow">Opção 2 · SKU 57349</div>
+            <div class="wpp-product-name">Relógio Calvin Klein CK Empower Masculino em Aço Azul</div>
+            <div class="wpp-product-price">R$ 1.450,00</div>
+          </div>
+
+          <div class="wpp-product-card">
+            <div class="wpp-product-eyebrow">Opção 3 · SKU 57340</div>
+            <div class="wpp-product-name">Relógio Tommy Hilfiger Hudson Masculino em Couro Marrom</div>
+            <div class="wpp-product-price">R$ 1.090,00</div>
+            <div class="wpp-ts" style="text-align:left;margin-top:.3rem;">10:19</div>
+          </div>
+
+          <div class="wpp-bubble recv">Qual tipo de variação você prefere para o relógio Tommy Hilfiger Hudson Masculino em Couro Marrom? Posso verificar se há opções de tamanho, cor ou outro detalhe para que fique perfeito para seu marido.<span class="wpp-ts">10:19</span></div>
+
+          <div class="wpp-bubble sent">voce tem outras cores?<span class="wpp-ts sent">10:19 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">O relógio Tommy Hilfiger Hudson Masculino que selecionei está disponível apenas na cor couro marrom, sem outras variações de cor no momento.<br><br>Se desejar, posso mostrar outras opções de relógios masculinos em diferentes cores ou estilos dentro do seu orçamento. Gostaria que eu faça isso?<span class="wpp-ts">10:19</span></div>
+
+          <div class="wpp-bubble sent">sim<span class="wpp-ts sent">10:19 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Aqui estão outras opções de relógios masculinos em diferentes estilos e cores, todos dentro do seu orçamento para presentear seu marido com elegância e sofisticação. Gostaria de saber mais detalhes sobre algum deles?<span class="wpp-ts">10:20</span></div>
+
+          <div class="wpp-product-card">
+            <div class="wpp-product-eyebrow">Opção 1 · SKU 57347</div>
+            <div class="wpp-product-name">Relógio Calvin Klein CK Empower Masculino em Aço Prateado e Dourado</div>
+            <div class="wpp-product-price">R$ 1.450,00</div>
+          </div>
+
+          <div class="wpp-product-card">
+            <div class="wpp-product-eyebrow">Opção 2 · SKU 57348</div>
+            <div class="wpp-product-name">Relógio Calvin Klein CK Empower Masculino em Aço Cinza</div>
+            <div class="wpp-product-price">R$ 1.450,00</div>
+            <div class="wpp-ts" style="text-align:left;margin-top:.3rem;">10:21</div>
+          </div>
+
+          <div class="wpp-bubble recv">O relógio Calvin Klein CK Empower Masculino em Aço Cinza é uma escolha sofisticada e moderna para presentear seu marido.<br><br>Gostaria que eu adicione este relógio ao seu carrinho para prosseguirmos com a compra? Ou deseja ver mais opções?<span class="wpp-ts">10:21</span></div>
+
+          <div class="wpp-bubble sent">pode adicionar, vou comprar ele<span class="wpp-ts sent">10:21 ✓✓</span></div>
+
+          <div class="wpp-cart-block">
+            <div class="wpp-cart-hd">Resumo do carrinho:</div>
+            <div class="wpp-cart-row"><strong>Relógio Calvin Klein CK Empower Masculino em Aço Cinza</strong></div>
+            <div class="wpp-cart-row">Quantidade: <strong>1</strong></div>
+            <div class="wpp-cart-row">Preço: <strong>R$ 1.450,00</strong></div>
+          </div>
+
+          <div class="wpp-bubble recv">Adicionei o relógio Calvin Klein CK Empower Masculino em Aço Cinza ao seu carrinho. 🛍✨ Deseja adicionar mais algum item ou prefere finalizar a compra?<span class="wpp-ts">10:22</span></div>
+
+          <div class="wpp-bubble recv">Deseja adicionar mais algum produto ao seu pedido ou prefere finalizar a compra?<span class="wpp-ts">10:22</span></div>
+
+          <div class="wpp-action-row"><span class="wpp-action-tag">↩ Finalizar compra</span></div>
+
+          <div class="wpp-bubble sent">Finalizar compra<span class="wpp-ts sent">10:22 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Para <strong>finalizar sua compra e prosseguir para o pagamento</strong>, clique no botão abaixo:<span class="wpp-ts">10:22</span></div>
+
+          <div class="wpp-action-row"><span class="wpp-action-tag">↗ Ir para o pagamento</span></div>
+        </div>
+        <div class="wpp-verdict">
+          <div class="wpp-verdict-label good">✓ Benchmark</div>
+          <div class="wpp-verdict-text">Bot Vicky responde <strong>imediatamente</strong>. Coleta dados (e-mail, CPF), qualifica a ocasião e o orçamento, apresenta <strong>6 produtos curados com nome, preço e SKU</strong>, refina com base nas respostas, adiciona ao carrinho e conduz ao pagamento — <strong>tudo em 7 minutos e sem intervenção humana</strong>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wpp-insight-bar">
+      <p>→ <strong>O problema da Official Time não é a campanha de WhatsApp — é o processo de resposta.</strong> A Vivara converte dentro do próprio chat com automação e curadoria ativa. A Official Time encerra a conversa com dois links e nenhum engajamento. Oportunidade: estruturar um fluxo de atendimento consultivo (humano ou automatizado) com apresentação de produtos, qualificação de orçamento e follow-up — o lead já está chegando.</p>
+    </div>
+  </div>
+</div>
 
 <script>
 // ─── Theme ────────────────────────────────────────────────
@@ -1171,4 +1368,13 @@ drawRevChart();
 drawDailyChart();
 drawWatchDeco();
 window.addEventListener('resize', () => { drawRevChart(); drawDailyChart(); drawWatchDeco(); });
+
+// ─── WPP Modal close on overlay click / Escape ───────────
+const wppOverlay = document.getElementById('wppOverlay');
+wppOverlay.addEventListener('click', function(e) {
+  if (e.target === wppOverlay) wppOverlay.classList.remove('open');
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') wppOverlay.classList.remove('open');
+});
 </script>
