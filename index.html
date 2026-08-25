@@ -1088,7 +1088,7 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
           <div class="sim-annual" id="otim-annual">≈ R$ 398k / ano</div>
         </div>
       </div>
-      <p class="sim-note"><strong>Cenários base:</strong> Pessimista 8× · Conservador 10× · Otimista 12× (na referência de R$2.765/mês). <strong>Ao aumentar o budget:</strong> o ROAS de cada cenário decai conforme a tabela de mercado (0–10% de aumento → 0–3% de perda; 10–20% → 3–6%; 20–30% → 6–10%; 30–50% → 10–15%; 50%+ → 15–25%+) — a receita absoluta ainda cresce. <strong>Ao reduzir:</strong> o ROAS melhora na mesma proporção. Dados: Windsor AI.</p>
+      <p class="sim-note"><strong>Cenários base:</strong> Pessimista 8× · Conservador 10× · Otimista 12× (na referência de R$2.765/mês). <strong>Ao aumentar o budget:</strong> o ROAS de cada cenário decai progressivamente (0–10% → 0–3% de perda; 10–20% → 3–6%; 20–30% → 6–10%; 30–50% → 10–15%; 50–100% → 15–28%; 100–200% → 28–45%; 200–400% → 45–60%; 400%+ → 60–75%) — a receita absoluta ainda cresce. <strong>Ao reduzir:</strong> o ROAS melhora na mesma proporção. Dados: Windsor AI.</p>
     </div>
   </div>
 </section>
@@ -1457,7 +1457,10 @@ const DECAY_TABLE = [
   {maxPct:0.20,minLoss:0.03,maxLoss:0.06},
   {maxPct:0.30,minLoss:0.06,maxLoss:0.10},
   {maxPct:0.50,minLoss:0.10,maxLoss:0.15},
-  {maxPct:Infinity,minLoss:0.15,maxLoss:0.25},
+  {maxPct:1.00,minLoss:0.15,maxLoss:0.28},
+  {maxPct:2.00,minLoss:0.28,maxLoss:0.45},
+  {maxPct:4.00,minLoss:0.45,maxLoss:0.60},
+  {maxPct:Infinity,minLoss:0.60,maxLoss:0.75},
 ];
 function fmtBRL(v) { return 'R$ ' + Math.round(v).toLocaleString('pt-BR'); }
 function fmtAnnual(v) {
