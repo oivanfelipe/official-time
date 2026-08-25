@@ -1071,24 +1071,24 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
       <div class="sim-cards">
         <div class="sim-card pess">
           <div class="sim-card-label">Pessimista</div>
-          <div class="sim-roas" id="pess-roas">13.9×</div>
-          <div class="sim-rev" id="pess-rev">R$ 38.434</div>
-          <div class="sim-annual" id="pess-annual">≈ R$ 461k / ano</div>
+          <div class="sim-roas" id="pess-roas">8.0×</div>
+          <div class="sim-rev" id="pess-rev">R$ 22.120</div>
+          <div class="sim-annual" id="pess-annual">≈ R$ 265k / ano</div>
         </div>
         <div class="sim-card cons">
           <div class="sim-card-label">Conservador</div>
-          <div class="sim-roas" id="cons-roas">13.9×</div>
-          <div class="sim-rev" id="cons-rev">R$ 38.434</div>
-          <div class="sim-annual" id="cons-annual">≈ R$ 461k / ano</div>
+          <div class="sim-roas" id="cons-roas">10.0×</div>
+          <div class="sim-rev" id="cons-rev">R$ 27.650</div>
+          <div class="sim-annual" id="cons-annual">≈ R$ 332k / ano</div>
         </div>
         <div class="sim-card otim">
           <div class="sim-card-label">Otimista</div>
-          <div class="sim-roas" id="otim-roas">13.9×</div>
-          <div class="sim-rev" id="otim-rev">R$ 38.434</div>
-          <div class="sim-annual" id="otim-annual">≈ R$ 461k / ano</div>
+          <div class="sim-roas" id="otim-roas">12.0×</div>
+          <div class="sim-rev" id="otim-rev">R$ 33.180</div>
+          <div class="sim-annual" id="otim-annual">≈ R$ 398k / ano</div>
         </div>
       </div>
-      <p class="sim-note"><strong>Variação de ROAS por mudança de budget</strong> (referência de mercado): 0–10% de variação → ±0–3% no ROAS; 10–20% → ±3–6%; 20–30% → ±6–10%; 30–50% → ±10–15%; 50%+ → ±15–25%+. Base: R$2.765/mês · ROAS 13.9×. <strong>Aumento:</strong> ROAS decai, mas receita absoluta ainda cresce. <strong>Redução:</strong> ROAS melhora, mas receita absoluta cai. Os cenários <em>Pessimista / Conservador / Otimista</em> representam o intervalo esperado de resposta do algoritmo. Dados: Windsor AI.</p>
+      <p class="sim-note"><strong>Cenários base:</strong> Pessimista 8× · Conservador 10× · Otimista 12× (na referência de R$2.765/mês). <strong>Ao aumentar o budget:</strong> o ROAS de cada cenário decai conforme a tabela de mercado (0–10% de aumento → 0–3% de perda; 10–20% → 3–6%; 20–30% → 6–10%; 30–50% → 10–15%; 50%+ → 15–25%+) — a receita absoluta ainda cresce. <strong>Ao reduzir:</strong> o ROAS melhora na mesma proporção. Dados: Windsor AI.</p>
     </div>
   </div>
 </section>
@@ -1450,7 +1450,8 @@ document.addEventListener('click', function(e) {
 
 // ─── Simulator ────────────────────────────────────────────
 const slider = document.getElementById('simSlider');
-const BASE_INV = 2765, BASE_ROAS = 13.9;
+const BASE_INV = 2765;
+const ROAS_BASE = {pess: 8, cons: 10, otim: 12};
 const DECAY_TABLE = [
   {maxPct:0.10,minLoss:0.00,maxLoss:0.03},
   {maxPct:0.20,minLoss:0.03,maxLoss:0.06},
@@ -1463,8 +1464,8 @@ function fmtAnnual(v) {
   const a = v * 12;
   return '≈ ' + (a >= 1000000 ? 'R$ ' + (a/1000000).toFixed(1) + 'M / ano' : 'R$ ' + (a/1000).toFixed(0) + 'k / ano');
 }
-function getDecay(pct) {
-  for (const r of DECAY_TABLE) { if (pct <= r.maxPct) return {min:r.minLoss,max:r.maxLoss}; }
+function getDecay(absPct) {
+  for (const r of DECAY_TABLE) { if (absPct <= r.maxPct) return {min:r.minLoss,max:r.maxLoss}; }
   return {min:0.15,max:0.25};
 }
 function updateSim() {
@@ -1474,22 +1475,24 @@ function updateSim() {
   const lbl = document.getElementById('simPctLabel');
   let rPess, rCons, rOtim;
   if (Math.abs(pct) <= 0.005) {
-    if (lbl) lbl.textContent = 'Referência atual: R$2.765 · ROAS 13.9×';
-    rPess = rCons = rOtim = BASE_ROAS;
+    if (lbl) lbl.textContent = 'Referência: R$2.765 · Pessimista 8× · Conservador 10× · Otimista 12×';
+    rPess = ROAS_BASE.pess; rCons = ROAS_BASE.cons; rOtim = ROAS_BASE.otim;
   } else if (pct > 0) {
-    // Aumento de budget → ROAS decai
+    // Aumento: decaimento aplicado sobre cada base de cenário
     const d = getDecay(pct);
+    const dMid = (d.min + d.max) / 2;
     if (lbl) lbl.textContent = '+' + Math.round(pct * 100) + '% vs. investimento atual · ROAS tende a cair';
-    rPess = BASE_ROAS * (1 - d.max); // pior: maior decaimento
-    rOtim = BASE_ROAS * (1 - d.min); // melhor: menor decaimento
-    rCons = (rPess + rOtim) / 2;
+    rPess = ROAS_BASE.pess * (1 - d.max);  // pior: maior decaimento
+    rCons = ROAS_BASE.cons * (1 - dMid);   // médio
+    rOtim = ROAS_BASE.otim * (1 - d.min);  // melhor: menor decaimento
   } else {
-    // Redução de budget → ROAS melhora
-    const d = getDecay(-pct); // usa valor absoluto
+    // Redução: melhora de ROAS aplicada sobre cada base
+    const d = getDecay(-pct);
+    const dMid = (d.min + d.max) / 2;
     if (lbl) lbl.textContent = Math.round(pct * 100) + '% vs. investimento atual · ROAS tende a melhorar';
-    rPess = BASE_ROAS * (1 + d.min); // pior: menor ganho de ROAS
-    rOtim = BASE_ROAS * (1 + d.max); // melhor: maior ganho de ROAS
-    rCons = (rPess + rOtim) / 2;
+    rPess = ROAS_BASE.pess * (1 + d.min);  // pior: menor ganho
+    rCons = ROAS_BASE.cons * (1 + dMid);   // médio
+    rOtim = ROAS_BASE.otim * (1 + d.max);  // melhor: maior ganho
   }
   [['pess',rPess],['cons',rCons],['otim',rOtim]].forEach(([k,r]) => {
     const el = document.getElementById(k+'-roas');
