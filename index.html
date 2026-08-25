@@ -1070,25 +1070,25 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
       <div id="simPctLabel" style="font-size:.7rem;color:var(--text-muted);margin:.4rem 0 1rem;letter-spacing:.04em;">Referência atual: R$2.765 · ROAS 13.9×</div>
       <div class="sim-cards">
         <div class="sim-card pess">
-          <div class="sim-card-label">ROAS mínimo</div>
+          <div class="sim-card-label">Pessimista</div>
           <div class="sim-roas" id="pess-roas">13.9×</div>
           <div class="sim-rev" id="pess-rev">R$ 38.434</div>
           <div class="sim-annual" id="pess-annual">≈ R$ 461k / ano</div>
         </div>
         <div class="sim-card cons">
-          <div class="sim-card-label">ROAS médio</div>
+          <div class="sim-card-label">Conservador</div>
           <div class="sim-roas" id="cons-roas">13.9×</div>
           <div class="sim-rev" id="cons-rev">R$ 38.434</div>
           <div class="sim-annual" id="cons-annual">≈ R$ 461k / ano</div>
         </div>
         <div class="sim-card otim">
-          <div class="sim-card-label">ROAS máximo</div>
+          <div class="sim-card-label">Otimista</div>
           <div class="sim-roas" id="otim-roas">13.9×</div>
           <div class="sim-rev" id="otim-rev">R$ 38.434</div>
           <div class="sim-annual" id="otim-annual">≈ R$ 461k / ano</div>
         </div>
       </div>
-      <p class="sim-note"><strong>Decaimento de ROAS ao escalar budget</strong> (referência de mercado): 0–10% de aumento → perda esperada de 0–3%; 10–20% → 3–6%; 20–30% → 6–10%; 30–50% → 10–15%; 50%+ → 15–25%+. Base atual: R$2.765/mês · ROAS 13.9×. Ao aumentar o budget, o ROAS tende a cair progressivamente — a <strong>receita absoluta ainda cresce</strong> mesmo com eficiência menor. Dados: Windsor AI.</p>
+      <p class="sim-note"><strong>Variação de ROAS por mudança de budget</strong> (referência de mercado): 0–10% de variação → ±0–3% no ROAS; 10–20% → ±3–6%; 20–30% → ±6–10%; 30–50% → ±10–15%; 50%+ → ±15–25%+. Base: R$2.765/mês · ROAS 13.9×. <strong>Aumento:</strong> ROAS decai, mas receita absoluta ainda cresce. <strong>Redução:</strong> ROAS melhora, mas receita absoluta cai. Os cenários <em>Pessimista / Conservador / Otimista</em> representam o intervalo esperado de resposta do algoritmo. Dados: Windsor AI.</p>
     </div>
   </div>
 </section>
@@ -1472,18 +1472,26 @@ function updateSim() {
   document.getElementById('simValLabel').textContent = 'R$ ' + inv.toLocaleString('pt-BR');
   const pct = (inv - BASE_INV) / BASE_INV;
   const lbl = document.getElementById('simPctLabel');
-  if (lbl) lbl.textContent = pct > 0.005 ? '+' + Math.round(pct * 100) + '% vs. investimento atual' : 'Referência atual: R$2.765 · ROAS 13.9×';
-  let rMin, rMid, rMax;
-  if (pct <= 0.005) {
-    rMin = rMid = rMax = BASE_ROAS;
-  } else {
+  let rPess, rCons, rOtim;
+  if (Math.abs(pct) <= 0.005) {
+    if (lbl) lbl.textContent = 'Referência atual: R$2.765 · ROAS 13.9×';
+    rPess = rCons = rOtim = BASE_ROAS;
+  } else if (pct > 0) {
+    // Aumento de budget → ROAS decai
     const d = getDecay(pct);
-    rMin = BASE_ROAS * (1 - d.max);
-    rMax = BASE_ROAS * (1 - d.min);
-    rMid = (rMin + rMax) / 2;
+    if (lbl) lbl.textContent = '+' + Math.round(pct * 100) + '% vs. investimento atual · ROAS tende a cair';
+    rPess = BASE_ROAS * (1 - d.max); // pior: maior decaimento
+    rOtim = BASE_ROAS * (1 - d.min); // melhor: menor decaimento
+    rCons = (rPess + rOtim) / 2;
+  } else {
+    // Redução de budget → ROAS melhora
+    const d = getDecay(-pct); // usa valor absoluto
+    if (lbl) lbl.textContent = Math.round(pct * 100) + '% vs. investimento atual · ROAS tende a melhorar';
+    rPess = BASE_ROAS * (1 + d.min); // pior: menor ganho de ROAS
+    rOtim = BASE_ROAS * (1 + d.max); // melhor: maior ganho de ROAS
+    rCons = (rPess + rOtim) / 2;
   }
-  ['pess','cons','otim'].forEach((k,i) => {
-    const r = [rMin,rMid,rMax][i];
+  [['pess',rPess],['cons',rCons],['otim',rOtim]].forEach(([k,r]) => {
     const el = document.getElementById(k+'-roas');
     if (el) el.textContent = r.toFixed(1) + '×';
     document.getElementById(k+'-rev').textContent = fmtBRL(inv * r);
