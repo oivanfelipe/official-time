@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Official Time · Resultados 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#0D0B0B; --surface:#161212; --surface-2:#1F1B1B;
+  --line:rgba(255,255,255,.07);
+  --accent:#E50914; --accent-dim:rgba(229,9,20,.14);
+  --prev:#6A6260;
+  --text-h:#F4EFEC; --text:#B5AAA7; --muted:#6A6260;
+  --ok:#52B788; --warn:#F09430; --pend:#5EA4D4; --pend-bg:#0F1826;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#F5F2EF; --surface:#FFFFFF; --surface-2:#EDE9E5; --line:rgba(0,0,0,.08);
+    --accent:#B20710; --accent-dim:rgba(178,7,16,.1); --prev:#A9A09D;
+    --text-h:#170F0E; --text:#5A5250; --muted:#9A9290; --pend:#1A4878; --pend-bg:#D0E4F8;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D0B0B; --surface:#161212; --surface-2:#1F1B1B; --line:rgba(255,255,255,.07);
+  --accent:#E50914; --accent-dim:rgba(229,9,20,.14); --prev:#6A6260;
+  --text-h:#F4EFEC; --text:#B5AAA7; --muted:#6A6260; --pend:#5EA4D4; --pend-bg:#0F1826;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);overflow:hidden}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+
+/* Stage 1920x1080 escalado para a janela */
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;}
+.slide{position:absolute;inset:0;padding:88px 120px 120px;display:none;flex-direction:column;background:var(--bg)}
+.slide.active{display:flex}
+
+.kicker{font-family:'Oswald',sans-serif;font-size:22px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+h1{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size:132px;line-height:1;letter-spacing:-.01em;text-transform:uppercase}
+h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size:64px;line-height:1.05;text-transform:uppercase;letter-spacing:.005em}
+.lead{font-size:28px;line-height:1.5;max-width:1100px;margin-top:20px}
+.foot{position:absolute;left:120px;right:120px;bottom:48px;display:flex;justify-content:space-between;font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.foot b{color:var(--text-h);font-weight:600}
+.src{font-size:16px;color:var(--muted);margin-top:auto;padding-top:24px}
+.todo{background:var(--accent-dim);color:var(--accent);border:1px dashed var(--accent);padding:0 .35em;border-radius:4px}
+
+/* Capa */
+.cover{justify-content:center;background:
+  radial-gradient(1200px 700px at 85% 110%, var(--accent-dim), transparent 60%), var(--bg)}
+.cover .bar{width:120px;height:6px;background:var(--accent);margin:48px 0 36px}
+.cover .meta{font-size:26px;color:var(--text);letter-spacing:.04em}
+
+/* Big numbers */
+.bigrow{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:64px;flex:1}
+.big{background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--accent);padding:56px 64px;display:flex;flex-direction:column;justify-content:center}
+.big .label{font-size:24px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.big .value{font-family:'Oswald',sans-serif;font-weight:600;font-size:176px;line-height:1;color:var(--text-h);margin:24px 0 20px;font-variant-numeric:tabular-nums}
+.big .sub{font-size:26px}
+.big .sub strong{color:var(--accent)}
+
+/* Gráfico + big number lateral */
+.chartrow{display:grid;grid-template-columns:1fr 440px;gap:48px;margin-top:48px;flex:1;min-height:0}
+.chartbox{background:var(--surface);border:1px solid var(--line);padding:36px 40px 28px;display:flex;flex-direction:column;min-height:0}
+.chartbox .legend{display:flex;gap:32px;font-size:20px;margin-bottom:16px}
+.chartbox .legend span{display:inline-flex;align-items:center;gap:10px}
+.sw{width:18px;height:18px;border-radius:3px;display:inline-block}
+.sw.line{height:4px;border-radius:2px}
+.canvas-wrap{position:relative;flex:1;min-height:0}
+.side{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--accent);padding:48px 44px;display:flex;flex-direction:column;justify-content:center}
+.side .label{font-size:20px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.side .value{font-family:'Oswald',sans-serif;font-weight:600;font-size:136px;line-height:1;color:var(--accent);margin:20px 0}
+.side .sub{font-size:22px;line-height:1.45}
+.side .mini{margin-top:28px;padding-top:24px;border-top:1px solid var(--line);font-size:20px;line-height:1.6}
+.side .mini b{color:var(--text-h);font-family:'Oswald',sans-serif;font-size:28px;font-weight:500}
+
+/* Divisor */
+.divider{justify-content:center}
+.divider ol{list-style:none;margin-top:64px;display:grid;gap:28px;counter-reset:n}
+.divider li{counter-increment:n;display:flex;align-items:baseline;gap:32px;font-family:'Oswald',sans-serif;font-size:56px;color:var(--text-h);text-transform:uppercase;border-bottom:1px solid var(--line);padding-bottom:24px}
+.divider li::before{content:"0" counter(n);color:var(--accent);font-size:32px;font-weight:600}
+.divider li small{font-family:'Inter',sans-serif;text-transform:none;font-size:24px;color:var(--muted);margin-left:auto}
+
+/* Ações */
+.action{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:56px;flex:1}
+.points{display:grid;gap:28px;align-content:start}
+.point{display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start}
+.point .n{font-family:'Oswald',sans-serif;font-size:36px;color:var(--accent);font-weight:600;line-height:1.1}
+.point h3{font-family:'Oswald',sans-serif;font-size:32px;color:var(--text-h);font-weight:500;text-transform:uppercase;letter-spacing:.02em}
+.point p{font-size:22px;line-height:1.5;margin-top:6px}
+.card{background:var(--surface);border:1px solid var(--line);padding:48px;display:flex;flex-direction:column;gap:24px}
+.status{display:inline-flex;align-items:center;gap:12px;align-self:flex-start;background:var(--pend-bg);color:var(--pend);font-size:20px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:10px 20px;border-radius:4px}
+.status::before{content:"";width:12px;height:12px;border-radius:50%;background:currentColor}
+.status.go{background:var(--accent-dim);color:var(--accent)}
+.card .owner{font-size:22px;line-height:1.55}
+.card .owner b{color:var(--text-h)}
+.stat{font-family:'Oswald',sans-serif;font-size:96px;line-height:1;color:var(--text-h);font-weight:600}
+.stat-l{font-size:22px;line-height:1.45}
+
+/* Tabela de palavras-chave */
+.kw{width:100%;border-collapse:collapse;font-size:21px;font-variant-numeric:tabular-nums}
+.kw th{text-align:left;font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:0 0 16px;border-bottom:1px solid var(--line)}
+.kw th.r,.kw td.r{text-align:right}
+.kw td{padding:9px 0;border-bottom:1px solid var(--line);color:var(--text-h)}
+.kw tr.grp td{color:var(--accent);font-family:'Oswald',sans-serif;font-size:20px;letter-spacing:.18em;text-transform:uppercase;padding-top:22px;border-bottom:none}
+.kw tr.tot td{font-weight:700;border-bottom:2px solid var(--text-h)}
+
+/* Navegação */
+.nav{position:fixed;bottom:16px;right:20px;display:flex;gap:8px;align-items:center;z-index:10;font-size:13px;color:var(--muted)}
+.nav button{background:var(--surface);border:1px solid var(--line);color:var(--text);width:34px;height:34px;border-radius:4px;cursor:pointer;font-size:15px}
+.nav button:hover{color:var(--accent);border-color:var(--accent)}
+.progress{position:fixed;left:0;top:0;height:3px;background:var(--accent);transition:width .25s;z-index:10}
+@media print{
+  html,body{overflow:visible;height:auto}
+  .nav,.progress{display:none}
+  .stage{position:relative;left:0;top:0;transform:none!important}
+  .slide{display:flex!important;position:relative;width:1920px;height:1080px;page-break-after:always}
+}
+@page{size:1920px 1080px;margin:0}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="stage" id="stage">
+
+<!-- 01 · CAPA -->
+<section class="slide cover active">
+  <div class="kicker">Official Time · Joias e Relógios</div>
+  <h1>Resultados<br>2026</h1>
+  <div class="bar"></div>
+  <div class="meta">Fechamento do ano &nbsp;·&nbsp; Jan–Nov 2026 &nbsp;·&nbsp; V4 Company</div>
+</section>
+
+<!-- 02 · RESULTADO DO ANO -->
+<section class="slide">
+  <div class="kicker">Resultado do ano · Jan–Nov 2026</div>
+  <h2>O ano em dois números</h2>
+  <div class="bigrow">
+    <div class="big">
+      <div class="label">Faturamento total</div>
+      <div class="value" data-k="fatTotal">R$ —</div>
+      <div class="sub">E-commerce · pedidos finalizados · <span class="todo">fonte: export da loja</span></div>
+    </div>
+    <div class="big">
+      <div class="label">ROAS total do projeto</div>
+      <div class="value" data-k="roasTotal">—×</div>
+      <div class="sub">Sobre <strong data-k="invTotal">R$ —</strong> investidos em Meta + Google</div>
+    </div>
+  </div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>02</b></div>
+</section>
+
+<!-- 03 · FATURAMENTO MÊS A MÊS -->
+<section class="slide">
+  <div class="kicker">Faturamento · 2026 vs 2025</div>
+  <h2>Crescimento mês a mês</h2>
+  <div class="chartrow">
+    <div class="chartbox">
+      <div class="legend"><span><i class="sw" style="background:var(--accent)"></i>2026</span><span><i class="sw" style="background:var(--prev)"></i>2025</span></div>
+      <div class="canvas-wrap"><canvas id="chFat"></canvas></div>
+    </div>
+    <div class="side">
+      <div class="label">Crescimento vs 2025</div>
+      <div class="value" data-k="crescFat">+—%</div>
+      <div class="sub">Faturamento acumulado Jan–Nov, comparado ao mesmo período do ano anterior.</div>
+      <div class="mini">2025: <b data-k="fat25">R$ —</b><br>2026: <b data-k="fat26">R$ —</b></div>
+    </div>
+  </div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>03</b></div>
+</section>
+
+<!-- 04 · TAXA DE CONVERSÃO -->
+<section class="slide">
+  <div class="kicker">Taxa de conversão · 2026 vs 2025</div>
+  <h2>Mais visitas viram venda</h2>
+  <div class="chartrow">
+    <div class="chartbox">
+      <div class="legend"><span><i class="sw line" style="background:var(--accent)"></i>2026</span><span><i class="sw line" style="background:var(--prev)"></i>2025</span></div>
+      <div class="canvas-wrap"><canvas id="chConv"></canvas></div>
+    </div>
+    <div class="side">
+      <div class="label">Melhora na conversão</div>
+      <div class="value" data-k="crescConv">+—%</div>
+      <div class="sub">Taxa média do ano: <b data-k="conv25">—%</b> em 2025 → <b data-k="conv26">—%</b> em 2026.</div>
+    </div>
+  </div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>04</b></div>
+</section>
+
+<!-- 05 · RECORTE AGO–NOV -->
+<section class="slide">
+  <div class="kicker">Recorte recente · Ago–Nov 2026</div>
+  <h2>Faturamento x investimento</h2>
+  <div class="chartrow">
+    <div class="chartbox">
+      <div class="legend"><span><i class="sw" style="background:var(--accent)"></i>Faturamento</span><span><i class="sw line" style="background:var(--text-h)"></i>Investimento (Meta + Google)</span></div>
+      <div class="canvas-wrap"><canvas id="chRecorte"></canvas></div>
+    </div>
+    <div class="side">
+      <div class="label">ROAS médio do período</div>
+      <div class="value" data-k="roasRecorte">—×</div>
+      <div class="sub">Agosto, setembro e outubro fechados + novembro parcial (até <span data-k="novAte">—</span>).</div>
+      <div class="mini">Faturado: <b data-k="fatRecorte">R$ —</b><br>Investido: <b data-k="invRecorte">R$ —</b></div>
+    </div>
+  </div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>05</b></div>
+</section>
+
+<!-- 06 · PRÓXIMOS PASSOS -->
+<section class="slide divider">
+  <div class="kicker">2027</div>
+  <h2>Próximos passos</h2>
+  <ol>
+    <li>CRO do site <small>converter melhor quem já chega</small></li>
+    <li>Joias em prata no catálogo <small>abrir uma nova frente de demanda</small></li>
+    <li>WhatsApp de atendimento das lojas <small>levar o digital para o PDV</small></li>
+  </ol>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>06</b></div>
+</section>
+
+<!-- 07 · CRO -->
+<section class="slide">
+  <div class="kicker">Próximo passo 01</div>
+  <h2>CRO do site</h2>
+  <div class="action">
+    <div class="points">
+      <div class="point"><div class="n">→</div><div><h3>O que é</h3><p>Otimização da taxa de conversão: ajustar página de produto, checkout e confiança para que mais visitantes comprem.</p></div></div>
+      <div class="point"><div class="n">→</div><div><h3>Por que importa</h3><p>A mídia traz o cliente até a loja. O site decide se ele compra. Cada ponto de conversão ganho multiplica o retorno de todo real já investido, sem aumentar a verba.</p></div></div>
+      <div class="point"><div class="n">→</div><div><h3>Na prática</h3><p>Com a mesma verba e o mesmo tráfego, sair de <span data-k="conv26">—%</span> para <span data-k="convMeta">—%</span> de conversão representa <b style="color:var(--text-h)">+<span data-k="ganhoCro">—</span>% de faturamento</b>.</p></div></div>
+    </div>
+    <div class="card">
+      <div class="status">Pendente · Official Time</div>
+      <p class="owner">O site está sob responsabilidade do <b>time próprio da Official Time</b>. Até o momento <b>não recebemos atualização</b> sobre as melhorias propostas.</p>
+      <p class="owner"><b>O que precisamos:</b> um responsável e uma data para o primeiro ciclo de ajustes, para a V4 acompanhar o impacto na conversão.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>07</b></div>
+</section>
+
+<!-- 08 · JOIAS EM PRATA -->
+<section class="slide">
+  <div class="kicker">Próximo passo 02</div>
+  <h2>Joias em prata no catálogo</h2>
+  <div class="action" style="grid-template-columns:1.25fr 1fr">
+    <div class="card" style="padding:40px 48px">
+      <table class="kw" id="kwTable">
+        <thead><tr><th>Palavra-chave</th><th class="r">Buscas/mês</th><th class="r">CPC médio</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="src">Volume mensal de buscas no Google Brasil · CPC médio estimado · <span class="todo">fonte: Planejador de Palavras-chave</span></div>
+    </div>
+    <div class="points">
+      <div class="point"><div class="n">→</div><div><h3>A demanda já existe</h3><p>Prata é buscada <b style="color:var(--text-h)" data-k="kwRatio">—×</b> mais que ouro no Google, com clique mais barato.</p></div></div>
+      <div class="point"><div class="n">→</div><div><h3>Ticket de entrada</h3><p>Peças em prata abrem a marca para um público que ainda não compra relógio ou ouro, e alimentam a base para recompra.</p></div></div>
+      <div class="point"><div class="n">→</div><div><h3>Mídia mais barata</h3><p>CPC menor significa mais tráfego pela mesma verba, com o ROAS que a operação já entrega.</p></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>08</b></div>
+</section>
+
+<!-- 09 · WHATSAPP LOJAS -->
+<section class="slide">
+  <div class="kicker">Próximo passo 03</div>
+  <h2>WhatsApp de atendimento das lojas</h2>
+  <div class="action">
+    <div class="points">
+      <div class="point"><div class="n">→</div><div><h3>O cliente já está lá</h3><p>Hoje o primeiro contato é digital. As pessoas preferem tirar dúvida, ver a peça e reservar pelo WhatsApp antes de ir à loja.</p></div></div>
+      <div class="point"><div class="n">→</div><div><h3>Ponte para o PDV</h3><p>Um número por loja, divulgado nos anúncios e no Google Meu Negócio, transforma busca online em visita presencial.</p></div></div>
+      <div class="point"><div class="n">→</div><div><h3>Venda que hoje não medimos</h3><p>Com campanhas de clique para WhatsApp, passamos a enxergar e otimizar a venda feita na loja física, não só no e-commerce.</p></div></div>
+    </div>
+    <div class="card">
+      <div class="status go">Proposta · decisão Official Time</div>
+      <div><div class="stat"><span class="todo">nº</span> lojas</div><div class="stat-l">com WhatsApp próprio de atendimento</div></div>
+      <p class="owner"><b>O que precisamos:</b> número dedicado por loja e uma pessoa responsável pelo atendimento em cada uma, com tempo de resposta combinado.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>09</b></div>
+</section>
+
+</div>
+
+<div class="nav"><span id="count">1 / 9</span><button id="prev" aria-label="Anterior">‹</button><button id="next" aria-label="Próximo">›</button></div>
+
+<script>
+/* ============================================================
+   DADOS — preencher aqui. null = ainda não recebido.
+   ============================================================ */
+const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const DATA = {
+  // Faturamento e-commerce (pedidos finalizados), R$ por mês Jan..Nov
+  fat2025: [null,null,null,null,null,null,null,null,null,null,null],
+  fat2026: [null,null,null,null,null,null,null,null,null,null,null],
+  // Taxa de conversão do site (%), Jan..Nov
+  conv2025: [null,null,null,null,null,null,null,null,null,null,null],
+  conv2026: [null,null,null,null,null,null,null,null,null,null,null],
+  // Investimento Meta + Google, R$ por mês Jan..Nov (Windsor, puxado em 25/11/2026 — Nov até 24/11)
+  inv2026: [2467,1978,2729,2846,3435,3918,2597,2951,4925,5793,4065],
+  inv2025: [3136,2439,1720,1914,1942,2344,2128,2322,2434,2098,1523],
+  novAte: '24/11',
+  convMeta: null,            // meta de conversão para o slide de CRO (%)
+  keywords: {                // [palavra, buscas/mês, CPC R$]
+    prata: [['joias em prata',null,null],['joias de prata',null,null],['prata 925',null,null],['anel de prata',null,null]],
+    ouro:  [['joias em ouro',null,null],['joias de ouro',null,null],['ouro 18k',null,null],['anel de ouro',null,null]]
+  }
+};
+
+/* ---------- formatação ---------- */
+const sum = a => a.reduce((s,v)=>s+(v||0),0);
+const has = a => a.some(v=>v!=null);
+const brl = v => v==null ? 'R$ —' : v>=1e6 ? 'R$ '+(v/1e6).toLocaleString('pt-BR',{maximumFractionDigits:2})+' mi'
+              : 'R$ '+(v/1000).toLocaleString('pt-BR',{maximumFractionDigits:1})+'k';
+const num = v => v==null ? '—' : Math.round(v).toLocaleString('pt-BR');
+const x   = v => v==null||!isFinite(v) ? '—×' : v.toLocaleString('pt-BR',{maximumFractionDigits:1,minimumFractionDigits:1})+'×';
+const pct = (v,s=true) => v==null||!isFinite(v) ? '+—%' : (s&&v>=0?'+':'')+Math.round(v).toLocaleString('pt-BR')+'%';
+const p2  = v => v==null ? '—%' : v.toLocaleString('pt-BR',{maximumFractionDigits:2})+'%';
+const avg = a => { const f=a.filter(v=>v!=null); return f.length? sum(f)/f.length : null; };
+
+const n = DATA.fat2026.length;
+const fat26 = has(DATA.fat2026)?sum(DATA.fat2026):null;
+const fat25 = has(DATA.fat2025)?sum(DATA.fat2025.slice(0,n)):null;
+const inv   = has(DATA.inv2026)?sum(DATA.inv2026):null;
+const R = [7,8,9,10]; // Ago..Nov
+const fatR = has(R.map(i=>DATA.fat2026[i]))?sum(R.map(i=>DATA.fat2026[i])):null;
+const invR = has(R.map(i=>DATA.inv2026[i]))?sum(R.map(i=>DATA.inv2026[i])):null;
+const c25=avg(DATA.conv2025), c26=avg(DATA.conv2026);
+const kwP = DATA.keywords.prata, kwO = DATA.keywords.ouro;
+const volP = has(kwP.map(k=>k[1]))?sum(kwP.map(k=>k[1])):null, volO = has(kwO.map(k=>k[1]))?sum(kwO.map(k=>k[1])):null;
+
+const V = {
+  fatTotal: brl(fat26), invTotal: brl(inv), roasTotal: x(fat26&&inv?fat26/inv:null),
+  crescFat: pct(fat26&&fat25?(fat26/fat25-1)*100:null), fat25: brl(fat25), fat26: brl(fat26),
+  crescConv: pct(c25&&c26?(c26/c25-1)*100:null), conv25: p2(c25), conv26: p2(c26),
+  roasRecorte: x(fatR&&invR?fatR/invR:null), fatRecorte: brl(fatR), invRecorte: brl(invR), novAte: DATA.novAte,
+  convMeta: p2(DATA.convMeta), ganhoCro: c26&&DATA.convMeta? Math.round((DATA.convMeta/c26-1)*100) : '—',
+  kwRatio: volP&&volO? (volP/volO).toLocaleString('pt-BR',{maximumFractionDigits:1})+'×' : '—×'
+};
+document.querySelectorAll('[data-k]').forEach(el=>{ if(V[el.dataset.k]!=null) el.textContent=V[el.dataset.k]; });
+
+/* tabela de keywords */
+const tb = document.querySelector('#kwTable tbody');
+const brlc = v => v==null?'—':'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+[['Prata',kwP,volP],['Ouro',kwO,volO]].forEach(([g,rows,tot])=>{
+  tb.insertAdjacentHTML('beforeend',`<tr class="grp"><td colspan="3">${g}</td></tr>`);
+  rows.forEach(r=>tb.insertAdjacentHTML('beforeend',`<tr><td>${r[0]}</td><td class="r">${num(r[1])}</td><td class="r">${brlc(r[2])}</td></tr>`));
+  tb.insertAdjacentHTML('beforeend',`<tr class="tot"><td>Total ${g.toLowerCase()}</td><td class="r">${num(tot)}</td><td class="r">${brlc(avg(rows.map(r=>r[2])))}</td></tr>`);
+});
+
+/* ---------- gráficos ---------- */
+const css = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+Chart.defaults.font.family = 'Inter, system-ui, sans-serif';
+Chart.defaults.font.size = 20;
+const charts = [];
+function build(){
+  charts.forEach(c=>c.destroy()); charts.length=0;
+  const A=css('--accent'), P=css('--prev'), T=css('--text'), Hh=css('--text-h'), L=css('--line');
+  Chart.defaults.color = T;
+  const lbl = MESES.slice(0,n);
+  const base = {responsive:true,maintainAspectRatio:false,animation:false,
+    plugins:{legend:{display:false},tooltip:{padding:12}},
+    scales:{x:{grid:{display:false},border:{color:L}},y:{grid:{color:L},border:{display:false},beginAtZero:true}}};
+  const kfmt = v => 'R$ '+Math.round(v/1000)+'k';
+
+  charts.push(new Chart(chFat,{type:'bar',data:{labels:lbl,datasets:[
+    {label:'2025',data:DATA.fat2025,backgroundColor:P,borderRadius:3,categoryPercentage:.7,barPercentage:.9},
+    {label:'2026',data:DATA.fat2026,backgroundColor:A,borderRadius:3,categoryPercentage:.7,barPercentage:.9}]},
+    options:{...base,scales:{...base.scales,y:{...base.scales.y,ticks:{callback:kfmt}}}}}));
+
+  charts.push(new Chart(chConv,{type:'line',data:{labels:lbl,datasets:[
+    {label:'2025',data:DATA.conv2025,borderColor:P,backgroundColor:P,borderWidth:3,pointRadius:5,tension:.3},
+    {label:'2026',data:DATA.conv2026,borderColor:A,backgroundColor:A,borderWidth:4,pointRadius:6,tension:.3}]},
+    options:{...base,scales:{...base.scales,y:{...base.scales.y,ticks:{callback:v=>v.toLocaleString('pt-BR')+'%'}}}}}));
+
+  charts.push(new Chart(chRecorte,{data:{labels:['Ago','Set','Out','Nov*'],datasets:[
+    {type:'bar',label:'Faturamento',data:R.map(i=>DATA.fat2026[i]),backgroundColor:A,borderRadius:3,yAxisID:'y',order:2,barPercentage:.6},
+    {type:'line',label:'Investimento',data:R.map(i=>DATA.inv2026[i]),borderColor:Hh,backgroundColor:Hh,borderWidth:4,pointRadius:7,yAxisID:'y1',order:1}]},
+    options:{...base,scales:{x:base.scales.x,
+      y:{...base.scales.y,position:'left',ticks:{callback:kfmt},title:{display:true,text:'Faturamento'}},
+      y1:{beginAtZero:true,position:'right',grid:{display:false},border:{display:false},ticks:{callback:kfmt},title:{display:true,text:'Investimento'}}}}}));
+}
+
+/* ---------- navegação e escala ---------- */
+const slides=[...document.querySelectorAll('.slide')]; let cur=0;
+function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`translate(-50%,-50%) scale(${s})`;}
+function go(i){cur=Math.max(0,Math.min(slides.length-1,i));slides.forEach((s,j)=>s.classList.toggle('active',j===cur));
+  count.textContent=`${cur+1} / ${slides.length}`;progress.style.width=((cur+1)/slides.length*100)+'%';
+  try{history.replaceState(null,'','#'+(cur+1));}catch(e){}}
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key))go(cur+1);if(['ArrowLeft','PageUp'].includes(e.key))go(cur-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);if(e.key==='f')document.documentElement.requestFullscreen?.();});
+prev.onclick=()=>go(cur-1); next.onclick=()=>go(cur+1);
+stage.addEventListener('click',e=>{if(e.target.closest('canvas'))return;go(cur+(e.clientX>innerWidth/2?1:-1));});
+addEventListener('resize',fit);
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',build);
+fit(); build(); go(parseInt(location.hash.slice(1)||'1',10)-1);
+</script>
+</body>
+</html>
