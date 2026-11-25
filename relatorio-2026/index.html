@@ -1,0 +1,1586 @@
+<title>Official Time · Resultados 2026</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
+
+<style>
+/* ── TOKENS ──────────────────────────────────────────────── */
+:root {
+  --bg: #0D0B0B;
+  --surface: #161212;
+  --surface-2: #1F1B1B;
+  --nav-bg: rgba(13,11,11,0.96);
+  --border: rgba(229,9,20,0.08);
+  --border-n: rgba(255,255,255,0.055);
+  --accent: #E50914;
+  --accent-dim: rgba(229,9,20,0.13);
+  --accent-dim-2: rgba(229,9,20,0.06);
+  --text-h: #F4EFEC;
+  --text-body: #9E9390;
+  --text-muted: #6A6260;
+  --s-done-bg: #0D2A1A; --s-done-fg: #52B788;
+  --s-dev-bg:  #1E1100; --s-dev-fg:  #F09430;
+  --s-exec-bg: #0F1F08; --s-exec-fg: #78C24A;
+  --s-lim-bg:  #1A1600; --s-lim-fg:  #CBA820;
+  --s-no-bg:   #2A1010; --s-no-fg:   #CC6666;
+  --s-pend-bg: #0F1826; --s-pend-fg: #5EA4D4;
+  --r: 3px;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #F5F2EF; --surface: #FFFFFF; --surface-2: #EDE9E5;
+    --nav-bg: rgba(245,242,239,0.97);
+    --border: rgba(178,7,16,0.1);
+    --border-n: rgba(0,0,0,0.08);
+    --accent: #B20710; --accent-dim: rgba(178,7,16,0.1); --accent-dim-2: rgba(178,7,16,0.05);
+    --text-h: #170F0E; --text-body: #5A5250; --text-muted: #9A9290;
+    --s-done-bg: #D4EFE2; --s-done-fg: #1A5E38;
+    --s-dev-bg:  #FFEDD5; --s-dev-fg:  #9A4E00;
+    --s-exec-bg: #DCFFCF; --s-exec-fg: #1A6010;
+    --s-lim-bg:  #FFF9C4; --s-lim-fg:  #8B6000;
+    --s-no-bg:   #FCDCDC; --s-no-fg:   #8B2B2B;
+    --s-pend-bg: #D0E4F8; --s-pend-fg: #1A4878;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D0B0B; --surface: #161212; --surface-2: #1F1B1B;
+  --nav-bg: rgba(13,11,11,0.96); --border: rgba(229,9,20,0.08); --border-n: rgba(255,255,255,0.055);
+  --accent: #E50914; --accent-dim: rgba(229,9,20,0.13); --accent-dim-2: rgba(229,9,20,0.06);
+  --text-h: #F4EFEC; --text-body: #9E9390; --text-muted: #6A6260;
+  --s-done-bg: #0D2A1A; --s-done-fg: #52B788; --s-dev-bg: #1E1100; --s-dev-fg: #F09430;
+  --s-exec-bg: #0F1F08; --s-exec-fg: #78C24A; --s-lim-bg: #1A1600; --s-lim-fg: #CBA820;
+  --s-no-bg: #2A1010; --s-no-fg: #CC6666; --s-pend-bg: #0F1826; --s-pend-fg: #5EA4D4;
+}
+:root[data-theme="light"] {
+  --bg: #F5F2EF; --surface: #FFFFFF; --surface-2: #EDE9E5;
+  --nav-bg: rgba(245,242,239,0.97); --border: rgba(178,7,16,0.1); --border-n: rgba(0,0,0,0.08);
+  --accent: #B20710; --accent-dim: rgba(178,7,16,0.1); --accent-dim-2: rgba(178,7,16,0.05);
+  --text-h: #170F0E; --text-body: #5A5250; --text-muted: #9A9290;
+  --s-done-bg: #D4EFE2; --s-done-fg: #1A5E38; --s-dev-bg: #FFEDD5; --s-dev-fg: #9A4E00;
+  --s-exec-bg: #DCFFCF; --s-exec-fg: #1A6010; --s-lim-bg: #FFF9C4; --s-lim-fg: #8B6000;
+  --s-no-bg: #FCDCDC; --s-no-fg: #8B2B2B; --s-pend-bg: #D0E4F8; --s-pend-fg: #1A4878;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity;font-size:18px;}
+body{background:var(--bg);color:var(--text-body);font-family:'Inter',system-ui,sans-serif;font-size:1rem;line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:44px;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-n);}
+.nav-brand{font-family:'Oswald',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.2em;color:var(--text-h);text-transform:uppercase;}
+.nav-links{display:flex;gap:0;}
+.nav-link{background:none;border:none;border-bottom:2px solid transparent;padding:.2rem .85rem;cursor:pointer;font-family:'Inter',sans-serif;font-size:.67rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);transition:color .15s,border-color .15s;}
+.nav-link.active{color:var(--accent);border-bottom-color:var(--accent);}
+.nav-link:hover{color:var(--text-h);}
+.nav-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.nav-right{display:flex;align-items:center;gap:.5rem;}
+.nav-theme{background:none;border:1px solid var(--border-n);color:var(--text-muted);padding:3px 10px;border-radius:2px;cursor:pointer;font-size:.65rem;font-family:'Inter',sans-serif;letter-spacing:.04em;transition:color .15s,border-color .15s;}
+.nav-theme:hover{color:var(--accent);border-color:var(--accent);}
+.nav-fs{background:none;border:1px solid var(--border-n);color:var(--text-muted);padding:3px 8px;border-radius:2px;cursor:pointer;font-size:.72rem;font-family:'Inter',sans-serif;transition:color .15s,border-color .15s;line-height:1;}
+.nav-fs:hover{color:var(--accent);border-color:var(--accent);}
+@media(max-width:660px){.nav-links{display:none;}}
+
+/* ── SECTION DOTS ── */
+.sec-dots{position:fixed;right:1.1rem;top:50%;transform:translateY(-50%);z-index:190;display:flex;flex-direction:column;gap:.6rem;}
+.sec-dot{width:7px;height:7px;border-radius:50%;background:var(--border-n);cursor:pointer;border:none;padding:0;transition:background .25s,transform .25s;}
+.sec-dot.active{background:var(--accent);transform:scale(1.55);}
+.sec-dot:hover{background:var(--text-muted);}
+@media(max-width:600px){.sec-dots{display:none;}}
+
+/* ── KEYBOARD HINT ── */
+.kbd-hint{position:fixed;bottom:.9rem;right:1.1rem;z-index:190;font-size:.6rem;color:var(--text-muted);letter-spacing:.06em;opacity:.55;pointer-events:none;}
+@media(max-width:600px){.kbd-hint{display:none;}}
+
+/* ── LAYOUT ── */
+section{scroll-margin-top:44px;scroll-snap-align:start;}
+.container{max-width:1080px;margin:0 auto;padding:0 2rem;}
+.section-pad{padding:4rem 0;}
+
+/* ── SEC HEADER (2-col editorial) ── */
+.sec-hd{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border-n);margin-bottom:2.5rem;}
+.sec-hd-right{display:flex;align-items:flex-end;}
+.sec-hd-desc{font-size:.88rem;color:var(--text-body);line-height:1.75;}
+@media(max-width:720px){.sec-hd{grid-template-columns:1fr;gap:1rem;}.sec-hd-right{align-items:flex-start;}}
+
+/* ── TYPOGRAPHY ── */
+.eyebrow{font-size:.67rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.6rem;}
+h2.display{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(2.4rem,4.5vw,3.4rem);color:var(--text-h);line-height:1.05;text-wrap:balance;}
+h3.label{font-size:.67rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0;}
+
+/* ── CAPA ── */
+#capa{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;padding-top:44px;}
+.capa-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 2.5rem 4rem 2.25rem;max-width:580px;margin-left:auto;position:relative;z-index:2;}
+.capa-rule-v{position:absolute;left:2.25rem;top:50%;transform:translateY(-50%);width:2px;height:72px;background:var(--accent);}
+.capa-v4{font-size:.64rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;}
+h1.capa-title{font-family:'Oswald',sans-serif;font-size:clamp(4rem,9vw,7.5rem);font-weight:700;letter-spacing:.04em;color:var(--text-h);line-height:.95;margin-bottom:2.2rem;}
+.capa-meta{display:flex;flex-direction:column;gap:.4rem;}
+.capa-period{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);letter-spacing:.04em;}
+.capa-sub{font-size:.82rem;letter-spacing:.04em;color:var(--text-body);}
+.capa-pillars{margin-top:2.5rem;display:flex;gap:1.5rem;flex-wrap:wrap;}
+.capa-pillar{font-size:.62rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);}
+.capa-right{position:relative;overflow:hidden;}
+.capa-canvas{position:absolute;inset:0;width:100%;height:100%;}
+@media(max-width:760px){#capa{grid-template-columns:1fr;}.capa-right{height:45vw;}.capa-left{padding:3rem 2.25rem 2rem;max-width:none;}}
+
+/* ── ROAS HERO BAND ── */
+.roas-hero{border-top:3px solid var(--accent);background:var(--surface);display:flex;align-items:center;gap:2.5rem;padding:1.4rem 2rem;margin-bottom:1.25rem;flex-wrap:wrap;}
+.roas-hero-val{font-family:'Oswald',sans-serif;font-size:clamp(4rem,8vw,6.5rem);font-weight:700;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
+.roas-hero-divider{width:1px;height:52px;background:var(--border-n);flex-shrink:0;}
+.roas-hero-right{flex:1;min-width:180px;}
+.roas-hero-label{font-size:.67rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.35rem;}
+.roas-hero-detail{font-size:.84rem;color:var(--text-body);line-height:1.55;}
+.roas-hero-detail strong{color:var(--text-h);}
+
+/* ── KPI ROW ── */
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border-n);margin-bottom:1.25rem;}
+.kpi-item{padding:1.1rem 1.4rem;border-right:1px solid var(--border-n);}
+.kpi-item:last-child{border-right:none;}
+.kpi-eyebrow{font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:.5rem;}
+.kpi-val{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:700;color:var(--text-h);line-height:1;margin-bottom:.2rem;font-variant-numeric:tabular-nums;}
+.kpi-note{font-size:.75rem;color:var(--text-muted);}
+@media(max-width:600px){.kpi-row{grid-template-columns:1fr;}.kpi-item{border-right:none;border-bottom:1px solid var(--border-n);}.kpi-item:last-child{border-bottom:none;}}
+
+/* ── CHARTS ── */
+.chart-card{background:var(--surface);border:1px solid var(--border-n);padding:1.2rem 1.4rem 1.1rem;margin-bottom:1rem;}
+.chart-card-hd{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.4rem;flex-wrap:wrap;}
+.chart-note{font-size:.71rem;color:var(--text-muted);}
+canvas.chart{display:block;width:100%;}
+
+/* ── ROAS BENCHMARK ── */
+.roas-rows{display:flex;flex-direction:column;gap:1.5rem;}
+.roas-row{display:flex;align-items:center;gap:.9rem;}
+.roas-lbl{width:180px;flex-shrink:0;font-size:.81rem;color:var(--text-body);line-height:1.35;}
+.roas-lbl.hi{color:var(--accent);}
+.roas-sub{font-size:.71rem;color:var(--text-muted);font-weight:400;}
+.roas-track{flex:1;height:6px;background:var(--surface-2);position:relative;overflow:hidden;}
+.roas-fill{position:absolute;top:0;left:0;height:100%;background:var(--accent-dim);}
+.roas-fill.hi{height:10px;top:-2px;background:var(--accent);}
+.roas-val{width:52px;text-align:right;color:var(--text-muted);font-variant-numeric:tabular-nums;font-weight:500;font-size:.82rem;}
+.roas-val.hi{color:var(--accent);font-size:.95rem;}
+.roas-note{font-size:.73rem;color:var(--text-muted);margin-top:1.25rem;padding-top:.9rem;border-top:1px solid var(--border-n);line-height:1.7;}
+.roas-note strong{color:var(--text-body);}
+
+/* ── SEASONAL ── */
+.seasonal-insight{border-left:3px solid var(--accent);background:var(--surface);padding:1.6rem 1.8rem;margin-top:1.25rem;}
+.seas-title{font-family:'Oswald',sans-serif;font-size:1.15rem;font-weight:700;color:var(--text-h);margin-bottom:.4rem;line-height:1.2;}
+.seas-desc{font-size:.8rem;color:var(--text-body);line-height:1.65;margin-bottom:1rem;}
+.seas-cases{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:.9rem;}
+@media(max-width:600px){.seas-cases{grid-template-columns:1fr;}}
+.seas-date{font-size:.62rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.55rem;}
+.seas-bar-block{display:flex;align-items:center;gap:.75rem;margin-bottom:.38rem;}
+.seas-bar-wrap{flex:0 0 90px;height:7px;background:var(--surface-2);overflow:hidden;}
+.seas-bar{height:100%;background:var(--accent);}
+.seas-bar-block.after .seas-bar{background:var(--accent-dim);border:1px solid var(--accent);}
+.seas-bar-label{font-size:.71rem;color:var(--text-muted);line-height:1.3;}
+.seas-bar-label.bld{color:var(--text-body);font-weight:500;}
+.seas-rec{font-size:.73rem;color:var(--text-muted);border-top:1px solid var(--border-n);padding-top:.75rem;line-height:1.65;}
+.seas-rec strong{color:var(--text-body);}
+
+/* ── TABS ── */
+.tab-nav{display:flex;border-bottom:1px solid var(--border-n);margin-bottom:2rem;}
+.tab-btn{padding:.5rem 1.3rem;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);transition:color .15s,border-color .15s;}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ── ACTION TABLE ── */
+.tbl-wrap{overflow-x:auto;}
+.action-tbl{width:100%;border-collapse:collapse;min-width:560px;}
+.action-tbl th{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:.1rem .75rem .65rem;border-bottom:1px solid var(--border-n);}
+.action-tbl td{padding:.7rem .75rem;font-size:.86rem;color:var(--text-body);vertical-align:middle;border-bottom:1px solid var(--border-n);}
+.action-tbl tr:last-child td{border-bottom:none;}
+.act-name{display:block;font-weight:500;color:var(--text-h);margin-bottom:.1rem;}
+.act-obj{font-size:.77rem;color:var(--text-muted);}
+.act-period{font-size:.77rem;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.td-status{white-space:nowrap;}
+.det-btn{background:none;border:1px solid var(--border-n);color:var(--text-muted);padding:2px 8px;border-radius:2px;cursor:pointer;font-size:.62rem;font-family:'Inter',sans-serif;margin-left:.5rem;transition:color .15s,border-color .15s;vertical-align:middle;}
+.det-btn:hover{color:var(--accent);border-color:var(--accent);}
+.wpp-alert-row>td{background:rgba(229,9,20,.055) !important;border-top:2px solid var(--accent) !important;}
+.wpp-alert-row .act-name{color:var(--accent);}
+.diag-open-btn{display:block;margin-top:.55rem;background:var(--accent);border:none;color:#fff;padding:4px 12px;border-radius:2px;cursor:pointer;font-size:.67rem;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.04em;text-transform:uppercase;transition:opacity .15s;}
+.diag-open-btn:hover{opacity:.85;}
+.detail-row{display:none;}
+.detail-row.open{display:table-row;}
+.detail-cell{padding:.85rem .75rem 1.1rem 2rem;font-size:.8rem;color:var(--text-body);background:var(--surface-2);border-bottom:1px solid var(--border-n) !important;line-height:1.7;}
+.detail-cell ul{padding-left:1.2rem;margin-top:.4rem;}
+.detail-cell li{margin-bottom:.28rem;}
+.detail-cell strong{color:var(--text-h);font-weight:500;}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:.25rem;font-size:.7rem;font-weight:500;padding:2px 9px;border-radius:20px;white-space:nowrap;}
+.s-done{background:var(--s-done-bg);color:var(--s-done-fg);}
+.s-dev {background:var(--s-dev-bg); color:var(--s-dev-fg);}
+.s-exec{background:var(--s-exec-bg);color:var(--s-exec-fg);}
+.s-lim {background:var(--s-lim-bg); color:var(--s-lim-fg);}
+.s-no  {background:var(--s-no-bg);  color:var(--s-no-fg);}
+.s-pend{background:var(--s-pend-bg);color:var(--s-pend-fg);}
+
+/* ── CAMPAIGN CALENDAR ── */
+.cal-intro{margin-top:3rem;padding-top:2.5rem;border-top:1px solid var(--border-n);}
+.cal-timeline{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--border-n);margin-top:1.5rem;}.cal-month-card:nth-child(6n){border-right:none;}.cal-month-card:nth-child(n+7){border-top:1px solid var(--border-n);}
+.cal-month-card{border-right:1px solid var(--border-n);padding:1.1rem .9rem 1.1rem;position:relative;}
+.cal-month-card:last-child{border-right:none;}
+.cal-month-card.cal-peak{border-top:2px solid var(--accent);}
+.cal-month-card.cal-exec{border-top:2px solid var(--s-exec-fg);}
+.cal-mo{font-family:'Oswald',sans-serif;font-size:1.45rem;font-weight:700;color:var(--text-h);line-height:1;display:block;}
+.cal-yr{font-size:.58rem;color:var(--text-muted);display:block;margin-bottom:.6rem;letter-spacing:.04em;}
+.cal-camp{font-size:.72rem;font-weight:600;color:var(--text-body);margin-bottom:.3rem;line-height:1.3;}
+.cal-det{font-size:.67rem;color:var(--text-muted);line-height:1.55;margin-bottom:.5rem;}
+.cal-tag{display:inline-block;font-size:.57rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:2px 6px;border-radius:2px;}
+.cal-tag.tag-done{background:var(--s-done-bg);color:var(--s-done-fg);}
+.cal-tag.tag-exec{background:var(--s-exec-bg);color:var(--s-exec-fg);}
+.cal-tag.tag-key{background:var(--accent-dim);color:var(--accent);}
+@media(max-width:1100px){.cal-timeline{grid-template-columns:repeat(4,1fr);}.cal-month-card:nth-child(6n){border-right:var(--border-n) 1px solid;}.cal-month-card:nth-child(4n){border-right:none;}.cal-month-card:nth-child(n+7){border-top:none;}.cal-month-card:nth-child(n+5){border-top:1px solid var(--border-n);}}
+@media(max-width:600px){.cal-timeline{grid-template-columns:repeat(2,1fr);}.cal-month-card:nth-child(6n),.cal-month-card:nth-child(4n){border-right:var(--border-n) 1px solid;}.cal-month-card:nth-child(even){border-right:none;}.cal-month-card:nth-child(n+5),.cal-month-card:nth-child(n+7){border-top:none;}.cal-month-card:nth-child(n+3){border-top:1px solid var(--border-n);}}
+
+/* ── INTEL GRID ── */
+.intel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);margin-bottom:2.5rem;}
+.intel-card{background:var(--bg);padding:1.6rem 1.5rem;display:flex;flex-direction:column;}
+@media(max-width:800px){.intel-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:500px){.intel-grid{grid-template-columns:1fr;}}
+.intel-card-top{flex:1;}
+.intel-tag{display:inline-block;background:var(--accent-dim);color:var(--accent);font-size:.64rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:2px 9px;border-radius:20px;margin-bottom:.8rem;}
+.intel-title{font-family:'Oswald',sans-serif;font-weight:700;color:var(--text-h);margin-bottom:.5rem;font-size:1.07rem;line-height:1.25;}
+.intel-desc{font-size:.8rem;color:var(--text-body);line-height:1.7;}
+.intel-status{display:flex;align-items:center;gap:.4rem;font-size:.67rem;color:var(--text-muted);margin-top:1.1rem;padding-top:.8rem;border-top:1px solid var(--border-n);}
+.intel-status::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+
+/* ── MARKET ── */
+.mkt-block{background:var(--surface);border:1px solid var(--border-n);padding:1.8rem 2rem;margin-bottom:2.5rem;}
+.mkt-header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem;}
+.mkt-header h3{font-family:'Oswald',sans-serif;font-size:1.35rem;font-weight:700;color:var(--text-h);}
+.mkt-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);margin-bottom:1.5rem;}
+.mkt-kpi{background:var(--surface-2);padding:1rem 1.1rem;}
+.mkt-kpi-val{font-family:'Oswald',sans-serif;font-size:1.9rem;font-weight:700;color:var(--text-h);line-height:1;margin-bottom:.25rem;font-variant-numeric:tabular-nums;}
+.mkt-kpi-val.accent{color:var(--accent);}
+.mkt-kpi-label{font-size:.69rem;color:var(--text-muted);line-height:1.45;}
+@media(max-width:560px){.mkt-kpis{grid-template-columns:1fr;}}
+.mkt-gap-bar{margin:1.1rem 0 1.4rem;}
+.mkt-gap-label{font-size:.64rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.8rem;}
+.mkt-gap-track{height:14px;background:var(--surface-2);overflow:hidden;position:relative;}
+.mkt-gap-fill{height:100%;background:var(--accent);}
+.mkt-gap-markers{display:flex;justify-content:space-between;margin-top:.4rem;}
+.mkt-gap-mark{font-size:.65rem;color:var(--text-muted);font-variant-numeric:tabular-nums;}
+.mkt-gap-mark.hi{color:var(--accent);font-weight:600;}
+.mkt-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);margin-bottom:1.4rem;}
+.mkt-fact{background:var(--surface-2);padding:.95rem 1.1rem;}
+.mkt-fact-title{font-size:.77rem;font-weight:600;color:var(--text-h);margin-bottom:.3rem;line-height:1.3;}
+.mkt-fact-body{font-size:.71rem;color:var(--text-muted);line-height:1.65;}
+@media(max-width:640px){.mkt-facts{grid-template-columns:1fr;}}
+.mkt-note{font-size:.73rem;color:var(--text-muted);line-height:1.7;border-top:1px solid var(--border-n);padding-top:.9rem;}
+.mkt-note strong{color:var(--text-body);}
+
+/* ── SIMULATOR ── */
+.sim-box{background:var(--surface);border:1px solid var(--border-n);padding:1.8rem 2rem;}
+.sim-header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem;}
+.sim-header h3{font-family:'Oswald',sans-serif;font-size:1.35rem;font-weight:700;color:var(--text-h);}
+.sim-input-row{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;margin-bottom:1.6rem;background:var(--surface-2);padding:.85rem 1.1rem;}
+.sim-label{font-size:.76rem;color:var(--text-muted);white-space:nowrap;}
+.sim-val{font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;color:var(--accent);min-width:96px;font-variant-numeric:tabular-nums;}
+input[type=range].sim-slider{-webkit-appearance:none;appearance:none;flex:1;min-width:160px;height:3px;background:var(--border-n);outline:none;cursor:pointer;}
+input[type=range].sim-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 0 0 3px var(--accent-dim);}
+input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;border:none;box-shadow:0 0 0 3px var(--accent-dim);}
+.sim-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);margin-bottom:1.25rem;}
+.sim-card{background:var(--surface-2);padding:1.3rem 1.1rem;text-align:center;}
+.sim-card.otim{background:var(--accent-dim-2);}
+.sim-card-label{font-size:.64rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;margin-bottom:.4rem;color:var(--text-muted);}
+.sim-card.otim .sim-card-label{color:var(--accent);}
+.sim-roas{font-size:.72rem;color:var(--text-muted);margin-bottom:.55rem;font-variant-numeric:tabular-nums;}
+.sim-rev{font-family:'Oswald',sans-serif;font-size:1.85rem;font-weight:700;color:var(--text-h);font-variant-numeric:tabular-nums;line-height:1;}
+.sim-card.otim .sim-rev{color:var(--accent);}
+.sim-annual{font-size:.68rem;color:var(--text-muted);margin-top:.3rem;font-variant-numeric:tabular-nums;}
+.sim-note{font-size:.73rem;color:var(--text-muted);line-height:1.7;padding-top:.9rem;border-top:1px solid var(--border-n);}
+.sim-note strong{color:var(--text-body);}
+@media(max-width:560px){.sim-cards{grid-template-columns:1fr;}}
+
+/* ── COMPETITIVE ── */
+.comp-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);margin-bottom:2.5rem;}
+.comp-sum-item{background:var(--bg);padding:1.2rem 1.4rem;}
+.comp-sum-val{font-family:'Oswald',sans-serif;font-size:2.5rem;font-weight:700;line-height:1;margin-bottom:.3rem;font-variant-numeric:tabular-nums;color:var(--text-h);}
+.comp-sum-val.is-gap{color:var(--s-no-fg);}
+.comp-sum-val.is-win{color:var(--s-exec-fg);}
+.comp-sum-label{font-size:.76rem;font-weight:600;color:var(--text-h);margin-bottom:.15rem;}
+.comp-sum-note{font-size:.68rem;color:var(--text-muted);}
+@media(max-width:680px){.comp-summary{grid-template-columns:repeat(2,1fr);}}
+.comp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);margin-bottom:2.5rem;}
+.comp-card{background:var(--bg);padding:1.4rem;}
+.comp-card.card-official{border-top:2px solid var(--accent);}
+.comp-name{font-family:'Oswald',sans-serif;font-size:1.45rem;font-weight:700;color:var(--text-h);margin-bottom:.15rem;}
+.comp-type{font-size:.68rem;color:var(--text-muted);margin-bottom:1.1rem;}
+.comp-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-n);margin-bottom:1rem;}
+.comp-stat{background:var(--surface-2);padding:.6rem .8rem;}
+.comp-stat-label{font-size:.64rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem;}
+.comp-stat-val{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text-h);}
+.comp-tags{display:flex;flex-wrap:wrap;gap:.35rem;}
+.ctag{font-size:.65rem;font-weight:600;padding:2px 8px;border-radius:2px;}
+.ctag-win{background:var(--s-exec-bg);color:var(--s-exec-fg);}
+.ctag-gap{background:var(--s-no-bg);color:var(--s-no-fg);}
+.ctag-neu{background:var(--surface-2);color:var(--text-muted);}
+@media(max-width:960px){.comp-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:500px){.comp-grid{grid-template-columns:1fr;}}
+
+/* ── GAPS & RECS ── */
+.comp-sub-hd{margin-bottom:1.25rem;}
+.gaps-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);margin-bottom:2.5rem;}
+.gap-card{background:var(--bg);border-left:3px solid var(--s-no-fg);padding:1.1rem 1.3rem;}
+.gap-card.is-win{border-left-color:var(--s-exec-fg);}
+.gap-badge{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-bottom:.5rem;background:var(--s-no-bg);color:var(--s-no-fg);}
+.gap-badge.win-badge{background:var(--s-exec-bg);color:var(--s-exec-fg);}
+.gap-title{font-size:.84rem;font-weight:600;color:var(--text-h);margin-bottom:.3rem;}
+.gap-desc{font-size:.74rem;color:var(--text-body);line-height:1.6;}
+@media(max-width:680px){.gaps-grid{grid-template-columns:1fr;}}
+.recs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);}
+.rec-card{background:var(--bg);padding:1.3rem 1.3rem;}
+.rec-priority{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-bottom:.65rem;}
+.pri-high{background:var(--s-no-bg);color:var(--s-no-fg);}
+.pri-mid{background:var(--s-lim-bg);color:var(--s-lim-fg);}
+.pri-grow{background:var(--accent-dim);color:var(--accent);}
+.rec-title{font-family:'Oswald',sans-serif;font-size:1.07rem;font-weight:700;color:var(--text-h);margin-bottom:.4rem;line-height:1.2;text-wrap:balance;}
+.rec-desc{font-size:.75rem;color:var(--text-body);line-height:1.7;}
+.rec-impact{margin-top:.9rem;padding-top:.7rem;border-top:1px solid var(--border-n);font-size:.66rem;color:var(--text-muted);display:flex;align-items:center;gap:.4rem;}
+.rec-impact::before{content:'→';color:var(--accent);font-weight:700;}
+@media(max-width:760px){.recs-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.recs-grid{grid-template-columns:1fr;}}
+
+/* ── CAPA STAT STRIP ── */
+.capa-stat-strip{margin-top:2.2rem;padding-top:1.6rem;border-top:1px solid var(--border-n);display:flex;flex-wrap:wrap;gap:2rem;}
+.capa-stat{display:flex;flex-direction:column;}
+.capa-stat-val{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:700;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
+.capa-stat-lbl{font-size:.58rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin-top:.35rem;}
+
+/* ── BEFORE / AFTER ── */
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;margin-bottom:1.25rem;border:1px solid var(--border-n);overflow:hidden;}
+.ba-col{padding:1.8rem 2rem;display:flex;flex-direction:column;}
+.ba-col.ba-before{background:var(--surface);}
+.ba-col.ba-after{background:var(--accent-dim-2);border-left:3px solid var(--accent);}
+.ba-label{font-size:.63rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.55rem;}
+.ba-after .ba-label{color:var(--accent);}
+.ba-val{font-family:'Oswald',sans-serif;font-size:clamp(2.8rem,5vw,4rem);font-weight:700;color:var(--text-muted);line-height:1;font-variant-numeric:tabular-nums;}
+.ba-after .ba-val{color:var(--accent);}
+.ba-period-tag{font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-top:.3rem;opacity:.7;}
+.ba-sub{font-size:.77rem;color:var(--text-muted);margin-top:.5rem;line-height:1.5;}
+.ba-divider{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;padding:0 2rem;background:var(--surface);border-left:1px solid var(--border-n);border-right:1px solid var(--border-n);}
+.ba-pct{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:700;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
+.ba-arr{font-size:1.4rem;color:var(--accent);line-height:1;}
+@media(max-width:640px){.before-after{grid-template-columns:1fr;}.ba-col.ba-after{border-left:none;border-top:3px solid var(--accent);}.ba-divider{flex-direction:row;padding:1rem 2rem;border-left:none;border-right:none;border-top:1px solid var(--border-n);border-bottom:1px solid var(--border-n);}}
+
+/* ── REF BUTTON ── */
+.ref-btn{display:inline-flex;align-items:center;gap:.3rem;margin-top:.7rem;padding:4px 11px;border:1px solid var(--border-n);border-radius:2px;cursor:pointer;font-size:.64rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);background:none;font-family:'Inter',sans-serif;transition:color .15s,border-color .15s;}
+.ref-btn:hover{color:var(--accent);border-color:var(--accent);}
+
+/* ── IMG LIGHTBOX ── */
+#imgOverlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.88);align-items:center;justify-content:center;cursor:zoom-out;}
+#imgOverlay.open{display:flex;}
+#imgOverlay img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:3px;box-shadow:0 4px 40px rgba(0,0,0,.7);}
+
+/* ── ROAS HERO PULSE ── */
+@keyframes accentPulse{0%,100%{box-shadow:0 0 0 0 rgba(229,9,20,0);}60%{box-shadow:0 0 0 8px rgba(229,9,20,0.08);}}
+.roas-hero{animation:accentPulse 3s ease-in-out 1s 2;}
+
+/* ── PDV DIAG BUTTON ── */
+.pdv-diag-row{margin-bottom:1.75rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.pdv-diag-btn{display:inline-flex;align-items:center;gap:.55rem;padding:.65rem 1.4rem;background:var(--accent);color:#fff;border:none;font-family:'Oswald',sans-serif;font-size:.88rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:opacity .15s;}
+.pdv-diag-btn:hover{opacity:.85;}
+.pdv-diag-note{font-size:.75rem;color:var(--text-muted);}
+
+/* ── DIAG CAROUSEL MODAL ── */
+.diag-overlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.94);backdrop-filter:blur(8px);padding:1rem;align-items:center;justify-content:center;}
+.diag-overlay.open{display:flex;}
+.diag-modal{width:100%;max-width:940px;max-height:92vh;display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--border-n);}
+.diag-modal-hd{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border-n);flex-shrink:0;}
+.diag-modal-title{font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:700;color:var(--text-h);letter-spacing:.04em;text-transform:uppercase;}
+.diag-modal-sub{font-size:.67rem;color:var(--text-muted);margin-top:.15rem;}
+.diag-close{background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;padding:.2rem .5rem;line-height:1;}
+.diag-close:hover{color:var(--accent);}
+.diag-slides{flex:1;overflow:hidden;position:relative;min-height:0;}
+.diag-slide{display:none;padding:1.8rem 2rem;overflow-y:auto;height:100%;box-sizing:border-box;}
+.diag-slide.active{display:block;}
+.diag-nav{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.5rem;border-top:1px solid var(--border-n);background:var(--surface);flex-shrink:0;}
+.diag-prev,.diag-next{background:none;border:1px solid var(--border-n);color:var(--text-muted);padding:.32rem .9rem;cursor:pointer;font-size:.72rem;font-family:'Inter',sans-serif;letter-spacing:.04em;transition:color .15s,border-color .15s;}
+.diag-prev:hover,.diag-next:hover,.diag-prev:not(:disabled):hover,.diag-next:not(:disabled):hover{color:var(--accent);border-color:var(--accent);}
+.diag-prev:disabled,.diag-next:disabled{opacity:.3;cursor:default;}
+.diag-dots{display:flex;gap:.45rem;align-items:center;}
+.diag-dot-btn{width:8px;height:8px;border-radius:50%;background:var(--border-n);border:none;cursor:pointer;padding:0;transition:background .2s;}
+.diag-dot-btn.active{background:var(--accent);}
+.diag-counter{font-size:.68rem;color:var(--text-muted);font-variant-numeric:tabular-nums;}
+/* slide content helpers */
+.diag-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);margin:1.25rem 0;}
+.diag-stat-cell{background:var(--surface-2);padding:1.1rem 1.2rem;}
+.diag-stat-val{font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;line-height:1;margin-bottom:.25rem;font-variant-numeric:tabular-nums;}
+.diag-stat-val.bad{color:var(--s-no-fg);}
+.diag-stat-val.good{color:var(--s-exec-fg);}
+.diag-stat-lbl{font-size:.69rem;color:var(--text-muted);line-height:1.4;}
+.diag-h{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text-h);margin-bottom:.6rem;line-height:1.2;}
+.diag-body{font-size:.82rem;color:var(--text-body);line-height:1.75;}
+.diag-rec-list{list-style:none;display:flex;flex-direction:column;gap:.75rem;margin-top:1.1rem;}
+.diag-rec-list li{display:flex;gap:.7rem;font-size:.81rem;color:var(--text-body);line-height:1.6;}
+.diag-rec-list li::before{content:'→';color:var(--accent);font-weight:700;flex-shrink:0;}
+.diag-rec-list li strong{color:var(--text-h);}
+.diag-quote{border-left:3px solid var(--accent);background:var(--surface);padding:.9rem 1.2rem;margin:1rem 0;font-size:.82rem;color:var(--text-body);line-height:1.7;}
+.diag-quote strong{color:var(--text-h);}
+
+/* ── BUDGET CONTEXT ── */
+.budget-ctx{background:var(--surface);border:1px solid var(--border-n);border-left:3px solid var(--accent);padding:1.6rem 2rem;margin-bottom:1.25rem;}
+.budget-ctx-hd{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:.8rem;}
+.budget-ctx-tag{font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);padding:2px 10px;border-radius:20px;}
+.budget-ctx-title{font-family:'Oswald',sans-serif;font-size:1.25rem;font-weight:700;color:var(--text-h);}
+.budget-ctx-body{font-size:.83rem;color:var(--text-body);line-height:1.75;}
+.budget-ctx-foot{margin-top:.9rem;padding-top:.75rem;border-top:1px solid var(--border-n);font-size:.73rem;color:var(--text-muted);}
+
+/* ── PRESENTATION MODE ── */
+.pres-btn{background:none;border:1px solid var(--border-n);color:var(--text-muted);padding:3px 10px;border-radius:2px;cursor:pointer;font-size:.65rem;font-family:'Inter',sans-serif;letter-spacing:.04em;transition:color .15s,border-color .15s;}
+.pres-btn.on{color:var(--accent);border-color:var(--accent);}
+.pres-btn:hover{color:var(--accent);border-color:var(--accent);}
+body.pres-mode .pres-hide{display:none!important;}
+body.pres-mode .section-pad{padding:2rem 0;}
+body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
+
+/* ── SECTION DIVIDER ── */
+.sec-divider{height:1px;background:var(--border-n);}
+
+/* ── FADE IN ── */
+.fi{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease;}
+.fi.vis{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.fi{opacity:1;transform:none;transition:none;}}
+
+/* ── WPP MODAL ── */
+.wpp-btn{display:inline-flex;align-items:center;gap:.45rem;margin-top:1.1rem;padding:.4rem 1rem;background:none;border:1px solid var(--accent);color:var(--accent);font-size:.67rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s,color .15s;border-radius:2px;}
+.wpp-btn:hover{background:var(--accent);color:#fff;}
+.wpp-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.88);backdrop-filter:blur(6px);padding:1.5rem 1rem;overflow-y:auto;}
+.wpp-overlay.open{display:flex;align-items:flex-start;justify-content:center;}
+.wpp-modal{background:var(--bg);border:1px solid var(--border-n);width:100%;max-width:1080px;margin:auto;}
+.wpp-modal-hd{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--border-n);}
+.wpp-modal-title{font-family:'Oswald',sans-serif;font-size:1.15rem;font-weight:700;color:var(--text-h);line-height:1.2;}
+.wpp-modal-sub{font-size:.72rem;color:var(--text-muted);margin-top:.2rem;}
+.wpp-close{background:none;border:none;color:var(--text-muted);font-size:1.5rem;cursor:pointer;padding:.2rem .5rem;line-height:1;transition:color .15s;}
+.wpp-close:hover{color:var(--accent);}
+.wpp-cols{display:grid;grid-template-columns:1fr 1fr;}
+@media(max-width:700px){.wpp-cols{grid-template-columns:1fr;}}
+.wpp-col{display:flex;flex-direction:column;}
+.wpp-col:first-child{border-right:1px solid var(--border-n);}
+.wpp-col-hd{padding:.9rem 1.25rem;border-bottom:1px solid var(--border-n);background:var(--surface);}
+.wpp-col-brand{font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:700;color:var(--text-h);margin-bottom:.15rem;}
+.wpp-col-meta{font-size:.67rem;color:var(--text-muted);}
+.wpp-screen{background:#111B21;padding:.85rem .75rem;overflow-y:auto;max-height:420px;display:flex;flex-direction:column;gap:.35rem;}
+.wpp-date-sep{text-align:center;margin:.4rem auto;}
+.wpp-date-pill{background:#1F2C34;color:#8696A0;font-size:.66rem;padding:3px 12px;border-radius:6px;display:inline-block;}
+.wpp-bubble{max-width:84%;padding:.55rem .8rem .4rem;font-size:.79rem;line-height:1.52;word-break:break-word;}
+.wpp-bubble.recv{background:#202C33;color:#E9EDEF;border-radius:0 8px 8px 8px;align-self:flex-start;}
+.wpp-bubble.sent{background:#6B44B2;color:#fff;border-radius:8px 8px 0 8px;align-self:flex-end;}
+.wpp-bubble.recv a{color:#53BDEB;word-break:break-all;font-size:.73rem;}
+.wpp-ts{font-size:.6rem;color:#8696A0;display:block;text-align:right;margin-top:.2rem;}
+.wpp-ts.sent{color:rgba(255,255,255,.55);}
+.wpp-product-card{background:#1F2C34;border-radius:8px;padding:.65rem .85rem;max-width:84%;align-self:flex-start;margin:.15rem 0;}
+.wpp-product-eyebrow{font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#53BDEB;margin-bottom:.3rem;}
+.wpp-product-name{font-size:.77rem;font-weight:600;color:#E9EDEF;line-height:1.35;margin-bottom:.2rem;}
+.wpp-product-price{font-size:.82rem;color:#00A884;font-weight:700;}
+.wpp-product-sku{font-size:.62rem;color:#8696A0;margin-top:.1rem;}
+.wpp-action-row{align-self:flex-start;margin:.1rem 0;}
+.wpp-action-tag{display:inline-block;border:1px solid #00A884;color:#00A884;padding:.28rem .8rem;border-radius:20px;font-size:.71rem;}
+.wpp-cart-block{background:#1F2C34;border-radius:8px;padding:.75rem 1rem;max-width:84%;align-self:flex-start;margin:.2rem 0;}
+.wpp-cart-hd{font-size:.7rem;font-weight:700;color:#E9EDEF;border-bottom:1px solid #2A3942;padding-bottom:.4rem;margin-bottom:.5rem;}
+.wpp-cart-row{font-size:.75rem;color:#8696A0;margin-bottom:.18rem;}
+.wpp-cart-row strong{color:#E9EDEF;}
+.wpp-pay-btn{align-self:flex-start;display:inline-flex;align-items:center;gap:.4rem;background:none;border:1px solid #53BDEB;color:#53BDEB;padding:.32rem .9rem;border-radius:20px;font-size:.72rem;margin:.15rem 0;}
+.wpp-verdict{padding:.9rem 1.25rem;border-top:1px solid var(--border-n);background:var(--surface);}
+.wpp-verdict-label{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem;}
+.wpp-verdict-label.bad{color:var(--s-no-fg);}
+.wpp-verdict-label.good{color:var(--s-exec-fg);}
+.wpp-verdict-text{font-size:.75rem;color:var(--text-body);line-height:1.68;}
+.wpp-verdict-text strong{color:var(--text-h);}
+.wpp-insight-bar{padding:1.1rem 1.5rem;border-top:3px solid var(--accent);background:var(--accent-dim-2);}
+.wpp-insight-bar p{font-size:.78rem;color:var(--text-body);line-height:1.7;}
+.wpp-insight-bar strong{color:var(--text-h);}
+</style>
+
+<!-- NAV -->
+<nav class="nav">
+  <span class="nav-brand">Official Time</span>
+  <div class="nav-links" id="navLinks">
+    <button class="nav-link active" data-s="capa" data-idx="0">Capa</button>
+    <button class="nav-link" data-s="resultado" data-idx="1">Resultado</button>
+    <button class="nav-link" data-s="dossie" data-idx="2">Dossiê</button>
+  </div>
+  <div class="nav-right">
+    <button class="pres-btn" id="presBtn" title="Modo Apresentação (P) — oculta gráficos secundários">Apresentação</button>
+    <button class="nav-fs" id="fsBtn" title="Tela cheia (F)">⛶</button>
+    <button class="nav-theme" id="themeBtn">☀ Tema</button>
+  </div>
+</nav>
+
+<!-- SECTION DOTS -->
+<div class="sec-dots" id="secDots">
+  <button class="sec-dot active" data-idx="0" title="Capa"></button>
+  <button class="sec-dot" data-idx="1" title="Resultado"></button>
+  <button class="sec-dot" data-idx="2" title="Dossiê"></button>
+</div>
+
+<!-- KEYBOARD HINT -->
+<div class="kbd-hint">↑↓ navegar · F tela cheia</div>
+
+<!-- ══ CAPA ══ -->
+<section id="capa">
+  <div class="capa-left fi">
+    <div class="capa-v4">V4 Company · Relatório Executivo</div>
+    <h1 class="capa-title">Official<br>Time</h1>
+    <div class="capa-meta">
+      <p class="capa-period">Janeiro — Novembro 2026</p>
+      <p class="capa-sub">Performance &amp; Plano de Ação</p>
+    </div>
+    <div class="capa-pillars">
+      <span class="capa-pillar">Estratégia</span>
+      <span class="capa-pillar">Media</span>
+      <span class="capa-pillar">CRM</span>
+      <span class="capa-pillar">PDV</span>
+      <span class="capa-pillar">B2B</span>
+    </div>
+    <div class="capa-stat-strip">
+      <div class="capa-stat">
+        <span class="capa-stat-val" id="statRev">R$ 458k</span>
+        <span class="capa-stat-lbl">Faturamento 2026</span>
+      </div>
+      <div class="capa-stat">
+        <span class="capa-stat-val" id="statRoas">12.1×</span>
+        <span class="capa-stat-lbl">ROAS real</span>
+      </div>
+      <div class="capa-stat">
+        <span class="capa-stat-val" id="statPed">177</span>
+        <span class="capa-stat-lbl">Pedidos 2026</span>
+      </div>
+    </div>
+  </div>
+  <div class="capa-right">
+    <canvas class="capa-canvas" id="watchCvs"></canvas>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- ══ RESULTADO ══ -->
+<section id="resultado" class="section-pad">
+  <div class="container">
+    <div class="sec-hd fi">
+      <div>
+        <span class="eyebrow">V4 Company · Prova de entrega · Jan–Nov 2026</span>
+        <h2 class="display">O que entregamos</h2>
+      </div>
+      <div class="sec-hd-right">
+        <p class="sec-hd-desc">De janeiro a novembro de 2026, com a V4 ativa: R$ 458k em pedidos aprovados no e-commerce, 177 pedidos e ROAS de 12,1× sobre o investimento em Meta + Google.</p>
+      </div>
+    </div>
+
+
+    <!-- ROAS HERO BAND -->
+    <div class="roas-hero fi">
+      <div class="roas-hero-val">12.1×</div>
+      <div class="roas-hero-divider"></div>
+      <div class="roas-hero-right">
+        <div class="roas-hero-label">ROAS Real Combinado · Google + Meta · Jan–Nov 2026</div>
+        <div class="roas-hero-detail"><strong>R$37.704</strong> investidos → <strong>R$458.003</strong> faturados · <strong style="color:var(--accent)">21% acima do teto do segmento</strong> (benchmark 5–10× · WordStream 2024)</div>
+      </div>
+    </div>
+
+    <!-- ROAS BENCHMARK (immediately after the 13.9× band) -->
+    <div class="chart-card fi">
+      <div class="chart-card-hd">
+        <h3 class="label">ROAS — Official Time vs benchmark do nicho</h3>
+        <span class="chart-note">Dados reais: Windsor AI + Tray · Jan–Nov 2026 · Benchmark: WordStream Industry Benchmarks 2024</span>
+      </div>
+      <div class="roas-rows" style="gap:1.5rem;">
+        <div class="roas-row">
+          <span class="roas-lbl">Benchmark nicho<br><span class="roas-sub">Joalheria / Relógios</span></span>
+          <div class="roas-track" style="height:8px;">
+            <div class="roas-fill" style="left:25%;width:25%;height:8px;"></div>
+          </div>
+          <span class="roas-val">5 – 10×</span>
+        </div>
+        <div class="roas-row">
+          <span class="roas-lbl hi">★ Official Time<br><span class="roas-sub">Real combinado</span></span>
+          <div class="roas-track" style="height:8px;">
+            <div class="roas-fill hi" style="left:0;width:60.5%;"></div>
+          </div>
+          <span class="roas-val hi">12.1×</span>
+        </div>
+      </div>
+      <p class="roas-note">A Official Time opera <strong>21% acima do teto do segmento</strong> mesmo com o investimento escalado a partir de setembro — eficiência mantida enquanto a receita absoluta cresce.</p>
+    </div>
+
+    <!-- KPI ROW -->
+    <div class="kpi-row fi">
+      <div class="kpi-item" style="border-left:3px solid var(--accent);">
+        <span class="kpi-eyebrow">Faturamento 2026</span>
+        <div class="kpi-val" style="color:var(--accent);">R$ 458k</div>
+        <div class="kpi-note" style="color:var(--accent);font-weight:600;">Jan–Nov · pedidos aprovados</div>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-eyebrow">Ticket Médio</span>
+        <div class="kpi-val">R$ 2,6k</div>
+        <div class="kpi-note">R$ 2.588 por pedido</div>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-eyebrow">Volume de Pedidos</span>
+        <div class="kpi-val">177</div>
+        <div class="kpi-note">Jan–Nov 2026</div>
+      </div>
+    </div>
+
+    <!-- REVENUE CHART (MoM) -->
+    <div class="chart-card fi">
+      <div class="chart-card-hd">
+        <h3 class="label">Faturamento mês a mês — 2026</h3>
+        <span class="chart-note">Pedidos aprovados (Tray) · Jan–Nov · Nov até 24/11 · clique na barra para ver o valor</span>
+      </div>
+      <div id="revTooltip" style="display:none;font-size:.75rem;font-weight:600;color:var(--text-h);text-align:center;padding:4px 0;margin-bottom:4px;"></div>
+      <canvas id="revCvs" class="chart" height="220" style="cursor:pointer;"></canvas>
+    </div>
+
+    <!-- ROAS CHART (MoM) -->
+    <div class="chart-card fi" style="margin-top:1.25rem;">
+      <div class="chart-card-hd">
+        <h3 class="label">ROAS mês a mês — 2026</h3>
+        <span class="chart-note">Faturamento ÷ investimento Meta + Google · faixa = benchmark do segmento (5–10×)</span>
+      </div>
+      <canvas id="roasCvs" class="chart" height="220"></canvas>
+      <p class="roas-note" style="margin-top:1rem;"><strong>6 de 11 meses acima do teto de 10×</strong> e nenhum abaixo do piso de 5×. A partir de setembro o investimento quase dobrou (média de R$ 4,9k/mês) e o ROAS se acomodou entre 7,6× e 9,2× — ainda dentro ou acima da faixa do segmento.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- ══ DOSSIÊ ══ -->
+<section id="dossie" class="section-pad">
+  <div class="container">
+    <div class="sec-hd fi">
+      <div>
+        <span class="eyebrow">Histórico de iniciativas</span>
+        <h2 class="display">Dossiê de Ações</h2>
+      </div>
+      <div class="sec-hd-right">
+        <p class="sec-hd-desc">Todas as ações propostas, aprovadas e reprovadas desde o início do projeto — com detalhes expandíveis. Status atualizado em 25/11/2026.</p>
+      </div>
+    </div>
+
+    <div class="tab-nav fi">
+      <button class="tab-btn active" data-tab="tab-ecom">E-Commerce</button>
+      <button class="tab-btn" data-tab="tab-pdv">PDV</button>
+      <button class="tab-btn" data-tab="tab-b2b">B2B</button>
+    </div>
+
+    <!-- E-COMMERCE -->
+    <div id="tab-ecom" class="tab-panel active fi">
+      <div class="tbl-wrap">
+        <table class="action-tbl">
+          <thead><tr><th>Ação</th><th>Objetivo</th><th>Período</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><span class="act-name">Mídia Meta + Google</span><span class="act-obj">Escalar tráfego e vendas com mensuração contínua</span></td><td>Performance paga como motor principal</td><td class="act-period">Contínuo</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li><strong>Google Ads:</strong> campanhas de busca e shopping ativas desde o onboarding</li><li><strong>Meta Ads:</strong> criativos sazonais com segmentação por interesse e lookalike</li><li><strong>Resultado:</strong> Google é o principal canal atribuído (UTM) com ~R$119k em receita rastreada</li></ul></td></tr>
+            <tr><td><span class="act-name">Campanhas sazonais</span><span class="act-obj">Datas comemorativas com criativos integrados</span></td><td>Criar demanda e consistência comercial</td><td class="act-period">Mar – Ago 26</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Dia da Mulher, Dia dos Pais e Dia das Mães com criativos específicos</li><li>Integração com PDV via criativos de vitrine digitais</li><li><strong>Pico em Maio (R$56,6k):</strong> campanhas sazonais ativas com maior cobertura</li></ul></td></tr>
+            <tr><td><span class="act-name">Régua de CRM</span><span class="act-obj">Fluxos de boas-vindas, carrinho, base e aniversários</span></td><td>Nutrir e reativar base de clientes</td><td class="act-period">Jun – Ago 26</td><td class="td-status"><span class="badge s-lim">≈ Aprovada c/ limitação</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Aprovada com restrição de frequência — cliente limitou disparos</li><li>Fluxo de carrinho abandonado configurado mas com baixa cadência</li><li>Base ativa: ~R$5,5k em receita atribuída ao CRM no período</li></ul></td></tr>
+            <tr><td><span class="act-name">CRM + reativação da base</span><span class="act-obj">Disparo para base com oferta 5% + mote emocional</span></td><td>Recuperar vendas em período de queda</td><td class="act-period">Jul – Ago 26</td><td class="td-status"><span class="badge s-lim">≈ Aprovada c/ limitação</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Aprovada com cupom fixo de 5% — proposta de desconto maior reprovada</li><li>Disparos realizados para base segmentada por inatividade</li><li>Impacto direto limitado pela restrição do desconto máximo</li></ul></td></tr>
+            <tr><td><span class="act-name">Ajustes estruturais no site</span><span class="act-obj">Hierarquia, banners, links internos e mobile</span></td><td>Melhorar experiência e conversão</td><td class="act-period">—</td><td class="td-status"><span class="badge s-lim">≈ Aprovada c/ limitação</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Melhorias pontuais aprovadas — CRO completo não aprovado</li><li>Revisão de banners e navegação em mobile implementada parcialmente</li><li>Checkout e página de produto ainda com oportunidades de conversão</li></ul></td></tr>
+            <tr><td><span class="act-name">Planejamento Antecipado de Black Friday</span><span class="act-obj">Estrutura integrada PDV + e-com com antecedência</span></td><td>Evitar correria e garantir budget e oferta</td><td class="act-period">Set – Nov 26</td><td class="td-status"><span class="badge s-done">✓ Realizado</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Requer aprovação de budget extra e desconto acima de 5%</li><li>Integrado com PDV: criativos físicos e digitais alinhados</li><li><strong>Próximo passo:</strong> definir oferta, KVs e cronograma de produção</li></ul></td></tr>
+            <tr><td><span class="act-name">Migração para Shopify</span><span class="act-obj">Plataforma de e-commerce com maior flexibilidade de CRO e integrações</span></td><td>Remover limitações técnicas da plataforma atual</td><td class="act-period">Fev 26</td><td class="td-status"><span class="badge s-no">✗ Não aprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Levantada em fev/26 como frente estratégica de médio prazo</li><li>Shopify permite integrações nativas com CRM, checkout otimizado e maior velocidade de iteração</li><li>Não aprovada — manutenção da plataforma atual. <strong>Sugestão:</strong> retomar avaliação junto a revisão de CRO</li></ul></td></tr>
+            <tr><td><span class="act-name">CRO — otimização de conversão</span><span class="act-obj">Clareza da oferta, checkout e redução de fricções</span></td><td>Aumentar taxa de conversão do site</td><td class="act-period">Jan + Jun 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta apresentada em duas ocasiões — ambas reprovadas</li><li>Justificativa: custo de implementação e alinhamento com dev interno</li><li><strong>Oportunidade:</strong> retomar com dados concretos de abandono de carrinho</li></ul></td></tr>
+            <tr><td><span class="act-name">Expansão com influenciadores</span><span class="act-obj">UGC, microinfluenciadores e roteiros de performance</span></td><td>Ampliar alcance e prova social</td><td class="act-period">Mai – Jun 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Apresentada como alternativa de conteúdo de baixo custo</li><li>Reprovada por resistência à gestão de parceria externa</li><li>Proposta incluía microinfluenciadores locais de Jundiaí</li></ul></td></tr>
+            <tr><td><span class="act-name">Novas captações próprias</span><span class="act-obj">Rotina de vídeos e fotos para criativos de performance</span></td><td>Melhorar qualidade e volume de criativos</td><td class="act-period">—</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta de rotina mensal de produção de conteúdo</li><li>Reprovada por orçamento — budget não aprovado pelo cliente</li><li>Impacto: criativos dependem de biblioteca existente — risco de fadiga de anúncios</li></ul></td></tr>
+            <tr><td><span class="act-name">31 anos + Mês do Cliente</span><span class="act-obj">KV aprovado e campanha veiculada no e-com</span></td><td>Celebração + conversão digital integrada</td><td class="act-period">Ago – Set 26</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>KV aprovado — desdobramentos digitais e e-com em produção</li><li>Criativos finais previstos para início de setembro</li><li>Ativação CRM e e-mail marketing planejada junto ao lançamento</li></ul></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PDV -->
+    <div id="tab-pdv" class="tab-panel fi">
+      <div class="tbl-wrap">
+        <table class="action-tbl">
+          <thead><tr><th>Ação</th><th>Objetivo</th><th>Período</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><span class="act-name">Diagnóstico e planejamento</span><span class="act-obj">Posicionamento, canais e prioridades iniciais</span></td><td>Estruturar o projeto do zero</td><td class="act-period">Out – Nov 25</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Mapeamento completo do negócio: público, concorrência e canais ativos</li><li>Definição de identidade visual nas campanhas e tom de comunicação</li><li>Estruturação do funil digital integrado ao PDV</li></ul></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Campanha integrada PDV + e-com com KVs aprovados e criativos produzidos</li><li>Cobertura de Black Friday com antecedência de 2 semanas</li><li>Natal com retargeting de quem visitou o site durante a BF</li></ul></td></tr>
+            <tr class="wpp-alert-row"><td><span class="act-name">Campanhas para WhatsApp — Gargalo Identificado</span><span class="act-obj">Leads para atendimento e convite ao PDV · cliente oculto realizado</span></td><td>Ativar funil local via atendimento consultivo</td><td class="act-period">—</td><td class="td-status"><span class="badge s-done">✓ Executada (pausada)</span><button class="det-btn">+ Detalhes</button><button class="diag-open-btn" onclick="openDiag()">▶ Ver Diagnóstico</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Campanhas geraram leads qualificados — pausadas após diagnóstico de gargalo</li><li>Cliente oculto confirmou: o problema está no processo de resposta, não na geração de leads</li><li><strong>Insight crítico:</strong> Official Time respondeu em ~7 min mas sem personalização — a Vivara respondeu em 3 min com bot, coletou dados e apresentou produtos com preço</li><li style="list-style:none;padding-left:.5rem;"><button class="wpp-btn" onclick="document.getElementById('wppOverlay').classList.add('open')">Ver comparativo de atendimento →</button></li><li><strong>Recomendação:</strong> estruturar protocolo de resposta antes de reativar campanhas</li></ul></td></tr>
+            <tr><td><span class="act-name">31 anos + Mês do Cliente</span><span class="act-obj">KV aprovado e campanha veiculada</span></td><td>Celebração + venda integrada</td><td class="act-period">Ago – Set 26</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>KV aprovado — desdobramentos em produção (PDV, e-com e social)</li><li>Criativos finais previstos para início de setembro</li><li>Ativação CRM planejada junto com lançamento da campanha</li></ul></td></tr>
+            <tr><td><span class="act-name">Evento na Geely</span><span class="act-obj">Mostruário e ativação com clientes da Geely</span></td><td>Ativar novo público no PDV de forma colaborativa</td><td class="act-period">Set 26</td><td class="td-status"><span class="badge s-exec">▶ Em execução</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Collab confirmada — mostruário Official Time dentro da Geely</li><li>Convidados da base da Geely + clientes passantes</li><li>Produção de vídeo comemorativo incluída — divisão de custo 50/50</li><li><strong>Próximo passo:</strong> fechar orçamento final e confirmar data em setembro</li></ul></td></tr>
+            <tr><td><span class="act-name">Planejamento Antecipado de Black Friday</span><span class="act-obj">Estrutura integrada de criativos físicos e ativação no PDV</span></td><td>Garantir exposição no ponto de venda com antecedência</td><td class="act-period">Set – Nov 26</td><td class="td-status"><span class="badge s-done">✓ Realizado</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Alinhado com a frente e-com — campanha integrada PDV + digital</li><li>Vitrine temática + criativos físicos coordenados com campanha paga</li><li>Foco em tráfego físico no período de maior conversão do ano</li></ul></td></tr>
+            <tr><td><span class="act-name">Adesivação de vitrines</span><span class="act-obj">Aplicação do KV de 31 anos no ponto de venda</span></td><td>Impacto visual e reconhecimento local</td><td class="act-period">Ago 26</td><td class="td-status"><span class="badge s-exec">▶ Em execução</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Aplicação do KV comemorativo de 31 anos nas vitrines do PDV</li><li>Em execução — alinhada com campanha de aniversário</li></ul></td></tr>
+            <tr><td><span class="act-name">Ações para alianças — Mês das Noivas</span><span class="act-obj">Foco em PDV com KV aprovado e depois reprovado</span></td><td>Capitalizar demanda de casamentos em maio</td><td class="act-period">Mai 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Apresentada em abr/26 para execução em maio — mês das noivas</li><li>Mecânica: 25% de desconto em até 10x sem juros, com selo oficial da campanha</li><li>KV aprovado e produzido — posteriormente substituído por comunicação de joias no geral</li><li>Oportunidade de retomar com recorte mais amplo: alianças + joias para noivas</li></ul></td></tr>
+            <tr><td><span class="act-name">Temporada Dourada — Troca do Ouro</span><span class="act-obj">Ouro antigo como crédito para nova joia · "seu ouro vale o novo começo"</span></td><td>Mecânica diferenciada de geração de lead no PDV</td><td class="act-period">Abr – Mai 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Apresentada em abr/26 com conceito completo: slogan <em>"seu ouro vale o novo começo"</em>, layout com anel, banner e faixa de loja</li><li>Mecânica: cliente traz ouro antigo e recebe crédito para nova joia — diferencial competitivo único no segmento local</li><li>Estratégia de canais e público-alvo definidos — executada em maio/26</li></ul></td></tr>
+            <tr><td><span class="act-name">Quadro Permanente de Vitrine</span><span class="act-obj">Painel físico substituível para o ponto de venda</span></td><td>Solução de longo prazo para PDV</td><td class="act-period">—</td><td class="td-status"><span class="badge s-pend">? Buscando fornecedor</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Buscando fornecedores — data de execução não garantida</li><li>Solução superior à adesivação temporária (durável, trocável sazonalmente)</li><li>Permitirá atualização sazonal sem custo de nova produção a cada campanha</li></ul></td></tr>
+            <tr><td><span class="act-name">Brinde — Dia da Mulher</span><span class="act-obj">Vela artesanal condicionada à compra acima de valor mínimo</span></td><td>Tráfego físico + valor percebido</td><td class="act-period">Mar 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Apresentada em fev/26 para execução no Dia da Mulher (mar/26) e Dia das Mães (mai/26)</li><li>Mecânica: brinde (vela artesanal) condicionado à compra acima de determinado valor</li><li>Reprovada por custo de produção — aprendizado registrado para iterar a mecânica</li></ul></td></tr>
+            <tr><td><span class="act-name">Brinde — Dia das Mães</span><span class="act-obj">Pingente de prata (formato infinito) como evolução da mecânica</span></td><td>Incremento de tráfego em data de pico</td><td class="act-period">Mai 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Evolução direta da tentativa do Dia da Mulher: vela substituída por pingente de prata em formato infinito</li><li>Apresentada em mar/26 como nova mecânica de brinde — maior alinhamento com o produto da loja</li><li>Reprovada novamente por custo — frente encerrada sem aprovação de mecânica de brinde</li></ul></td></tr>
+            <tr><td><span class="act-name">Mídia de Shopping</span><span class="act-obj">Display e ativações no shopping center</span></td><td>Novo canal de tráfego local</td><td class="act-period">—</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Exploração de mídia indoor no shopping onde a loja está localizada</li><li>Reprovada por custo e dificuldade de mensuração</li></ul></td></tr>
+            <tr><td><span class="act-name">Mídia off</span><span class="act-obj">Ativações de marca em canais offline</span></td><td>Reconhecimento de marca local</td><td class="act-period">—</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Rádio e OOH propostos para cobertura local</li><li>Reprovada por orçamento e preferência por canais mensuráveis</li></ul></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- B2B -->
+    <div id="tab-b2b" class="tab-panel fi">
+      <div class="tbl-wrap">
+        <table class="action-tbl">
+          <thead><tr><th>Ação</th><th>Objetivo</th><th>Período</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><span class="act-name">Landing Page de Vendas Corporativas</span><span class="act-obj">Página dedicada para captação de clientes PJ e presentes corporativos</span></td><td>Canal digital para demanda corporativa</td><td class="act-period">Dez 25 – Jan 26</td><td class="td-status"><span class="badge s-no">✗ Não aprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta em dez/25 com roadmap: teste em dezembro, escala em janeiro/26</li><li>Objetivo: captar empresas de Jundiaí para presentes e brindes corporativos</li><li>Não aprovada — sem avanço para frente digital B2B</li></ul></td></tr>
+            <tr><td><span class="act-name">Abertura de frente B2B em Jundiaí</span><span class="act-obj">Estrutura de vendas corporativas local</span></td><td>Nova vertical de receita</td><td class="act-period">Jul 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta de estrutura de vendas corporativas para empresas de Jundiaí</li><li>Reprovada por resistência interna a gestão de novo processo comercial</li></ul></td></tr>
+            <tr><td><span class="act-name">Mala direta corporativa</span><span class="act-obj">Prospecção com material físico para empresas</span></td><td>Gerar leads B2B qualificados</td><td class="act-period">Jul 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Proposta de envio físico para lista de empresas ICP</li><li>Reprovada — LGPD citada como obstáculo (aplicação incorreta ao contexto B2B)</li></ul></td></tr>
+            <tr><td><span class="act-name">Lista ICP + prospecção fria</span><span class="act-obj">Lista de empresas de Jundiaí no perfil ideal</span></td><td>Base para contatos comerciais sem mídia</td><td class="act-period">Jul 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Lista entregue ao cliente — sem retorno sobre contatos realizados</li><li>Proposta encerrada por falta de engajamento do time interno</li></ul></td></tr>
+            <tr><td><span class="act-name">Diagnóstico gratuito como porta de entrada</span><span class="act-obj">Oferta de análise de marketing para empresas ICP</span></td><td>Ativar B2B via valor percebido</td><td class="act-period">Jul 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Abordagem value-first para abrir relacionamento com empresas locais</li><li>Todas as iniciativas B2B foram propostas a custo zero após solicitação do cliente</li><li>Reprovadas por falta de alinhamento interno para ação comercial ativa</li></ul></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CAMPAIGN CALENDAR -->
+    <div class="cal-intro fi">
+      <span class="eyebrow">Conclusão mês a mês</span>
+      <h3 style="font-family:'Oswald',sans-serif;font-size:1.7rem;font-weight:700;color:var(--text-h);margin:.3rem 0 .75rem;line-height:1.1;">Calendário de Campanhas — 2026</h3>
+      <p style="font-size:.85rem;color:var(--text-body);max-width:500px;line-height:1.65;">Visão consolidada das ações de cada mês: campanha principal, destaque estratégico e status de janeiro a dezembro.</p>
+    </div>
+    <div class="cal-timeline fi">
+      <div class="cal-month-card">
+        <span class="cal-mo">Jan</span><span class="cal-yr">2026</span>
+        <div class="cal-camp"> Outlet no Site</div>
+        <div class="cal-det">Campanhas focadas no Outlet do site. R$49k no 1º mês do ano.</div>
+        <span class="cal-tag tag-done">Concluído</span>
+      </div>
+      <div class="cal-month-card">
+        <span class="cal-mo">Fev</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Outlet no Site</div>
+        <div class="cal-det"> Campanhas para o Outlet no site em andamento. Faturamento: R$37,9k.</div>
+        <span class="cal-tag tag-done">Concluído</span>
+      </div>
+      <div class="cal-month-card">
+        <span class="cal-mo">Mar</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Dia da Mulher</div>
+        <div class="cal-det">Campanhas sazonais para o Mês da Mulher.</div>
+        <span class="cal-tag tag-done">Concluído</span>
+      </div>
+      <div class="cal-month-card cal-peak">
+        <span class="cal-mo">Abr</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Pico de Receita</div>
+        <div class="cal-det">Total do mês: R$55,3k</div>
+        <span class="cal-tag tag-key">Pico do período</span>
+      </div>
+      <div class="cal-month-card cal-peak">
+        <span class="cal-mo">Mai</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Dia das Mães</div>
+        <div class="cal-det">Melhor mês do projeto: R$56,6k e 23 pedidos.</div>
+        <span class="cal-tag tag-key">Melhor mês</span>
+      </div>
+      <div class="cal-month-card">
+        <span class="cal-mo">Jun</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Namorados + CRM</div>
+        <div class="cal-det">Dia dos Namorados. Início da régua de CRM — fluxo de boas-vindas e carrinho abandonado.</div>
+        <span class="cal-tag tag-done">Concluído</span>
+      </div>
+      <div class="cal-month-card">
+        <span class="cal-mo">Jul</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Reativação de Base</div>
+        <div class="cal-det">CRM com oferta de 5% para base inativa.</div>
+        <span class="cal-tag tag-done">Concluído</span>
+      </div>
+      <div class="cal-month-card">
+        <span class="cal-mo">Ago</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Dia dos Pais</div>
+        <div class="cal-det">Faturamento: R$40,7k · ROAS 13,8×.</div>
+        <span class="cal-tag tag-done">Concluído</span>
+      </div>
+      <div class="cal-month-card cal-peak">
+        <span class="cal-mo">Set</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Aniversário da Loja</div>
+        <div class="cal-det">31 anos da Official Time — campanha comemorativa PDV + e-com. Faturamento: R$45,1k.</div>
+        <span class="cal-tag tag-key">Destaque</span>
+      </div>
+      <div class="cal-month-card">
+        <span class="cal-mo">Out</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Pré-Black Friday</div>
+        <div class="cal-det">Início das ações de Black. Criativos, ofertas e vitrine preparados com antecedência. Faturamento: R$50,5k.</div>
+        <span class="cal-tag tag-done">Realizado</span>
+      </div>
+      <div class="cal-month-card">
+        <span class="cal-mo">Nov</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Black Friday</div>
+        <div class="cal-det">Campanha integrada PDV + e-com. Ofertas com antecedência de 2 semanas. Maior janela de conversão do ano. Parcial até 24/11: R$30,7k.</div>
+        <span class="cal-tag tag-done">Realizado</span>
+      </div>
+      <div class="cal-month-card cal-exec">
+        <span class="cal-mo">Dez</span><span class="cal-yr">2026</span>
+        <div class="cal-camp">Natal</div>
+        <div class="cal-det">Campanha de Natal integrada PDV + e-com. Criativos físicos e digitais coordenados.</div>
+        <span class="cal-tag tag-exec">Em andamento</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+
+<!-- ══ IMG LIGHTBOX ══ -->
+<div id="imgOverlay" onclick="this.classList.remove('open')">
+  <img id="imgOverlayImg" src="" alt="Referência">
+</div>
+
+<!-- ══ DIAGNÓSTICO PDV CAROUSEL ══ -->
+<div class="diag-overlay" id="diagOverlay">
+  <div class="diag-modal">
+    <div class="diag-modal-hd">
+      <div>
+        <div class="diag-modal-title">Diagnóstico PDV — Análise de Atendimento</div>
+        <div class="diag-modal-sub">Cliente oculto · WhatsApp · Agosto 2026</div>
+      </div>
+      <button class="diag-close" onclick="closeDiag()">×</button>
+    </div>
+    <div class="diag-slides" id="diagSlides">
+
+      <!-- SLIDE 1: SUMÁRIO -->
+      <div class="diag-slide active" id="dslide-0">
+        <p class="eyebrow" style="margin-bottom:.5rem;">Slide 1 de 4 · Sumário executivo</p>
+        <h2 class="diag-h">Cliente oculto revelou gargalo crítico no atendimento via WhatsApp</h2>
+        <p class="diag-body">Em agosto de 2026, realizamos um cliente oculto simultâneo na Official Time e na Vivara pelo WhatsApp, com o mesmo perfil de comprador e mesma solicitação. Os resultados mostram que o problema de conversão não está na geração de leads — está no protocolo de resposta.</p>
+        <div class="diag-stat-row">
+          <div class="diag-stat-cell">
+            <div class="diag-stat-val bad">7 min</div>
+            <div class="diag-stat-lbl">Tempo de resposta · Official Time</div>
+          </div>
+          <div class="diag-stat-cell">
+            <div class="diag-stat-val good">3 min</div>
+            <div class="diag-stat-lbl">Tempo de resposta · Vivara</div>
+          </div>
+          <div class="diag-stat-cell">
+            <div class="diag-stat-val bad">0</div>
+            <div class="diag-stat-lbl">Produtos apresentados pela Official Time</div>
+          </div>
+        </div>
+        <div class="diag-quote"><strong>Insight principal:</strong> campanhas de WhatsApp estavam gerando leads qualificados. O funil quebra no atendimento — não na mídia. Reativar as campanhas sem protocolo de resposta resulta no mesmo gargalo.</div>
+      </div>
+
+      <!-- SLIDE 2: OFFICIAL TIME -->
+      <div class="diag-slide" id="dslide-1">
+        <p class="eyebrow" style="margin-bottom:.5rem;">Slide 2 de 4 · Official Time — atendimento registrado</p>
+        <h2 class="diag-h" style="color:var(--s-no-fg);">Official Time · Diagnóstico: Atendimento Quebrado</h2>
+        <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <div style="flex:0 0 auto;display:flex;justify-content:center;">
+            <img src="https://mzwynanvhojzyoirvxkc.supabase.co/storage/v1/object/public/official-time-prints/img_00.webp"
+                 alt="Screenshot WhatsApp Official Time"
+                 style="height:320px;width:auto;border-radius:12px;display:block;box-shadow:0 4px 20px rgba(0,0,0,.35);">
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="padding:.65rem .9rem;background:var(--s-no-bg);border-left:3px solid var(--s-no-fg);border-radius:0 4px 4px 0;">
+              <span style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--s-no-fg);">✗ Diagnóstico</span>
+              <p style="font-size:.76rem;color:var(--text-body);line-height:1.65;margin-top:.25rem;"><strong style="color:var(--text-h)">Resposta em ~7 minutos — mas sem nenhuma personalização.</strong> Dois links genéricos e duas frases. Nenhum produto apresentado, nenhuma pergunta feita ao cliente. Conversa encerrou sem engajamento.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: VIVARA -->
+      <div class="diag-slide" id="dslide-2">
+        <p class="eyebrow" style="margin-bottom:.5rem;">Slide 3 de 4 · Vivara — benchmark de atendimento</p>
+        <h2 class="diag-h" style="color:var(--s-exec-fg);">Vivara · Bot Vicky — funil completo em 7 minutos</h2>
+        <div style="display:flex;gap:.55rem;overflow-x:auto;padding-bottom:.5rem;scrollbar-width:thin;">
+          <img src="https://mzwynanvhojzyoirvxkc.supabase.co/storage/v1/object/public/official-time-prints/img_01.png"
+               alt="Vivara WA 1" style="height:320px;width:auto;flex-shrink:0;border-radius:12px;display:block;box-shadow:0 4px 20px rgba(0,0,0,.35);">
+          <img src="https://mzwynanvhojzyoirvxkc.supabase.co/storage/v1/object/public/official-time-prints/img_02.webp"
+               alt="Vivara WA 2" style="height:320px;width:auto;flex-shrink:0;border-radius:12px;display:block;box-shadow:0 4px 20px rgba(0,0,0,.35);">
+          <img src="https://mzwynanvhojzyoirvxkc.supabase.co/storage/v1/object/public/official-time-prints/img_03.webp"
+               alt="Vivara WA 3" style="height:320px;width:auto;flex-shrink:0;border-radius:12px;display:block;box-shadow:0 4px 20px rgba(0,0,0,.35);">
+          <img src="https://mzwynanvhojzyoirvxkc.supabase.co/storage/v1/object/public/official-time-prints/img_04.webp"
+               alt="Vivara WA 4" style="height:320px;width:auto;flex-shrink:0;border-radius:12px;display:block;box-shadow:0 4px 20px rgba(0,0,0,.35);">
+          <img src="https://mzwynanvhojzyoirvxkc.supabase.co/storage/v1/object/public/official-time-prints/img_05.webp"
+               alt="Vivara WA 5" style="height:320px;width:auto;flex-shrink:0;border-radius:12px;display:block;box-shadow:0 4px 20px rgba(0,0,0,.35);">
+        </div>
+        <div style="margin-top:.8rem;padding:.65rem .9rem;background:var(--s-exec-bg);border-left:3px solid var(--s-exec-fg);">
+          <span style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--s-exec-fg);">✓ Benchmark</span>
+          <p style="font-size:.76rem;color:var(--text-body);line-height:1.65;margin-top:.25rem;"><strong style="color:var(--text-h)">3 minutos para primeira resposta, funil completo em 7 minutos.</strong> Bot coletou nome, e-mail e CPF. Apresentou produtos com foto e preço. Engajamento total — o comprador não precisou ir ao site.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: RECOMENDAÇÕES -->
+      <div class="diag-slide" id="dslide-3">
+        <p class="eyebrow" style="margin-bottom:.5rem;">Slide 4 de 4 · Recomendações</p>
+        <h2 class="diag-h">Protocolo de resposta antes de reativar campanhas</h2>
+        <p class="diag-body">As campanhas de WhatsApp estavam gerando leads qualificados. Reativar sem resolver o atendimento desperdiça o budget e frustra o comprador. O problema é processual, não técnico — pode ser resolvido sem custo adicional.</p>
+        <ul class="diag-rec-list">
+          <li><strong>SLA máximo de 15 minutos</strong> para primeira resposta em horário comercial. Leads que esperam mais de 1h convertem 60% menos (benchmark de e-commerce B2C).</li>
+          <li><strong>Template de atendimento consultivo:</strong> saudar pelo nome, perguntar a ocasião e o orçamento, apresentar 2–3 produtos com foto e preço — sem só enviar link.</li>
+          <li><strong>Ativar WhatsApp Business com catálogo:</strong> permite enviar card de produto diretamente na conversa, como a Vivara faz com o bot — sem precisar de bot ou integração.</li>
+          <li><strong>Designar responsável com turno definido</strong> para atendimento digital — separado do atendimento presencial no PDV.</li>
+          <li><strong>Após protocolo estruturado:</strong> reativar campanhas de WhatsApp. Leads já existem — falta fechar o funil.</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="diag-nav">
+      <button class="diag-prev" id="diagPrev" onclick="diagNav(-1)" disabled>← Anterior</button>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="diag-dots" id="diagDots">
+          <button class="diag-dot-btn active" onclick="diagGo(0)"></button>
+          <button class="diag-dot-btn" onclick="diagGo(1)"></button>
+          <button class="diag-dot-btn" onclick="diagGo(2)"></button>
+          <button class="diag-dot-btn" onclick="diagGo(3)"></button>
+        </div>
+        <span class="diag-counter" id="diagCounter">1 / 4</span>
+      </div>
+      <button class="diag-next" id="diagNext" onclick="diagNav(1)">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ WPP MODAL ══ -->
+<div class="wpp-overlay" id="wppOverlay">
+  <div class="wpp-modal">
+    <div class="wpp-modal-hd">
+      <div>
+        <div class="wpp-modal-title">Comparativo de Atendimento — Cliente Oculto</div>
+        <div class="wpp-modal-sub">Teste realizado pelo time V4 · Julho / Agosto 2026 · WhatsApp</div>
+      </div>
+      <button class="wpp-close" onclick="document.getElementById('wppOverlay').classList.remove('open')" aria-label="Fechar">×</button>
+    </div>
+
+    <div class="wpp-cols">
+      <!-- ── OFFICIAL TIME ── -->
+      <div class="wpp-col">
+        <div class="wpp-col-hd">
+          <div class="wpp-col-brand">Official Time</div>
+          <div class="wpp-col-meta">sex., 24 jul · +55 11 91949-4668 · 1 atendimento registrado</div>
+        </div>
+        <div class="wpp-screen">
+          <div class="wpp-date-sep"><span class="wpp-date-pill">sex., 24 de jul.</span></div>
+
+          <div class="wpp-bubble sent">Link:<br><br>Olá! Posso ter mais informações sobre isso?<span class="wpp-ts sent">13:27 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Everton Official Time agradece seu contato. Como podemos ajudar?<span class="wpp-ts">13:34</span></div>
+
+          <div class="wpp-bubble sent">Oi, eu quero ver um relógio de dia dos pais pro meu pai, na faixa de até 2 mil reais<span class="wpp-ts sent">13:48 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Olá tudo bem?<span class="wpp-ts">13:48</span></div>
+
+          <div class="wpp-bubble recv"><a href="#">https://www.lojaofficialtime.com.br/</a><span class="wpp-ts">13:48</span></div>
+
+          <div class="wpp-bubble recv"><a href="#">https://www.lojaofficialtime.com.br/relogios?loja=1252243&palavra_busca=&prices%5B%5D=168.99%2C2000&order=2&categoria=65</a><span class="wpp-ts">13:49</span></div>
+
+          <div class="wpp-bubble recv">Selecionei ate 2.000<span class="wpp-ts">13:50</span></div>
+
+          <div class="wpp-bubble recv">Veja se gosta de algum<span class="wpp-ts">13:50</span></div>
+          <!-- conversa encerrada aqui, sem resposta do cliente -->
+        </div>
+        <div class="wpp-verdict">
+          <div class="wpp-verdict-label bad">✗ Diagnóstico</div>
+          <div class="wpp-verdict-text"><strong>7 min sem resposta</strong> ao primeiro contato. Atendimento sem personalização: nenhum produto apresentado, nenhuma pergunta sobre o cliente. Resposta resumida a dois links e uma frase. <strong>Sem fechamento</strong> — conversa encerrou sem qualquer engajamento adicional.</div>
+        </div>
+      </div>
+
+      <!-- ── VIVARA ── -->
+      <div class="wpp-col">
+        <div class="wpp-col-hd">
+          <div class="wpp-col-brand">Vivara ✓</div>
+          <div class="wpp-col-meta">10h15–10h22 · Bot Vicky · funil completo em 7 minutos</div>
+        </div>
+        <div class="wpp-screen">
+          <div class="wpp-bubble sent">Olá! Gostaria de atendimento personalizado para encontrar a joia ideal<span class="wpp-ts sent">10:15 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Olá, Luma Lorenzon! 🌻<br>Sou a Vicky, sua assistente virtual exclusiva da Vivara. É um prazer te receber aqui! ✨<br><br>Para garantir a melhor experiência e segurança, durante nosso atendimento vou precisar de alguns dados pessoais. Enquanto isso, deixo aqui o link para nossa política de privacidade, onde você pode conferir todos os detalhes com tranquilidade 🔒<br><a href="#">https://www.vivara.com.br/institucional/politica-privacidade</a><br>Seu protocolo de atendimento é <a href="#">773987694</a>.<span class="wpp-ts">10:15</span></div>
+
+          <div class="wpp-bubble recv">Por gentileza, poderia me informar seu <strong>e-mail</strong>? Assim, poderei personalizar ainda mais seu atendimento e garantir que todas as informações cheguem até você com exclusividade. 💌<span class="wpp-ts">10:15</span></div>
+
+          <div class="wpp-bubble sent">lumalorenzon@gmail.com<span class="wpp-ts sent">10:16 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Para continuarmos com seu atendimento personalizado, poderia, por gentileza, me informar seu <strong>CPF</strong>? Isso nos ajuda a garantir a segurança e exclusividade que você merece. 💠<span class="wpp-ts">10:16</span></div>
+
+          <div class="wpp-bubble sent">40780182898<span class="wpp-ts sent">10:17 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Obrigada, Luma. Agora, para encontrar a joia ideal para você, gostaria de saber um pouco mais: para quem é a joia? É para você ou para presentear alguém especial? E qual a ocasião? Isso vai me ajudar a selecionar opções que combinem perfeitamente com o momento. ✨<span class="wpp-ts">10:17</span></div>
+
+          <div class="wpp-bubble sent">quero comprar um relógio para o meu marido de presente de aniversário, o preço seria de até 3 mil reais<span class="wpp-ts sent">10:18 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Selecionei alguns relógios masculinos elegantes e sofisticados para presentear seu marido no aniversário, todos dentro do seu orçamento de até R$ 3.000. São opções que combinam estilo e qualidade para momentos especiais. Gostou de algum? Posso ajudar a refinar a busca se desejar.<span class="wpp-ts">10:18</span></div>
+
+          <div class="wpp-product-card">
+            <div class="wpp-product-eyebrow">Opção 1</div>
+            <div class="wpp-product-name">Relógio Nautica Pacific Beach Masculino Aço</div>
+            <div class="wpp-product-price">R$ 990,00</div>
+          </div>
+
+          <div class="wpp-product-card">
+            <div class="wpp-product-eyebrow">Opção 2 · SKU 57349</div>
+            <div class="wpp-product-name">Relógio Calvin Klein CK Empower Masculino em Aço Azul</div>
+            <div class="wpp-product-price">R$ 1.450,00</div>
+          </div>
+
+          <div class="wpp-product-card">
+            <div class="wpp-product-eyebrow">Opção 3 · SKU 57340</div>
+            <div class="wpp-product-name">Relógio Tommy Hilfiger Hudson Masculino em Couro Marrom</div>
+            <div class="wpp-product-price">R$ 1.090,00</div>
+            <div class="wpp-ts" style="text-align:left;margin-top:.3rem;">10:19</div>
+          </div>
+
+          <div class="wpp-bubble recv">Qual tipo de variação você prefere para o relógio Tommy Hilfiger Hudson Masculino em Couro Marrom? Posso verificar se há opções de tamanho, cor ou outro detalhe para que fique perfeito para seu marido.<span class="wpp-ts">10:19</span></div>
+
+          <div class="wpp-bubble sent">voce tem outras cores?<span class="wpp-ts sent">10:19 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">O relógio Tommy Hilfiger Hudson Masculino que selecionei está disponível apenas na cor couro marrom, sem outras variações de cor no momento.<br><br>Se desejar, posso mostrar outras opções de relógios masculinos em diferentes cores ou estilos dentro do seu orçamento. Gostaria que eu faça isso?<span class="wpp-ts">10:19</span></div>
+
+          <div class="wpp-bubble sent">sim<span class="wpp-ts sent">10:19 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Aqui estão outras opções de relógios masculinos em diferentes estilos e cores, todos dentro do seu orçamento para presentear seu marido com elegância e sofisticação. Gostaria de saber mais detalhes sobre algum deles?<span class="wpp-ts">10:20</span></div>
+
+          <div class="wpp-product-card">
+            <div class="wpp-product-eyebrow">Opção 1 · SKU 57347</div>
+            <div class="wpp-product-name">Relógio Calvin Klein CK Empower Masculino em Aço Prateado e Dourado</div>
+            <div class="wpp-product-price">R$ 1.450,00</div>
+          </div>
+
+          <div class="wpp-product-card">
+            <div class="wpp-product-eyebrow">Opção 2 · SKU 57348</div>
+            <div class="wpp-product-name">Relógio Calvin Klein CK Empower Masculino em Aço Cinza</div>
+            <div class="wpp-product-price">R$ 1.450,00</div>
+            <div class="wpp-ts" style="text-align:left;margin-top:.3rem;">10:21</div>
+          </div>
+
+          <div class="wpp-bubble recv">O relógio Calvin Klein CK Empower Masculino em Aço Cinza é uma escolha sofisticada e moderna para presentear seu marido.<br><br>Gostaria que eu adicione este relógio ao seu carrinho para prosseguirmos com a compra? Ou deseja ver mais opções?<span class="wpp-ts">10:21</span></div>
+
+          <div class="wpp-bubble sent">pode adicionar, vou comprar ele<span class="wpp-ts sent">10:21 ✓✓</span></div>
+
+          <div class="wpp-cart-block">
+            <div class="wpp-cart-hd">Resumo do carrinho:</div>
+            <div class="wpp-cart-row"><strong>Relógio Calvin Klein CK Empower Masculino em Aço Cinza</strong></div>
+            <div class="wpp-cart-row">Quantidade: <strong>1</strong></div>
+            <div class="wpp-cart-row">Preço: <strong>R$ 1.450,00</strong></div>
+          </div>
+
+          <div class="wpp-bubble recv">Adicionei o relógio Calvin Klein CK Empower Masculino em Aço Cinza ao seu carrinho. 🛍✨ Deseja adicionar mais algum item ou prefere finalizar a compra?<span class="wpp-ts">10:22</span></div>
+
+          <div class="wpp-bubble recv">Deseja adicionar mais algum produto ao seu pedido ou prefere finalizar a compra?<span class="wpp-ts">10:22</span></div>
+
+          <div class="wpp-action-row"><span class="wpp-action-tag">↩ Finalizar compra</span></div>
+
+          <div class="wpp-bubble sent">Finalizar compra<span class="wpp-ts sent">10:22 ✓✓</span></div>
+
+          <div class="wpp-bubble recv">Para <strong>finalizar sua compra e prosseguir para o pagamento</strong>, clique no botão abaixo:<span class="wpp-ts">10:22</span></div>
+
+          <div class="wpp-action-row"><span class="wpp-action-tag">↗ Ir para o pagamento</span></div>
+        </div>
+        <div class="wpp-verdict">
+          <div class="wpp-verdict-label good">✓ Benchmark</div>
+          <div class="wpp-verdict-text">Bot Vicky responde <strong>imediatamente</strong>. Coleta dados (e-mail, CPF), qualifica a ocasião e o orçamento, apresenta <strong>6 produtos curados com nome, preço e SKU</strong>, refina com base nas respostas, adiciona ao carrinho e conduz ao pagamento — <strong>tudo em 7 minutos e sem intervenção humana</strong>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wpp-insight-bar">
+      <p>→ <strong>O problema da Official Time não é a campanha de WhatsApp — é o processo de resposta.</strong> A Vivara converte dentro do próprio chat com automação e curadoria ativa. A Official Time encerra a conversa com dois links e nenhum engajamento. Oportunidade: estruturar um fluxo de atendimento consultivo (humano ou automatizado) com apresentação de produtos, qualificação de orçamento e follow-up — o lead já está chegando.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Theme ────────────────────────────────────────────────
+const root = document.documentElement;
+const themeBtn = document.getElementById('themeBtn');
+function applyTheme(t) {
+  root.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'dark' ? '☀ Claro' : '☾ Escuro';
+  try { localStorage.setItem('ot-theme', t); } catch(e) {}
+  drawRevChart(); drawWatchDeco(); drawRoasChart();
+}
+try { const s = localStorage.getItem('ot-theme'); if (s) applyTheme(s); } catch(e) {}
+themeBtn.addEventListener('click', () => {
+  applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+// ─── Nav + keyboard navigation ─────────────────────────────
+const SECS = ['capa','resultado','dossie'];
+const navLinks = document.querySelectorAll('.nav-link');
+const secDots  = document.querySelectorAll('.sec-dot');
+let curSec = 0;
+
+function goToSec(idx) {
+  idx = Math.max(0, Math.min(idx, SECS.length - 1));
+  curSec = idx;
+  document.getElementById(SECS[idx])?.scrollIntoView({behavior:'smooth'});
+  navLinks.forEach((l,j) => l.classList.toggle('active', j === idx));
+  secDots.forEach((d,j)  => d.classList.toggle('active', j === idx));
+}
+
+navLinks.forEach(l => l.addEventListener('click', () => goToSec(parseInt(l.dataset.idx))));
+secDots.forEach(d  => d.addEventListener('click',  () => goToSec(parseInt(d.dataset.idx))));
+
+document.getElementById('fsBtn').addEventListener('click', () => {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen().catch(()=>{});
+});
+
+document.addEventListener('keydown', function(e) {
+  if (['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
+  if (document.getElementById('wppOverlay').classList.contains('open')) {
+    if (e.key === 'Escape') document.getElementById('wppOverlay').classList.remove('open');
+    return;
+  }
+  if (document.getElementById('diagOverlay').classList.contains('open')) return;
+  if (e.key === 'ArrowDown') { e.preventDefault(); goToSec(curSec + 1); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); goToSec(curSec - 1); }
+  else if (e.key === 'Home')  { e.preventDefault(); goToSec(0); }
+  else if (e.key === 'End')   { e.preventDefault(); goToSec(SECS.length - 1); }
+  else if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+    else document.exitFullscreen().catch(()=>{});
+  }
+});
+
+const secObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const i = SECS.indexOf(e.target.id);
+      if (i < 0) return;
+      curSec = i;
+      navLinks.forEach((l,j) => l.classList.toggle('active', j === i));
+      secDots.forEach((d,j)  => d.classList.toggle('active', j === i));
+    }
+  });
+}, {threshold: 0.25});
+SECS.forEach(id => { const el = document.getElementById(id); if(el) secObs.observe(el); });
+
+// ─── Fade-in ──────────────────────────────────────────────
+const fiObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); fiObs.unobserve(e.target); } });
+}, {threshold: 0.06});
+document.querySelectorAll('.fi').forEach(el => fiObs.observe(el));
+
+// ─── Tabs ─────────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    const tab = b.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById(tab)?.classList.add('active');
+  });
+});
+
+// ─── Detail expand ────────────────────────────────────────
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('.det-btn');
+  if (!btn) return;
+  const row = btn.closest('tr');
+  if (!row) return;
+  const detRow = row.nextElementSibling;
+  if (!detRow || !detRow.classList.contains('detail-row')) return;
+  const isOpen = detRow.classList.contains('open');
+  detRow.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? '+ Detalhes' : '− Fechar';
+});
+
+// ─── Simulator ────────────────────────────────────────────
+const slider = document.getElementById('simSlider');
+const BASE_INV = 2765;
+const ROAS_BASE = {pess: 8, cons: 10, otim: 12};
+const DECAY_TABLE = [
+  {maxPct:0.10,minLoss:0.00,maxLoss:0.03},
+  {maxPct:0.20,minLoss:0.03,maxLoss:0.06},
+  {maxPct:0.30,minLoss:0.06,maxLoss:0.10},
+  {maxPct:0.50,minLoss:0.10,maxLoss:0.15},
+  {maxPct:1.00,minLoss:0.15,maxLoss:0.28},
+  {maxPct:2.00,minLoss:0.28,maxLoss:0.45},
+  {maxPct:4.00,minLoss:0.45,maxLoss:0.60},
+  {maxPct:Infinity,minLoss:0.60,maxLoss:0.75},
+];
+function fmtBRL(v) { return 'R$ ' + Math.round(v).toLocaleString('pt-BR'); }
+function fmtAnnual(v) {
+  const a = v * 12;
+  return '≈ ' + (a >= 1000000 ? 'R$ ' + (a/1000000).toFixed(1) + 'M / ano' : 'R$ ' + (a/1000).toFixed(0) + 'k / ano');
+}
+function getDecay(absPct) {
+  for (const r of DECAY_TABLE) { if (absPct <= r.maxPct) return {min:r.minLoss,max:r.maxLoss}; }
+  return {min:0.15,max:0.25};
+}
+function updateSim() {
+  const inv = parseInt(slider.value);
+  document.getElementById('simValLabel').textContent = 'R$ ' + inv.toLocaleString('pt-BR');
+  const pct = (inv - BASE_INV) / BASE_INV;
+  const lbl = document.getElementById('simPctLabel');
+  let rPess, rCons, rOtim;
+  if (Math.abs(pct) <= 0.005) {
+    if (lbl) lbl.textContent = 'Referência: R$2.765 · Pessimista 8× · Conservador 10× · Otimista 12×';
+    rPess = ROAS_BASE.pess; rCons = ROAS_BASE.cons; rOtim = ROAS_BASE.otim;
+  } else if (pct > 0) {
+    // Aumento: decaimento aplicado sobre cada base de cenário
+    const d = getDecay(pct);
+    const dMid = (d.min + d.max) / 2;
+    if (lbl) lbl.textContent = '+' + Math.round(pct * 100) + '% vs. investimento atual · ROAS tende a cair';
+    rPess = ROAS_BASE.pess * (1 - d.max);  // pior: maior decaimento
+    rCons = ROAS_BASE.cons * (1 - dMid);   // médio
+    rOtim = ROAS_BASE.otim * (1 - d.min);  // melhor: menor decaimento
+  } else {
+    // Redução: melhora de ROAS aplicada sobre cada base
+    const d = getDecay(-pct);
+    const dMid = (d.min + d.max) / 2;
+    if (lbl) lbl.textContent = Math.round(pct * 100) + '% vs. investimento atual · ROAS tende a melhorar';
+    rPess = ROAS_BASE.pess * (1 + d.min);  // pior: menor ganho
+    rCons = ROAS_BASE.cons * (1 + dMid);   // médio
+    rOtim = ROAS_BASE.otim * (1 + d.max);  // melhor: maior ganho
+  }
+  [['pess',rPess],['cons',rCons],['otim',rOtim]].forEach(([k,r]) => {
+    const el = document.getElementById(k+'-roas');
+    if (el) el.textContent = r.toFixed(1) + '×';
+    document.getElementById(k+'-rev').textContent = fmtBRL(inv * r);
+    document.getElementById(k+'-annual').textContent = fmtAnnual(inv * r);
+  });
+}
+slider?.addEventListener('input', updateSim);
+if (slider) updateSim();
+
+// ─── Image Lightbox ───────────────────────────────────────
+function openImg(src) {
+  document.getElementById('imgOverlayImg').src = src;
+  document.getElementById('imgOverlay').classList.add('open');
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('imgOverlay').classList.remove('open');
+});
+
+// ─── Token helper ─────────────────────────────────────────
+function tok(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+
+// ─── Monthly Revenue Chart ─────────────────────────────────
+const REV = [
+  {m:'Jan', v:49005},
+  {m:'Fev', v:37889},
+  {m:'Mar', v:26351},
+  {m:'Abr', v:55342},
+  {m:'Mai', v:56606},
+  {m:'Jun', v:28239},
+  {m:'Jul', v:37538},
+  {m:'Ago', v:40693},
+  {m:'Set', v:45143},
+  {m:'Out', v:50456},
+  {m:'Nov*', v:30741, partial:true},
+];
+const INV = [2467, 1978, 2729, 2846, 3435, 3918, 2597, 2951, 4925, 5793, 4065];
+const REV25 = [];
+let revMode = '26';
+
+function drawRevChart() {
+  const cvs = document.getElementById('revCvs');
+  if (!cvs) return;
+  const ctx = cvs.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const W = cvs.parentElement.clientWidth - 44;
+  const H = 220;
+  cvs.width = W * dpr; cvs.height = H * dpr;
+  cvs.style.width = W + 'px'; cvs.style.height = H + 'px';
+  ctx.scale(dpr, dpr);
+
+  const accent  = tok('--accent');
+  const accentD = tok('--accent-dim');
+  const muted   = tok('--text-muted');
+  const body    = tok('--text-body');
+  const surf2   = tok('--surface-2');
+  const border  = tok('--border-n');
+
+  const isCmp = revMode === 'cmp';
+  const maxV = Math.max(...REV.map(d => d.v), ...(isCmp ? REV25 : []));
+  const P = {t:18, r:8, b:34, l:54};
+  const cW = W - P.l - P.r;
+  const cH = H - P.t - P.b;
+  const n = REV.length;
+  const slot = cW / n;
+  const bW = isCmp ? slot * 0.38 : slot * 0.52;
+
+  ctx.clearRect(0, 0, W, H);
+
+  [0,.25,.5,.75,1].forEach(frac => {
+    const y = P.t + cH * (1 - frac);
+    ctx.strokeStyle = border; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(P.l, y); ctx.lineTo(W - P.r, y); ctx.stroke();
+    const val = maxV * frac;
+    ctx.fillStyle = muted; ctx.font = '10px "Inter",sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText(val >= 1000 ? 'R$' + (val/1000).toFixed(0) + 'k' : '', P.l - 6, y + 3.5);
+  });
+
+  const hitAreas = [];
+  REV.forEach((d, i) => {
+    const slotX = P.l + slot * i;
+    const r2 = 3;
+    if (isCmp) {
+      const v25 = REV25[i];
+      const bH25 = (v25 / maxV) * cH;
+      const x25 = slotX + (slot - bW * 2.2) / 2;
+      const y25 = P.t + cH - bH25;
+      ctx.globalAlpha = 0.45; ctx.fillStyle = muted;
+      ctx.beginPath(); ctx.moveTo(x25+r2,y25); ctx.lineTo(x25+bW-r2,y25);
+      ctx.quadraticCurveTo(x25+bW,y25,x25+bW,y25+r2);
+      ctx.lineTo(x25+bW,y25+bH25); ctx.lineTo(x25,y25+bH25);
+      ctx.quadraticCurveTo(x25,y25,x25+r2,y25); ctx.closePath(); ctx.fill();
+      const x26 = x25 + bW + bW * 0.2;
+      const bH26 = (d.v / maxV) * cH;
+      const y26 = P.t + cH - bH26;
+      ctx.globalAlpha = (i === 4) ? 1 : 0.8; ctx.fillStyle = accent;
+      ctx.beginPath(); ctx.moveTo(x26+r2,y26); ctx.lineTo(x26+bW-r2,y26);
+      ctx.quadraticCurveTo(x26+bW,y26,x26+bW,y26+r2);
+      ctx.lineTo(x26+bW,y26+bH26); ctx.lineTo(x26,y26+bH26);
+      ctx.quadraticCurveTo(x26,y26,x26+r2,y26); ctx.closePath(); ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = (i === 4) ? accent : body;
+      ctx.font = `${i === 4 ? '500' : '400'} 10px "Inter",sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(d.m, slotX + slot/2, H - 8);
+    } else {
+      const x = slotX + (slot - bW) / 2;
+      const bH = (d.v / maxV) * cH;
+      const y = P.t + cH - bH;
+      if (i === 4) { ctx.fillStyle = accent; ctx.globalAlpha = 1; }
+      else if (d.partial) { ctx.fillStyle = accentD; ctx.globalAlpha = 0.55; }
+      else { ctx.fillStyle = accentD; ctx.globalAlpha = 0.65; }
+      ctx.beginPath(); ctx.moveTo(x+r2,y); ctx.lineTo(x+bW-r2,y);
+      ctx.quadraticCurveTo(x+bW,y,x+bW,y+r2);
+      ctx.lineTo(x+bW,y+bH); ctx.lineTo(x,y+bH);
+      ctx.quadraticCurveTo(x,y,x+r2,y); ctx.closePath(); ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = (i === 4) ? accent : body;
+      ctx.font = `${i === 4 ? '500' : '400'} 10px "Inter",sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(d.m, x + bW/2, H - 8);
+      if (i !== 4) { ctx.fillStyle = tok('--text-h'); ctx.font = '600 10px "Inter",sans-serif';
+        ctx.fillText('R$' + (d.v/1000).toFixed(1).replace('.', ',') + 'k', x + bW/2, y - 5); }
+    }
+    hitAreas.push({x: slotX, w: slot, v26: d.v, v25: REV25[i], m: d.m});
+  });
+
+  if (!isCmp) {
+    const pi = 4;
+    const px = P.l + slot * pi + slot/2;
+    const pv = REV[pi].v;
+    const py = P.t + cH - (pv / maxV) * cH;
+    ctx.fillStyle = accent; ctx.font = '10px "Inter",sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('▲ R$56,6k · melhor mês', px, py - 5);
+  }
+
+  cvs._revHitAreas = hitAreas;
+  if (!cvs._revClickBound) {
+    cvs._revClickBound = true;
+    cvs.addEventListener('click', function(e) {
+      const rect = cvs.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      const areas = cvs._revHitAreas;
+      if (!areas) return;
+      const tip = document.getElementById('revTooltip');
+      if (!tip) return;
+      let found = null;
+      for (const a of areas) {
+        if (cx >= a.x && cx <= a.x + a.w) { found = a; break; }
+      }
+      if (!found) { tip.style.display = 'none'; return; }
+      const fmt = v => 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:2,maximumFractionDigits:2});
+      if (revMode === 'cmp') {
+        const delta = ((found.v26 - found.v25) / found.v25 * 100).toFixed(0);
+        const sign = delta > 0 ? '+' : '';
+        tip.textContent = `${found.m} — 2025: ${fmt(found.v25)} · 2026: ${fmt(found.v26)} · ${sign}${delta}%`;
+      } else {
+        tip.textContent = `${found.m} — ${fmt(found.v26)}`;
+      }
+      tip.style.display = 'block';
+    });
+  }
+}
+
+
+// ─── ROAS mês a mês ───────────────────────────────────────
+function drawRoasChart() {
+  const cvs = document.getElementById('roasCvs');
+  if (!cvs) return;
+  const ctx = cvs.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const W = cvs.parentElement.clientWidth - 44;
+  const H = 220;
+  cvs.width = W * dpr; cvs.height = H * dpr;
+  cvs.style.width = W + 'px'; cvs.style.height = H + 'px';
+  ctx.scale(dpr, dpr);
+  const accent = tok('--accent'), muted = tok('--text-muted'), body = tok('--text-body'),
+        head = tok('--text-h'), border = tok('--border-n'), dim = tok('--accent-dim');
+  const R = REV.map((d, i) => ({m: d.m, v: d.v / INV[i]}));
+  const maxV = 22;
+  const P = {t:18, r:8, b:34, l:40};
+  const cW = W - P.l - P.r, cH = H - P.t - P.b;
+  const slot = cW / R.length, bW = slot * 0.52;
+  const yOf = v => P.t + cH * (1 - v / maxV);
+  ctx.clearRect(0, 0, W, H);
+  [0,5,10,15,20].forEach(v => {
+    ctx.strokeStyle = border; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(P.l, yOf(v)); ctx.lineTo(W - P.r, yOf(v)); ctx.stroke();
+    ctx.fillStyle = muted; ctx.font = '10px "Inter",sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText(v + '×', P.l - 6, yOf(v) + 3.5);
+  });
+  // faixa do benchmark 5–10×
+  ctx.fillStyle = muted; ctx.globalAlpha = 0.12;
+  ctx.fillRect(P.l, yOf(10), cW, yOf(5) - yOf(10));
+  ctx.globalAlpha = 1; ctx.setLineDash([5,4]); ctx.strokeStyle = muted;
+  [5,10].forEach(v => { ctx.beginPath(); ctx.moveTo(P.l, yOf(v)); ctx.lineTo(W - P.r, yOf(v)); ctx.stroke(); });
+  ctx.setLineDash([]);
+  ctx.fillStyle = muted; ctx.font = '9px "Inter",sans-serif'; ctx.textAlign = 'right';
+  ctx.fillText('benchmark 5–10×', W - P.r - 4, yOf(10) - 4);
+  R.forEach((d, i) => {
+    const x = P.l + slot * i + (slot - bW) / 2, y = yOf(d.v), bH = P.t + cH - y, r2 = 3;
+    ctx.fillStyle = d.v > 10 ? accent : dim; ctx.globalAlpha = d.v > 10 ? 0.9 : 1;
+    ctx.beginPath(); ctx.moveTo(x+r2,y); ctx.lineTo(x+bW-r2,y);
+    ctx.quadraticCurveTo(x+bW,y,x+bW,y+r2);
+    ctx.lineTo(x+bW,y+bH); ctx.lineTo(x,y+bH);
+    ctx.quadraticCurveTo(x,y,x+r2,y); ctx.closePath(); ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = head; ctx.font = '600 10px "Inter",sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText(d.v.toFixed(1).replace('.', ',') + '×', x + bW/2, y - 5);
+    ctx.fillStyle = body; ctx.font = '400 10px "Inter",sans-serif';
+    ctx.fillText(d.m, x + bW/2, H - 8);
+  });
+}
+
+// ─── Watch decoration ─────────────────────────────────────
+function drawWatchDeco() {
+  const cvs = document.getElementById('watchCvs');
+  if (!cvs) return;
+  cvs.width  = cvs.offsetWidth || window.innerWidth / 2;
+  cvs.height = cvs.offsetHeight || window.innerHeight;
+  const ctx = cvs.getContext('2d');
+  const cx = cvs.width / 2, cy = cvs.height / 2;
+  const r = Math.min(cvs.width, cvs.height) * 0.36;
+  const ac = tok('--accent');
+
+  ctx.clearRect(0, 0, cvs.width, cvs.height);
+  ctx.strokeStyle = ac;
+
+  ctx.globalAlpha = 0.13; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(cx, cy, r * 1.06, 0, Math.PI*2); ctx.stroke();
+  ctx.globalAlpha = 0.07;
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
+  ctx.globalAlpha = 0.05;
+  ctx.beginPath(); ctx.arc(cx, cy, r * 0.88, 0, Math.PI*2); ctx.stroke();
+
+  for (let i = 0; i < 60; i++) {
+    const ang = (i / 60) * Math.PI * 2 - Math.PI / 2;
+    const isHour = i % 5 === 0;
+    const len = isHour ? r * 0.1 : r * 0.04;
+    ctx.globalAlpha = isHour ? 0.16 : 0.05;
+    ctx.lineWidth = isHour ? 1.5 : 0.8;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(ang) * r * 0.88, cy + Math.sin(ang) * r * 0.88);
+    ctx.lineTo(cx + Math.cos(ang) * (r * 0.88 - len), cy + Math.sin(ang) * (r * 0.88 - len));
+    ctx.stroke();
+  }
+
+  const hands = [{frac:10/12, len:0.45, w:2}, {frac:2/12, len:0.62, w:1.5}];
+  hands.forEach(h => {
+    const ang = h.frac * Math.PI * 2 - Math.PI / 2;
+    ctx.globalAlpha = 0.16; ctx.lineWidth = h.w; ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(ang) * r * h.len, cy + Math.sin(ang) * r * h.len);
+    ctx.stroke();
+  });
+
+  ctx.globalAlpha = 0.25; ctx.fillStyle = ac;
+  ctx.beginPath(); ctx.arc(cx, cy, 4, 0, Math.PI*2); ctx.fill();
+}
+
+// ─── Daily orders chart ────────────────────────────────────
+drawRevChart();
+drawRoasChart();
+drawWatchDeco();
+window.addEventListener('resize', () => { drawRevChart(); drawRoasChart(); drawWatchDeco(); });
+
+// ─── WPP Modal close on overlay click ────────────────────
+const wppOverlay = document.getElementById('wppOverlay');
+wppOverlay.addEventListener('click', function(e) {
+  if (e.target === wppOverlay) wppOverlay.classList.remove('open');
+});
+
+// ─── Diagnóstico PDV Carousel ─────────────────────────────
+let diagCur = 0;
+const DIAG_TOTAL = 4;
+function openDiag() {
+  diagCur = 0;
+  diagGo(0);
+  document.getElementById('diagOverlay').classList.add('open');
+}
+function closeDiag() {
+  document.getElementById('diagOverlay').classList.remove('open');
+}
+function diagGo(n) {
+  diagCur = Math.max(0, Math.min(n, DIAG_TOTAL - 1));
+  document.querySelectorAll('.diag-slide').forEach((s,i) => s.classList.toggle('active', i === diagCur));
+  document.querySelectorAll('.diag-dot-btn').forEach((d,i) => d.classList.toggle('active', i === diagCur));
+  document.getElementById('diagPrev').disabled = diagCur === 0;
+  document.getElementById('diagNext').disabled = diagCur === DIAG_TOTAL - 1;
+  document.getElementById('diagCounter').textContent = (diagCur + 1) + ' / ' + DIAG_TOTAL;
+}
+function diagNav(dir) { diagGo(diagCur + dir); }
+document.getElementById('diagOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeDiag();
+});
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('diagOverlay').classList.contains('open')) return;
+  if (e.key === 'Escape') { closeDiag(); return; }
+  if (e.key === 'ArrowRight') { e.preventDefault(); diagNav(1); }
+  if (e.key === 'ArrowLeft')  { e.preventDefault(); diagNav(-1); }
+});
+
+// ─── Presentation mode ────────────────────────────────────
+const presBtn = document.getElementById('presBtn');
+presBtn.addEventListener('click', () => {
+  const on = document.body.classList.toggle('pres-mode');
+  presBtn.classList.toggle('on', on);
+  presBtn.textContent = on ? 'Modo Normal' : 'Apresentação';
+});
+document.addEventListener('keydown', function(e) {
+  if (['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
+  if (e.key === 'p' || e.key === 'P') presBtn.click();
+});
+
+// ─── Count-up for capa stats ──────────────────────────────
+function countUp(id, target, decimals, suffix, prefix, duration) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const start = Date.now();
+  function frame() {
+    const pct = Math.min((Date.now() - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - pct, 3);
+    const val = target * ease;
+    el.textContent = prefix + (decimals > 0 ? val.toFixed(decimals) : Math.round(val)) + suffix;
+    if (pct < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+setTimeout(() => {
+  countUp('statRev',  458,  0, 'k', 'R$ ', 1800);
+  countUp('statRoas', 12.1, 1, '×', '',  2000);
+  countUp('statPed',  177,  0, '',  '',  1600);
+}, 350);
+</script>
