@@ -329,6 +329,12 @@ input[type=range].sim-slider::-moz-range-thumb{width:16px;height:16px;border-rad
 .gap-title{font-size:.84rem;font-weight:600;color:var(--text-h);margin-bottom:.3rem;}
 .gap-desc{font-size:.74rem;color:var(--text-body);line-height:1.6;}
 @media(max-width:680px){.gaps-grid{grid-template-columns:1fr;}}
+.kw-tbl{width:100%;border-collapse:collapse;font-size:.82rem;font-variant-numeric:tabular-nums;}
+.kw-tbl th{text-align:left;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);font-weight:500;padding:0 0 .6rem;border-bottom:1px solid var(--border-n);}
+.kw-tbl td{padding:.5rem 0;border-bottom:1px solid var(--border-n);color:var(--text-h);}
+.kw-tbl .r{text-align:right;}
+.kw-tbl .kw-grp td{color:var(--accent);font-family:'Oswald',sans-serif;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;padding-top:1rem;border-bottom:none;}
+.kw-tbl .kw-tot td{font-weight:700;border-bottom:2px solid var(--text-h);}
 .recs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-n);border:1px solid var(--border-n);}
 .rec-card{background:var(--bg);padding:1.3rem 1.3rem;}
 .rec-priority{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-bottom:.65rem;}
@@ -500,6 +506,7 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
     <button class="nav-link active" data-s="capa" data-idx="0">Capa</button>
     <button class="nav-link" data-s="resultado" data-idx="1">Resultado</button>
     <button class="nav-link" data-s="dossie" data-idx="2">Dossiê</button>
+    <button class="nav-link" data-s="joias" data-idx="3">Joias</button>
   </div>
   <div class="nav-right">
     <button class="pres-btn" id="presBtn" title="Modo Apresentação (P) — oculta gráficos secundários">Apresentação</button>
@@ -513,6 +520,7 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
   <button class="sec-dot active" data-idx="0" title="Capa"></button>
   <button class="sec-dot" data-idx="1" title="Resultado"></button>
   <button class="sec-dot" data-idx="2" title="Dossiê"></button>
+  <button class="sec-dot" data-idx="3" title="Joias"></button>
 </div>
 
 <!-- KEYBOARD HINT -->
@@ -643,6 +651,51 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
       <canvas id="roasCvs" class="chart" height="220"></canvas>
       <p class="roas-note" style="margin-top:1rem;"><strong>6 de 11 meses acima do teto de 10×</strong> e nenhum abaixo do piso de 5×. A partir de setembro o investimento quase dobrou (média de R$ 4,9k/mês) e o ROAS se acomodou entre 7,6× e 9,2× — ainda dentro ou acima da faixa do segmento.</p>
     </div>
+
+    <!-- BUDGET CONTEXT -->
+    <div class="budget-ctx fi" style="margin-top:2.5rem;">
+      <div class="budget-ctx-hd">
+        <span class="budget-ctx-tag">Contexto · Budget</span>
+        <span class="budget-ctx-title">Investimento em mídia: onde estamos</span>
+      </div>
+      <p class="budget-ctx-body">De janeiro a agosto o investimento médio foi de <strong style="color:var(--text-h)">R$2,9k/mês</strong>, com ROAS de 14,5×. A partir de setembro escalamos para <strong style="color:var(--text-h)">R$4,9k/mês</strong> — e o ROAS se acomodou em <strong style="color:var(--text-h)">8,5×</strong>, ainda dentro da faixa do segmento. É o comportamento esperado: mais verba alcança públicos menos quentes e o retorno por real diminui, enquanto o faturamento absoluto cresce. A calculadora abaixo parte desse patamar atual para projetar o próximo degrau.</p>
+      <div class="budget-ctx-foot">Patamar atual: <strong style="color:var(--accent)">R$4,9k/mês · ROAS 8,5×</strong> (média Set–Nov) · Simulação com dados reais Windsor AI + Tray</div>
+    </div>
+
+    <!-- INVESTMENT SIMULATOR -->
+    <div class="sim-box fi">
+      <div class="sim-header">
+        <h3>Proposta de Aumento de Investimento em Mídia</h3>
+        <span style="font-size:.71rem;color:var(--text-muted);">Calibrado com dados reais Windsor AI + Tray · Set–Nov 2026</span>
+      </div>
+      <p style="font-size:.82rem;color:var(--text-body);line-height:1.7;margin-bottom:1.2rem;">Mova o investimento mensal para ver o faturamento projetado em três cenários. A base é o patamar atual (R$4,9k/mês e ROAS 8,5×); acima disso, a calculadora aplica uma perda de eficiência proporcional ao aumento, como vimos acontecer de agosto para setembro.</p>
+      <div class="sim-input-row">
+        <span class="sim-label">Investimento mensal em mídia:</span>
+        <span class="sim-val" id="simValLabel">R$ 4.900</span>
+        <input type="range" class="sim-slider" id="simSlider" min="2000" max="20000" step="100" value="4900">
+      </div>
+      <div id="simPctLabel" style="font-size:.7rem;color:var(--text-muted);margin:.4rem 0 1rem;letter-spacing:.04em;">Referência atual: R$4.900 · ROAS 8,5×</div>
+      <div class="sim-cards">
+        <div class="sim-card pess">
+          <div class="sim-card-label">Pessimista</div>
+          <div class="sim-roas" id="pess-roas">8.0×</div>
+          <div class="sim-rev" id="pess-rev">R$ 22.120</div>
+          <div class="sim-annual" id="pess-annual">≈ R$ 265k / ano</div>
+        </div>
+        <div class="sim-card cons">
+          <div class="sim-card-label">Conservador</div>
+          <div class="sim-roas" id="cons-roas">10.0×</div>
+          <div class="sim-rev" id="cons-rev">R$ 27.650</div>
+          <div class="sim-annual" id="cons-annual">≈ R$ 332k / ano</div>
+        </div>
+        <div class="sim-card otim">
+          <div class="sim-card-label">Otimista</div>
+          <div class="sim-roas" id="otim-roas">12.0×</div>
+          <div class="sim-rev" id="otim-rev">R$ 33.180</div>
+          <div class="sim-annual" id="otim-annual">≈ R$ 398k / ano</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -675,6 +728,8 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
           <tbody>
             <tr><td><span class="act-name">Mídia Meta + Google</span><span class="act-obj">Escalar tráfego e vendas com mensuração contínua</span></td><td>Performance paga como motor principal</td><td class="act-period">Contínuo</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li><strong>Google Ads:</strong> campanhas de busca e shopping ativas desde o onboarding</li><li><strong>Meta Ads:</strong> criativos sazonais com segmentação por interesse e lookalike</li><li><strong>Resultado:</strong> Google é o principal canal atribuído (UTM) com ~R$119k em receita rastreada</li></ul></td></tr>
+            <tr><td><span class="act-name">API de Conversão Tray → Meta</span><span class="act-obj">Envio server-side só das compras aprovadas</span></td><td>Limpar o sinal de compra e reduzir o impacto das tentativas de golpe</td><td class="act-period">Nov 26</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Meta Ads era o canal com mais compras canceladas por tentativa de golpe — o pixel contava esses pedidos como venda</li><li>Demanda estava com o time de tecnologia da Official Time e não avançou; a V4 assumiu e concluiu</li><li>API da Tray configurada e ativa desde a semana de 16/11: o Meta passa a receber só a compra real, aprovada</li><li><strong>Próximo passo:</strong> acompanhar a diferença entre compras reportadas pelo Meta e pedidos aprovados na loja</li></ul></td></tr>
             <tr><td><span class="act-name">Campanhas sazonais</span><span class="act-obj">Datas comemorativas com criativos integrados</span></td><td>Criar demanda e consistência comercial</td><td class="act-period">Mar – Ago 26</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Dia da Mulher, Dia dos Pais e Dia das Mães com criativos específicos</li><li>Integração com PDV via criativos de vitrine digitais</li><li><strong>Pico em Maio (R$56,6k):</strong> campanhas sazonais ativas com maior cobertura</li></ul></td></tr>
             <tr><td><span class="act-name">Régua de CRM</span><span class="act-obj">Fluxos de boas-vindas, carrinho, base e aniversários</span></td><td>Nutrir e reativar base de clientes</td><td class="act-period">Jun – Ago 26</td><td class="td-status"><span class="badge s-lim">≈ Aprovada c/ limitação</span><button class="det-btn">+ Detalhes</button></td></tr>
@@ -713,12 +768,10 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Campanhas geraram leads qualificados — pausadas após diagnóstico de gargalo</li><li>Cliente oculto confirmou: o problema está no processo de resposta, não na geração de leads</li><li><strong>Insight crítico:</strong> Official Time respondeu em ~7 min mas sem personalização — a Vivara respondeu em 3 min com bot, coletou dados e apresentou produtos com preço</li><li style="list-style:none;padding-left:.5rem;"><button class="wpp-btn" onclick="document.getElementById('wppOverlay').classList.add('open')">Ver comparativo de atendimento →</button></li><li><strong>Recomendação:</strong> estruturar protocolo de resposta antes de reativar campanhas</li></ul></td></tr>
             <tr><td><span class="act-name">31 anos + Mês do Cliente</span><span class="act-obj">KV aprovado e campanha veiculada</span></td><td>Celebração + venda integrada</td><td class="act-period">Ago – Set 26</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>KV aprovado — desdobramentos em produção (PDV, e-com e social)</li><li>Criativos finais previstos para início de setembro</li><li>Ativação CRM planejada junto com lançamento da campanha</li></ul></td></tr>
-            <tr><td><span class="act-name">Evento na Geely</span><span class="act-obj">Mostruário e ativação com clientes da Geely</span></td><td>Ativar novo público no PDV de forma colaborativa</td><td class="act-period">Set 26</td><td class="td-status"><span class="badge s-exec">▶ Em execução</span><button class="det-btn">+ Detalhes</button></td></tr>
-            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Collab confirmada — mostruário Official Time dentro da Geely</li><li>Convidados da base da Geely + clientes passantes</li><li>Produção de vídeo comemorativo incluída — divisão de custo 50/50</li><li><strong>Próximo passo:</strong> fechar orçamento final e confirmar data em setembro</li></ul></td></tr>
             <tr><td><span class="act-name">Planejamento Antecipado de Black Friday</span><span class="act-obj">Estrutura integrada de criativos físicos e ativação no PDV</span></td><td>Garantir exposição no ponto de venda com antecedência</td><td class="act-period">Set – Nov 26</td><td class="td-status"><span class="badge s-done">✓ Realizado</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Alinhado com a frente e-com — campanha integrada PDV + digital</li><li>Vitrine temática + criativos físicos coordenados com campanha paga</li><li>Foco em tráfego físico no período de maior conversão do ano</li></ul></td></tr>
-            <tr><td><span class="act-name">Adesivação de vitrines</span><span class="act-obj">Aplicação do KV de 31 anos no ponto de venda</span></td><td>Impacto visual e reconhecimento local</td><td class="act-period">Ago 26</td><td class="td-status"><span class="badge s-exec">▶ Em execução</span><button class="det-btn">+ Detalhes</button></td></tr>
-            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Aplicação do KV comemorativo de 31 anos nas vitrines do PDV</li><li>Em execução — alinhada com campanha de aniversário</li></ul></td></tr>
+            <tr><td><span class="act-name">Adesivação de vitrines</span><span class="act-obj">Aplicação do KV de 31 anos no ponto de venda</span></td><td>Impacto visual e reconhecimento local</td><td class="act-period">Ago 26</td><td class="td-status"><span class="badge s-done">✓ Executada</span><button class="det-btn">+ Detalhes</button></td></tr>
+            <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Aplicação do KV comemorativo de 31 anos nas vitrines do PDV</li><li>Executada junto com a campanha de aniversário</li></ul></td></tr>
             <tr><td><span class="act-name">Ações para alianças — Mês das Noivas</span><span class="act-obj">Foco em PDV com KV aprovado e depois reprovado</span></td><td>Capitalizar demanda de casamentos em maio</td><td class="act-period">Mai 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
             <tr class="detail-row"><td class="detail-cell" colspan="4"><ul><li>Apresentada em abr/26 para execução em maio — mês das noivas</li><li>Mecânica: 25% de desconto em até 10x sem juros, com selo oficial da campanha</li><li>KV aprovado e produzido — posteriormente substituído por comunicação de joias no geral</li><li>Oportunidade de retomar com recorte mais amplo: alianças + joias para noivas</li></ul></td></tr>
             <tr><td><span class="act-name">Temporada Dourada — Troca do Ouro</span><span class="act-obj">Ouro antigo como crédito para nova joia · "seu ouro vale o novo começo"</span></td><td>Mecânica diferenciada de geração de lead no PDV</td><td class="act-period">Abr – Mai 26</td><td class="td-status"><span class="badge s-no">✗ Reprovada</span><button class="det-btn">+ Detalhes</button></td></tr>
@@ -844,6 +897,57 @@ body.pres-mode .sim-box,body.pres-mode .budget-ctx{margin-top:0;}
 
 <div class="sec-divider"></div>
 
+<!-- ══ JOIAS EM PRATA ══ -->
+<section id="joias" class="section-pad">
+  <div class="container">
+    <div class="sec-hd fi">
+      <div>
+        <span class="eyebrow">Próximo passo · Catálogo</span>
+        <h2 class="display">Joias em Prata</h2>
+      </div>
+      <div class="sec-hd-right">
+        <p class="sec-hd-desc">Incluir joias em prata no catálogo da Official Time abre uma nova frente de demanda — com mais busca e clique mais barato do que ouro. Dados do Planejador de Palavras-chave do Google Ads.</p>
+      </div>
+    </div>
+
+    <div class="kpi-row fi">
+      <div class="kpi-item" style="border-left:3px solid var(--accent);">
+        <span class="kpi-eyebrow">Buscas de prata / mês</span>
+        <div class="kpi-val" style="color:var(--accent);">71,6k</div>
+        <div class="kpi-note" style="color:var(--accent);font-weight:600;">2,3× o volume de ouro (31,5k)</div>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-eyebrow">CPC médio prata</span>
+        <div class="kpi-val">R$ 1,55</div>
+        <div class="kpi-note">37% abaixo do ouro (R$ 2,45)</div>
+      </div>
+      <div class="kpi-item">
+        <span class="kpi-eyebrow">Termo âncora</span>
+        <div class="kpi-val">prata 925</div>
+        <div class="kpi-note">49,5 mil buscas/mês sozinho</div>
+      </div>
+    </div>
+
+    <div class="chart-card fi">
+      <div class="chart-card-hd">
+        <h3 class="label">Prata x Ouro — volume de busca e CPC</h3>
+        <span class="chart-note">Google Ads · Planejador de Palavras-chave · Brasil · média dos últimos 12 meses · total com CPC ponderado pelo volume</span>
+      </div>
+      <table class="kw-tbl">
+        <thead><tr><th>Palavra-chave</th><th class="r">Buscas/mês</th><th class="r">CPC médio</th></tr></thead>
+        <tbody><tr class="kw-grp"><td colspan="3">Prata</td></tr><tr><td>joias em prata</td><td class="r">1.600</td><td class="r">R$ 2,37</td></tr><tr><td>joias de prata</td><td class="r">2.400</td><td class="r">R$ 1,94</td></tr><tr><td>prata 925</td><td class="r">49.500</td><td class="r">R$ 1,65</td></tr><tr><td>anel de prata</td><td class="r">18.100</td><td class="r">R$ 1,14</td></tr><tr class="kw-tot"><td>Total prata</td><td class="r">71.600</td><td class="r">R$ 1,55</td></tr><tr class="kw-grp"><td colspan="3">Ouro</td></tr><tr><td>joias em ouro</td><td class="r">2.900</td><td class="r">R$ 4,25</td></tr><tr><td>joias de ouro</td><td class="r">2.400</td><td class="r">R$ 4,06</td></tr><tr><td>ouro 18k</td><td class="r">8.100</td><td class="r">R$ 3,87</td></tr><tr><td>anel de ouro</td><td class="r">18.100</td><td class="r">R$ 1,31</td></tr><tr class="kw-tot"><td>Total ouro</td><td class="r">31.500</td><td class="r">R$ 2,45</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="recs-grid fi" style="margin-top:1.25rem;">
+      <div class="rec-card"><span class="rec-priority pri-high">Demanda</span><h3 class="rec-title">A demanda já existe</h3><p class="rec-desc">Prata é buscada 2,3× mais que ouro no Google. "Prata 925" e "anel de prata" concentram quase 68 mil buscas por mês.</p><div class="rec-impact">Nova frente de tráfego sem criar demanda do zero</div></div>
+      <div class="rec-card"><span class="rec-priority pri-mid">Público</span><h3 class="rec-title">Ticket de entrada</h3><p class="rec-desc">Peças em prata abrem a marca para um público que ainda não compra relógio ou ouro — e alimentam a base de CRM para recompra.</p><div class="rec-impact">Aquisição de novos clientes com ticket menor</div></div>
+      <div class="rec-card"><span class="rec-priority pri-grow">Mídia</span><h3 class="rec-title">Clique mais barato</h3><p class="rec-desc">O clique em prata custa 37% menos que em ouro. Com a mesma verba, mais tráfego qualificado chega ao site.</p><div class="rec-impact">Mais eficiência por real investido</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
 
 <!-- ══ IMG LIGHTBOX ══ -->
 <div id="imgOverlay" onclick="this.classList.remove('open')">
@@ -1119,7 +1223,7 @@ themeBtn.addEventListener('click', () => {
 });
 
 // ─── Nav + keyboard navigation ─────────────────────────────
-const SECS = ['capa','resultado','dossie'];
+const SECS = ['capa','resultado','dossie','joias'];
 const navLinks = document.querySelectorAll('.nav-link');
 const secDots  = document.querySelectorAll('.sec-dot');
 let curSec = 0;
@@ -1202,8 +1306,8 @@ document.addEventListener('click', function(e) {
 
 // ─── Simulator ────────────────────────────────────────────
 const slider = document.getElementById('simSlider');
-const BASE_INV = 2765;
-const ROAS_BASE = {pess: 8, cons: 10, otim: 12};
+const BASE_INV = 4900;
+const ROAS_BASE = {pess: 7, cons: 8.5, otim: 10};
 const DECAY_TABLE = [
   {maxPct:0.10,minLoss:0.00,maxLoss:0.03},
   {maxPct:0.20,minLoss:0.03,maxLoss:0.06},
@@ -1230,7 +1334,7 @@ function updateSim() {
   const lbl = document.getElementById('simPctLabel');
   let rPess, rCons, rOtim;
   if (Math.abs(pct) <= 0.005) {
-    if (lbl) lbl.textContent = 'Referência: R$2.765 · Pessimista 8× · Conservador 10× · Otimista 12×';
+    if (lbl) lbl.textContent = 'Referência: R$4.900 · Pessimista 7× · Conservador 8,5× · Otimista 10×';
     rPess = ROAS_BASE.pess; rCons = ROAS_BASE.cons; rOtim = ROAS_BASE.otim;
   } else if (pct > 0) {
     // Aumento: decaimento aplicado sobre cada base de cenário
