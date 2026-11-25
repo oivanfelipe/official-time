@@ -103,7 +103,7 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
 .kw{width:100%;border-collapse:collapse;font-size:21px;font-variant-numeric:tabular-nums}
 .kw th{text-align:left;font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:0 0 16px;border-bottom:1px solid var(--line)}
 .kw th.r,.kw td.r{text-align:right}
-.kw td{padding:9px 0;border-bottom:1px solid var(--line);color:var(--text-h)}
+.kw td{padding:7px 0;border-bottom:1px solid var(--line);color:var(--text-h)}
 .kw tr.grp td{color:var(--accent);font-family:'Oswald',sans-serif;font-size:20px;letter-spacing:.18em;text-transform:uppercase;padding-top:22px;border-bottom:none}
 .kw tr.tot td{font-weight:700;border-bottom:2px solid var(--text-h)}
 
@@ -230,12 +230,12 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
         <thead><tr><th>Palavra-chave</th><th class="r">Buscas/mês</th><th class="r">CPC médio</th></tr></thead>
         <tbody></tbody>
       </table>
-      <div class="src">Volume mensal de buscas no Google Brasil · CPC médio estimado · <span class="todo">fonte: Planejador de Palavras-chave</span></div>
+      <div class="src">Google Ads, Planejador de Palavras-chave · Brasil · média dos últimos 12 meses · total com CPC ponderado</div>
     </div>
     <div class="points">
       <div class="point"><div class="n">→</div><div><h3>A demanda já existe</h3><p>Prata é buscada <b style="color:var(--text-h)" data-k="kwRatio">—×</b> mais que ouro no Google, com clique mais barato.</p></div></div>
       <div class="point"><div class="n">→</div><div><h3>Ticket de entrada</h3><p>Peças em prata abrem a marca para um público que ainda não compra relógio ou ouro, e alimentam a base para recompra.</p></div></div>
-      <div class="point"><div class="n">→</div><div><h3>Mídia mais barata</h3><p>CPC menor significa mais tráfego pela mesma verba, com o ROAS que a operação já entrega.</p></div></div>
+      <div class="point"><div class="n">→</div><div><h3>Mídia mais barata</h3><p>O clique em prata custa <b style="color:var(--text-h)" data-k="cpcDiff">—</b> menos que em ouro. Com a mesma verba, isso traz mais tráfego qualificado para o site.</p></div></div>
     </div>
   </div>
   <div class="foot"><span>Official Time · Resultados 2026</span><b>07</b></div>
@@ -280,8 +280,8 @@ const DATA = {
   ped2026: [15,13,11,13,23,13,10,18,24,21,16], // pedidos aprovados (Tray)
   novAte: '24/11',
   keywords: {                // [palavra, buscas/mês, CPC R$]
-    prata: [['joias em prata',null,null],['joias de prata',null,null],['prata 925',null,null],['anel de prata',null,null]],
-    ouro:  [['joias em ouro',null,null],['joias de ouro',null,null],['ouro 18k',null,null],['anel de ouro',null,null]]
+    prata: [['joias em prata',1600,2.37],['joias de prata',2400,1.94],['prata 925',49500,1.65],['anel de prata',18100,1.14]],
+    ouro:  [['joias em ouro',2900,4.25],['joias de ouro',2400,4.06],['ouro 18k',8100,3.87],['anel de ouro',18100,1.31]]
   }
 };
 
@@ -317,17 +317,20 @@ const V = {
   roasRecorte: x(fatR&&invR?fatR/invR:null), fatRecorte: brl(fatR), invRecorte: brl(invR), novAte: DATA.novAte, recorteSub,
   pedRecorte: (()=>{const p=Rok.map(i=>DATA.ped2026[i]);return p.every(v=>v!=null)?num(sum(p)):'—';})(),
   ticketRecorte: (()=>{const p=Rok.map(i=>DATA.ped2026[i]);return p.every(v=>v!=null)&&fatR?'R$ '+num(fatR/sum(p)):'R$ —';})(),
-  kwRatio: volP&&volO? (volP/volO).toLocaleString('pt-BR',{maximumFractionDigits:1})+'×' : '—×'
+  kwRatio: volP&&volO? (volP/volO).toLocaleString('pt-BR',{maximumFractionDigits:1})+'×' : '—×',
+  cpcDiff: (()=>{const w=r=>{const v=sum(r.map(x=>x[1]||0));return v?sum(r.map(x=>(x[1]||0)*(x[2]||0)))/v:null;};const p=w(kwP),o=w(kwO);return p&&o?Math.round((1-p/o)*100)+'%':'—';})()
 };
 document.querySelectorAll('[data-k]').forEach(el=>{ if(V[el.dataset.k]!=null) el.textContent=V[el.dataset.k]; });
 
 /* tabela de keywords */
 const tb = document.querySelector('#kwTable tbody');
+// CPC médio ponderado pelo volume de buscas
+const cpcPond = rows => { const v=sum(rows.map(r=>r[1])); return v?sum(rows.map(r=>r[1]*r[2]))/v:null; };
 const brlc = v => v==null?'—':'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 [['Prata',kwP,volP],['Ouro',kwO,volO]].forEach(([g,rows,tot])=>{
   tb.insertAdjacentHTML('beforeend',`<tr class="grp"><td colspan="3">${g}</td></tr>`);
   rows.forEach(r=>tb.insertAdjacentHTML('beforeend',`<tr><td>${r[0]}</td><td class="r">${num(r[1])}</td><td class="r">${brlc(r[2])}</td></tr>`));
-  tb.insertAdjacentHTML('beforeend',`<tr class="tot"><td>Total ${g.toLowerCase()}</td><td class="r">${num(tot)}</td><td class="r">${brlc(avg(rows.map(r=>r[2])))}</td></tr>`);
+  tb.insertAdjacentHTML('beforeend',`<tr class="tot"><td>Total ${g.toLowerCase()}</td><td class="r">${num(tot)}</td><td class="r">${brlc(cpcPond(rows))}</td></tr>`);
 });
 
 /* ---------- gráficos ---------- */
