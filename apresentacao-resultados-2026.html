@@ -201,7 +201,7 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
     <div class="side">
       <div class="label">ROAS médio do período</div>
       <div class="value" data-k="roasRecorte">—×</div>
-      <div class="sub">Agosto, setembro e outubro fechados + novembro parcial (até <span data-k="novAte">—</span>).</div>
+      <div class="sub" data-k="recorteSub">Agosto, setembro e outubro fechados.</div>
       <div class="mini">Faturado: <b data-k="fatRecorte">R$ —</b><br>Investido: <b data-k="invRecorte">R$ —</b></div>
     </div>
   </div>
@@ -311,7 +311,7 @@ const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov'
 const DATA = {
   // Faturamento e-commerce (pedidos finalizados), R$ por mês Jan..Nov
   fat2025: [null,null,null,null,null,null,null,null,null,null,null],
-  fat2026: [null,null,null,null,null,null,null,null,null,null,null],
+  fat2026: [null,null,null,null,null,null,null,40693,45143,50456,null], // Ago–Out: Tray (enviado em 25/11)
   // Taxa de conversão do site (%), Jan..Nov
   conv2025: [null,null,null,null,null,null,null,null,null,null,null],
   conv2026: [null,null,null,null,null,null,null,null,null,null,null],
@@ -342,8 +342,11 @@ const fat26 = has(DATA.fat2026)?sum(DATA.fat2026):null;
 const fat25 = has(DATA.fat2025)?sum(DATA.fat2025.slice(0,n)):null;
 const inv   = has(DATA.inv2026)?sum(DATA.inv2026):null;
 const R = [7,8,9,10]; // Ago..Nov
-const fatR = has(R.map(i=>DATA.fat2026[i]))?sum(R.map(i=>DATA.fat2026[i])):null;
-const invR = has(R.map(i=>DATA.inv2026[i]))?sum(R.map(i=>DATA.inv2026[i])):null;
+// ROAS do recorte só considera meses com faturamento E investimento informados
+const Rok = R.filter(i=>DATA.fat2026[i]!=null && DATA.inv2026[i]!=null);
+const fatR = Rok.length?sum(Rok.map(i=>DATA.fat2026[i])):null;
+const invR = Rok.length?sum(Rok.map(i=>DATA.inv2026[i])):null;
+const recorteSub = Rok.includes(10) ? `Agosto, setembro e outubro fechados + novembro parcial (até ${DATA.novAte}).` : 'Agosto, setembro e outubro fechados. Novembro entra quando o faturamento do mês chegar.';
 const c25=avg(DATA.conv2025), c26=avg(DATA.conv2026);
 const kwP = DATA.keywords.prata, kwO = DATA.keywords.ouro;
 const volP = has(kwP.map(k=>k[1]))?sum(kwP.map(k=>k[1])):null, volO = has(kwO.map(k=>k[1]))?sum(kwO.map(k=>k[1])):null;
@@ -352,7 +355,7 @@ const V = {
   fatTotal: brl(fat26), invTotal: brl(inv), roasTotal: x(fat26&&inv?fat26/inv:null),
   crescFat: pct(fat26&&fat25?(fat26/fat25-1)*100:null), fat25: brl(fat25), fat26: brl(fat26),
   crescConv: pct(c25&&c26?(c26/c25-1)*100:null), conv25: p2(c25), conv26: p2(c26),
-  roasRecorte: x(fatR&&invR?fatR/invR:null), fatRecorte: brl(fatR), invRecorte: brl(invR), novAte: DATA.novAte,
+  roasRecorte: x(fatR&&invR?fatR/invR:null), fatRecorte: brl(fatR), invRecorte: brl(invR), novAte: DATA.novAte, recorteSub,
   convMeta: p2(DATA.convMeta), ganhoCro: c26&&DATA.convMeta? Math.round((DATA.convMeta/c26-1)*100) : '—',
   kwRatio: volP&&volO? (volP/volO).toLocaleString('pt-BR',{maximumFractionDigits:1})+'×' : '—×'
 };
