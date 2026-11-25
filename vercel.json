@@ -1,9 +1,15 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "official-time-nov-26.vercel.app" }],
-      "destination": "/relatorio-2026/index.html"
+      "has": [
+        {
+          "type": "host",
+          "value": "official-time-nov-26.vercel.app"
+        }
+      ],
+      "destination": "/relatorio-2026/",
+      "permanent": false
     }
   ]
 }
