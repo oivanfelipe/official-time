@@ -202,7 +202,7 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
       <div class="label">ROAS médio do período</div>
       <div class="value" data-k="roasRecorte">—×</div>
       <div class="sub" data-k="recorteSub">Agosto, setembro e outubro fechados.</div>
-      <div class="mini">Faturado: <b data-k="fatRecorte">R$ —</b><br>Investido: <b data-k="invRecorte">R$ —</b></div>
+      <div class="mini">Faturado: <b data-k="fatRecorte">R$ —</b><br>Investido: <b data-k="invRecorte">R$ —</b><br>Pedidos: <b data-k="pedRecorte">—</b> · Ticket: <b data-k="ticketRecorte">R$ —</b></div>
     </div>
   </div>
   <div class="foot"><span>Official Time · Resultados 2026</span><b>05</b></div>
@@ -318,6 +318,7 @@ const DATA = {
   // Investimento Meta + Google, R$ por mês Jan..Nov (Windsor, puxado em 25/11/2026 — Nov até 24/11)
   inv2026: [2467,1978,2729,2846,3435,3918,2597,2951,4925,5793,4065],
   inv2025: [3136,2439,1720,1914,1942,2344,2128,2322,2434,2098,1523],
+  ped2026: [null,null,null,null,null,null,null,18,24,21,16], // pedidos aprovados (Tray)
   novAte: '24/11',
   convMeta: null,            // meta de conversão para o slide de CRO (%)
   keywords: {                // [palavra, buscas/mês, CPC R$]
@@ -356,6 +357,8 @@ const V = {
   crescFat: pct(fat26&&fat25?(fat26/fat25-1)*100:null), fat25: brl(fat25), fat26: brl(fat26),
   crescConv: pct(c25&&c26?(c26/c25-1)*100:null), conv25: p2(c25), conv26: p2(c26),
   roasRecorte: x(fatR&&invR?fatR/invR:null), fatRecorte: brl(fatR), invRecorte: brl(invR), novAte: DATA.novAte, recorteSub,
+  pedRecorte: (()=>{const p=Rok.map(i=>DATA.ped2026[i]);return p.every(v=>v!=null)?num(sum(p)):'—';})(),
+  ticketRecorte: (()=>{const p=Rok.map(i=>DATA.ped2026[i]);return p.every(v=>v!=null)&&fatR?'R$ '+num(fatR/sum(p)):'R$ —';})(),
   convMeta: p2(DATA.convMeta), ganhoCro: c26&&DATA.convMeta? Math.round((DATA.convMeta/c26-1)*100) : '—',
   kwRatio: volP&&volO? (volP/volO).toLocaleString('pt-BR',{maximumFractionDigits:1})+'×' : '—×'
 };
