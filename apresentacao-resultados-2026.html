@@ -92,10 +92,11 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
 .card{background:var(--surface);border:1px solid var(--line);padding:48px;display:flex;flex-direction:column;gap:24px}
 .status{display:inline-flex;align-items:center;gap:12px;align-self:flex-start;background:var(--pend-bg);color:var(--pend);font-size:20px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:10px 20px;border-radius:4px}
 .status::before{content:"";width:12px;height:12px;border-radius:50%;background:currentColor}
+.status.done{background:rgba(82,183,136,.15);color:var(--ok)}
 .status.go{background:var(--accent-dim);color:var(--accent)}
 .card .owner{font-size:22px;line-height:1.55}
 .card .owner b{color:var(--text-h)}
-.stat{font-family:'Oswald',sans-serif;font-size:96px;line-height:1;color:var(--text-h);font-weight:600}
+.stat{font-family:'Oswald',sans-serif;font-size:96px;line-height:1.1;margin-bottom:8px;color:var(--text-h);font-weight:600}
 .stat-l{font-size:22px;line-height:1.45}
 
 /* Tabela de palavras-chave */
@@ -145,7 +146,7 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
     <div class="big">
       <div class="label">ROAS total do projeto</div>
       <div class="value" data-k="roasTotal">—×</div>
-      <div class="sub">Sobre <strong data-k="invTotal">R$ —</strong> investidos em Meta + Google</div>
+      <div class="sub">Faturamento ÷ <strong data-k="invTotal">R$ —</strong> investidos em Meta + Google</div>
     </div>
   </div>
   <div class="foot"><span>Official Time · Resultados 2026</span><b>02</b></div>
@@ -207,7 +208,26 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
   <div class="foot"><span>Official Time · Resultados 2026</span><b>05</b></div>
 </section>
 
-<!-- 06 · PRÓXIMOS PASSOS -->
+<!-- 06 · ENTREGA: API DE CONVERSÃO -->
+<section class="slide">
+  <div class="kicker">Entregue · Novembro 2026</div>
+  <h2>API de Conversão Tray → Meta</h2>
+  <div class="action">
+    <div class="points">
+      <div class="point"><div class="n">→</div><div><h3>O problema</h3><p>O Meta Ads era o canal com mais compras canceladas por tentativa de golpe. O pixel contava esses pedidos como venda, e o algoritmo aprendia com compras que não existiram.</p></div></div>
+      <div class="point"><div class="n">→</div><div><h3>O que fizemos</h3><p>Configuramos a API de Conversão da Tray, que devolve ao Meta a informação direto do servidor da loja: só a compra real, aprovada.</p></div></div>
+      <div class="point"><div class="n">→</div><div><h3>O que muda</h3><p>Dado mais limpo significa otimização mais precisa: o Meta passa a buscar perfis parecidos com quem de fato compra, não com quem tenta fraudar.</p></div></div>
+    </div>
+    <div class="card">
+      <div class="status done">Concluído · V4</div>
+      <p class="owner">A demanda estava com o <b>time de tecnologia da Official Time</b> e não avançou. A <b>V4 assumiu e concluiu</b>: API configurada e ativa desde a semana passada.</p>
+      <p class="owner"><b>Próximo passo:</b> acompanhar nas próximas semanas a diferença entre compras reportadas pelo Meta e pedidos aprovados na loja.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>06</b></div>
+</section>
+
+<!-- 07 · PRÓXIMOS PASSOS -->
 <section class="slide divider">
   <div class="kicker">2027</div>
   <h2>Próximos passos</h2>
@@ -216,10 +236,10 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
     <li>Joias em prata no catálogo <small>abrir uma nova frente de demanda</small></li>
     <li>WhatsApp de atendimento das lojas <small>levar o digital para o PDV</small></li>
   </ol>
-  <div class="foot"><span>Official Time · Resultados 2026</span><b>06</b></div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>07</b></div>
 </section>
 
-<!-- 07 · CRO -->
+<!-- 08 · CRO -->
 <section class="slide">
   <div class="kicker">Próximo passo 01</div>
   <h2>CRO do site</h2>
@@ -235,10 +255,10 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
       <p class="owner"><b>O que precisamos:</b> um responsável e uma data para o primeiro ciclo de ajustes, para a V4 acompanhar o impacto na conversão.</p>
     </div>
   </div>
-  <div class="foot"><span>Official Time · Resultados 2026</span><b>07</b></div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>08</b></div>
 </section>
 
-<!-- 08 · JOIAS EM PRATA -->
+<!-- 09 · JOIAS EM PRATA -->
 <section class="slide">
   <div class="kicker">Próximo passo 02</div>
   <h2>Joias em prata no catálogo</h2>
@@ -256,31 +276,32 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
       <div class="point"><div class="n">→</div><div><h3>Mídia mais barata</h3><p>CPC menor significa mais tráfego pela mesma verba, com o ROAS que a operação já entrega.</p></div></div>
     </div>
   </div>
-  <div class="foot"><span>Official Time · Resultados 2026</span><b>08</b></div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>09</b></div>
 </section>
 
-<!-- 09 · WHATSAPP LOJAS -->
+<!-- 10 · WHATSAPP LOJAS -->
 <section class="slide">
   <div class="kicker">Próximo passo 03</div>
   <h2>WhatsApp de atendimento das lojas</h2>
   <div class="action">
     <div class="points">
-      <div class="point"><div class="n">→</div><div><h3>O cliente já está lá</h3><p>Hoje o primeiro contato é digital. As pessoas preferem tirar dúvida, ver a peça e reservar pelo WhatsApp antes de ir à loja.</p></div></div>
-      <div class="point"><div class="n">→</div><div><h3>Ponte para o PDV</h3><p>Um número por loja, divulgado nos anúncios e no Google Meu Negócio, transforma busca online em visita presencial.</p></div></div>
+      <div class="point"><div class="n">→</div><div><h3>O cliente já está lá</h3><p>Hoje o primeiro contato é digital. Quem mora na região quer tirar dúvida, ver a peça e reservar pelo WhatsApp antes de ir à loja, com atendimento individual.</p></div></div>
+      <div class="point"><div class="n">→</div><div><h3>Ponte para o PDV</h3><p>Um número por loja, divulgado nos anúncios e no Google Meu Negócio. O primeiro atendimento acontece no WhatsApp, com o objetivo de levar o cliente até a loja.</p></div></div>
       <div class="point"><div class="n">→</div><div><h3>Venda que hoje não medimos</h3><p>Com campanhas de clique para WhatsApp, passamos a enxergar e otimizar a venda feita na loja física, não só no e-commerce.</p></div></div>
     </div>
     <div class="card">
       <div class="status go">Proposta · decisão Official Time</div>
-      <div><div class="stat"><span class="todo">nº</span> lojas</div><div class="stat-l">com WhatsApp próprio de atendimento</div></div>
+      <div><div class="stat">3 lojas</div><div class="stat-l">em Jundiaí, cada uma com seu WhatsApp</div></div>
+      <p class="owner"><b>2 lojas</b> no Maxi Shopping · <b>1 loja</b> no Jundiaí Shopping</p>
       <p class="owner"><b>O que precisamos:</b> número dedicado por loja e uma pessoa responsável pelo atendimento em cada uma, com tempo de resposta combinado.</p>
     </div>
   </div>
-  <div class="foot"><span>Official Time · Resultados 2026</span><b>09</b></div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>10</b></div>
 </section>
 
 </div>
 
-<div class="nav"><span id="count">1 / 9</span><button id="prev" aria-label="Anterior">‹</button><button id="next" aria-label="Próximo">›</button></div>
+<div class="nav"><span id="count">1 / 10</span><button id="prev" aria-label="Anterior">‹</button><button id="next" aria-label="Próximo">›</button></div>
 
 <script>
 /* ============================================================
