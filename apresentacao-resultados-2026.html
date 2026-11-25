@@ -70,7 +70,7 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
 .canvas-wrap{position:relative;flex:1;min-height:0}
 .side{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--accent);padding:48px 44px;display:flex;flex-direction:column;justify-content:center}
 .side .label{font-size:20px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-.side .value{font-family:'Oswald',sans-serif;font-weight:600;font-size:136px;line-height:1;color:var(--accent);margin:20px 0}
+.side .value{font-family:'Oswald',sans-serif;font-weight:600;font-size:118px;line-height:1;color:var(--accent);margin:20px 0}
 .side .sub{font-size:22px;line-height:1.45}
 .side .mini{margin-top:28px;padding-top:24px;border-top:1px solid var(--line);font-size:20px;line-height:1.6}
 .side .mini b{color:var(--text-h);font-family:'Oswald',sans-serif;font-size:28px;font-weight:500}
@@ -164,7 +164,7 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
     <div class="side">
       <div class="label">Crescimento vs 2025</div>
       <div class="value" data-k="crescFat">+—%</div>
-      <div class="sub">Faturamento acumulado Jan–Nov, comparado ao mesmo período do ano anterior.</div>
+      <div class="sub" data-k="cmpPeriodo">Faturamento acumulado, comparado ao mesmo período do ano anterior.</div>
       <div class="mini">2025: <b data-k="fat25">R$ —</b><br>2026: <b data-k="fat26">R$ —</b></div>
     </div>
   </div>
@@ -290,15 +290,15 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
 const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const DATA = {
   // Faturamento e-commerce (somente pedidos aprovados, Tray), R$ por mês Jan..Nov
-  fat2025: [null,null,null,null,null,null,null,null,null,null,null],
-  fat2026: [null,null,null,null,null,null,null,40693,45143,50456,30741], // Ago–Nov: Tray (Nov até 24/11, 16 pedidos)
+  fat2025: [18485,7118,5928,16992,11058,7408,1380,8626,null,null,null], // Jan–Ago: index.html (REV25); Set–Nov pendente
+  fat2026: [49005,37889,26351,55342,56606,28239,37538,40693,45143,50456,30741], // Jan–Jul: export Tray no repo · Ago–Nov: Tray (Nov até 24/11)
   // Taxa de conversão do site (%), Jan..Nov
   conv2025: [null,null,null,null,null,null,null,null,null,null,null],
   conv2026: [null,null,null,null,null,null,null,null,null,null,null],
   // Investimento Meta + Google, R$ por mês Jan..Nov (Windsor, puxado em 25/11/2026 — Nov até 24/11)
   inv2026: [2467,1978,2729,2846,3435,3918,2597,2951,4925,5793,4065],
   inv2025: [3136,2439,1720,1914,1942,2344,2128,2322,2434,2098,1523],
-  ped2026: [null,null,null,null,null,null,null,18,24,21,16], // pedidos aprovados (Tray)
+  ped2026: [15,13,11,13,23,13,10,18,24,21,16], // pedidos aprovados (Tray)
   novAte: '24/11',
   convMeta: null,            // meta de conversão para o slide de CRO (%)
   keywords: {                // [palavra, buscas/mês, CPC R$]
@@ -320,7 +320,10 @@ const avg = a => { const f=a.filter(v=>v!=null); return f.length? sum(f)/f.lengt
 
 const n = DATA.fat2026.length;
 const fat26 = has(DATA.fat2026)?sum(DATA.fat2026):null;
-const fat25 = has(DATA.fat2025)?sum(DATA.fat2025.slice(0,n)):null;
+// Comparativo só nos meses que existem nos dois anos
+const Mcmp = [...Array(n).keys()].filter(i=>DATA.fat2025[i]!=null && DATA.fat2026[i]!=null);
+const fat25 = Mcmp.length?sum(Mcmp.map(i=>DATA.fat2025[i])):null;
+const fat26cmp = Mcmp.length?sum(Mcmp.map(i=>DATA.fat2026[i])):null;
 const inv   = has(DATA.inv2026)?sum(DATA.inv2026):null;
 const R = [7,8,9,10]; // Ago..Nov
 // ROAS do recorte só considera meses com faturamento E investimento informados
@@ -334,7 +337,8 @@ const volP = has(kwP.map(k=>k[1]))?sum(kwP.map(k=>k[1])):null, volO = has(kwO.ma
 
 const V = {
   fatTotal: brl(fat26), invTotal: brl(inv), roasTotal: x(fat26&&inv?fat26/inv:null),
-  crescFat: pct(fat26&&fat25?(fat26/fat25-1)*100:null), fat25: brl(fat25), fat26: brl(fat26),
+  crescFat: pct(fat26cmp&&fat25?(fat26cmp/fat25-1)*100:null), fat25: brl(fat25), fat26: brl(fat26cmp),
+  cmpPeriodo: Mcmp.length?`Faturamento acumulado ${MESES[Mcmp[0]]}–${MESES[Mcmp[Mcmp.length-1]]}, comparado ao mesmo período do ano anterior.`:'',
   crescConv: pct(c25&&c26?(c26/c25-1)*100:null), conv25: p2(c25), conv26: p2(c26),
   roasRecorte: x(fatR&&invR?fatR/invR:null), fatRecorte: brl(fatR), invRecorte: brl(invR), novAte: DATA.novAte, recorteSub,
   pedRecorte: (()=>{const p=Rok.map(i=>DATA.ped2026[i]);return p.every(v=>v!=null)?num(sum(p)):'—';})(),
