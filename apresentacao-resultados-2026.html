@@ -171,24 +171,6 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
   <div class="foot"><span>Official Time · Resultados 2026</span><b>03</b></div>
 </section>
 
-<!-- 04 · TAXA DE CONVERSÃO -->
-<section class="slide">
-  <div class="kicker">Taxa de conversão · 2026 vs 2025</div>
-  <h2>Mais visitas viram venda</h2>
-  <div class="chartrow">
-    <div class="chartbox">
-      <div class="legend"><span><i class="sw line" style="background:var(--accent)"></i>2026</span><span><i class="sw line" style="background:var(--prev)"></i>2025</span></div>
-      <div class="canvas-wrap"><canvas id="chConv"></canvas></div>
-    </div>
-    <div class="side">
-      <div class="label">Melhora na conversão</div>
-      <div class="value" data-k="crescConv">+—%</div>
-      <div class="sub">Taxa média do ano: <b data-k="conv25">—%</b> em 2025 → <b data-k="conv26">—%</b> em 2026.</div>
-    </div>
-  </div>
-  <div class="foot"><span>Official Time · Resultados 2026</span><b>04</b></div>
-</section>
-
 <!-- 05 · RECORTE AGO–NOV -->
 <section class="slide">
   <div class="kicker">Recorte recente · Ago–Nov 2026</div>
@@ -205,7 +187,7 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
       <div class="mini">Faturado: <b data-k="fatRecorte">R$ —</b><br>Investido: <b data-k="invRecorte">R$ —</b><br>Pedidos: <b data-k="pedRecorte">—</b> · Ticket: <b data-k="ticketRecorte">R$ —</b></div>
     </div>
   </div>
-  <div class="foot"><span>Official Time · Resultados 2026</span><b>05</b></div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>04</b></div>
 </section>
 
 <!-- 06 · ENTREGA: API DE CONVERSÃO -->
@@ -224,7 +206,7 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
       <p class="owner"><b>Próximo passo:</b> acompanhar nas próximas semanas a diferença entre compras reportadas pelo Meta e pedidos aprovados na loja.</p>
     </div>
   </div>
-  <div class="foot"><span>Official Time · Resultados 2026</span><b>06</b></div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>05</b></div>
 </section>
 
 <!-- 07 · PRÓXIMOS PASSOS -->
@@ -235,7 +217,7 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
     <li>Joias em prata no catálogo <small>abrir uma nova frente de demanda</small></li>
     <li>WhatsApp de atendimento das lojas <small>levar o digital para o PDV</small></li>
   </ol>
-  <div class="foot"><span>Official Time · Resultados 2026</span><b>07</b></div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>06</b></div>
 </section>
 
 <!-- 08 · JOIAS EM PRATA -->
@@ -256,7 +238,7 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
       <div class="point"><div class="n">→</div><div><h3>Mídia mais barata</h3><p>CPC menor significa mais tráfego pela mesma verba, com o ROAS que a operação já entrega.</p></div></div>
     </div>
   </div>
-  <div class="foot"><span>Official Time · Resultados 2026</span><b>08</b></div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>07</b></div>
 </section>
 
 <!-- 09 · WHATSAPP LOJAS -->
@@ -276,12 +258,12 @@ h2{font-family:'Oswald',sans-serif;font-weight:600;color:var(--text-h);font-size
       <p class="owner"><b>O que precisamos:</b> número dedicado por loja e uma pessoa responsável pelo atendimento em cada uma, com tempo de resposta combinado.</p>
     </div>
   </div>
-  <div class="foot"><span>Official Time · Resultados 2026</span><b>09</b></div>
+  <div class="foot"><span>Official Time · Resultados 2026</span><b>08</b></div>
 </section>
 
 </div>
 
-<div class="nav"><span id="count">1 / 9</span><button id="prev" aria-label="Anterior">‹</button><button id="next" aria-label="Próximo">›</button></div>
+<div class="nav"><span id="count">1 / 8</span><button id="prev" aria-label="Anterior">‹</button><button id="next" aria-label="Próximo">›</button></div>
 
 <script>
 /* ============================================================
@@ -292,15 +274,11 @@ const DATA = {
   // Faturamento e-commerce (somente pedidos aprovados, Tray), R$ por mês Jan..Nov
   fat2025: [18485,7118,5928,16992,11058,7408,1380,8626,null,null,null], // Jan–Ago: index.html (REV25); Set–Nov pendente
   fat2026: [49005,37889,26351,55342,56606,28239,37538,40693,45143,50456,30741], // Jan–Jul: export Tray no repo · Ago–Nov: Tray (Nov até 24/11)
-  // Taxa de conversão do site (%), Jan..Nov
-  conv2025: [null,null,null,null,null,null,null,null,null,null,null],
-  conv2026: [null,null,null,null,null,null,null,null,null,null,null],
   // Investimento Meta + Google, R$ por mês Jan..Nov (Windsor, puxado em 25/11/2026 — Nov até 24/11)
   inv2026: [2467,1978,2729,2846,3435,3918,2597,2951,4925,5793,4065],
   inv2025: [3136,2439,1720,1914,1942,2344,2128,2322,2434,2098,1523],
   ped2026: [15,13,11,13,23,13,10,18,24,21,16], // pedidos aprovados (Tray)
   novAte: '24/11',
-  convMeta: null,            // meta de conversão para o slide de CRO (%)
   keywords: {                // [palavra, buscas/mês, CPC R$]
     prata: [['joias em prata',null,null],['joias de prata',null,null],['prata 925',null,null],['anel de prata',null,null]],
     ouro:  [['joias em ouro',null,null],['joias de ouro',null,null],['ouro 18k',null,null],['anel de ouro',null,null]]
@@ -331,7 +309,6 @@ const Rok = R.filter(i=>DATA.fat2026[i]!=null && DATA.inv2026[i]!=null);
 const fatR = Rok.length?sum(Rok.map(i=>DATA.fat2026[i])):null;
 const invR = Rok.length?sum(Rok.map(i=>DATA.inv2026[i])):null;
 const recorteSub = Rok.includes(10) ? `Agosto, setembro e outubro fechados + novembro parcial (até ${DATA.novAte}).` : 'Agosto, setembro e outubro fechados. Novembro entra quando o faturamento do mês chegar.';
-const c25=avg(DATA.conv2025), c26=avg(DATA.conv2026);
 const kwP = DATA.keywords.prata, kwO = DATA.keywords.ouro;
 const volP = has(kwP.map(k=>k[1]))?sum(kwP.map(k=>k[1])):null, volO = has(kwO.map(k=>k[1]))?sum(kwO.map(k=>k[1])):null;
 
@@ -339,11 +316,9 @@ const V = {
   fatTotal: brl(fat26), invTotal: brl(inv), roasTotal: x(fat26&&inv?fat26/inv:null),
   crescFat: pct(fat26cmp&&fat25?(fat26cmp/fat25-1)*100:null), fat25: brl(fat25), fat26: brl(fat26cmp),
   cmpPeriodo: Mcmp.length?`Faturamento acumulado ${MESES[Mcmp[0]]}–${MESES[Mcmp[Mcmp.length-1]]}, comparado ao mesmo período do ano anterior.`:'',
-  crescConv: pct(c25&&c26?(c26/c25-1)*100:null), conv25: p2(c25), conv26: p2(c26),
   roasRecorte: x(fatR&&invR?fatR/invR:null), fatRecorte: brl(fatR), invRecorte: brl(invR), novAte: DATA.novAte, recorteSub,
   pedRecorte: (()=>{const p=Rok.map(i=>DATA.ped2026[i]);return p.every(v=>v!=null)?num(sum(p)):'—';})(),
   ticketRecorte: (()=>{const p=Rok.map(i=>DATA.ped2026[i]);return p.every(v=>v!=null)&&fatR?'R$ '+num(fatR/sum(p)):'R$ —';})(),
-  convMeta: p2(DATA.convMeta), ganhoCro: c26&&DATA.convMeta? Math.round((DATA.convMeta/c26-1)*100) : '—',
   kwRatio: volP&&volO? (volP/volO).toLocaleString('pt-BR',{maximumFractionDigits:1})+'×' : '—×'
 };
 document.querySelectorAll('[data-k]').forEach(el=>{ if(V[el.dataset.k]!=null) el.textContent=V[el.dataset.k]; });
@@ -376,11 +351,6 @@ function build(){
     {label:'2025',data:DATA.fat2025,backgroundColor:P,borderRadius:3,categoryPercentage:.7,barPercentage:.9},
     {label:'2026',data:DATA.fat2026,backgroundColor:A,borderRadius:3,categoryPercentage:.7,barPercentage:.9}]},
     options:{...base,scales:{...base.scales,y:{...base.scales.y,ticks:{callback:kfmt}}}}}));
-
-  charts.push(new Chart(chConv,{type:'line',data:{labels:lbl,datasets:[
-    {label:'2025',data:DATA.conv2025,borderColor:P,backgroundColor:P,borderWidth:3,pointRadius:5,tension:.3},
-    {label:'2026',data:DATA.conv2026,borderColor:A,backgroundColor:A,borderWidth:4,pointRadius:6,tension:.3}]},
-    options:{...base,scales:{...base.scales,y:{...base.scales.y,ticks:{callback:v=>v.toLocaleString('pt-BR')+'%'}}}}}));
 
   charts.push(new Chart(chRecorte,{data:{labels:['Ago','Set','Out','Nov*'],datasets:[
     {type:'bar',label:'Faturamento',data:R.map(i=>DATA.fat2026[i]),backgroundColor:A,borderRadius:3,yAxisID:'y',order:2,barPercentage:.6},
