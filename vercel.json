@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "official-time-nov-26.vercel.app" }],
+      "destination": "/relatorio-2026/index.html"
+    }
+  ]
+}
